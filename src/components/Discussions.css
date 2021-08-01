@@ -1,0 +1,13 @@
+.contact-box {
+	max-height: 90vh;
+	overflow: auto;
+}
+
+.message-box {
+	max-height: 79vh;
+	overflow: auto;
+}
+
+.message {
+	white-space: pre-wrap;
+}
