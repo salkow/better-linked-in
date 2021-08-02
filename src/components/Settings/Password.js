@@ -1,4 +1,10 @@
-import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
+import {
+	Form,
+	Button,
+	InputGroup,
+	FormControl,
+	FloatingLabel,
+} from "react-bootstrap";
 
 import { useState } from "react";
 
@@ -14,15 +20,22 @@ const Password = ({ addPassword }) => {
 	return (
 		<Form onSubmit={onSumbit}>
 			<div className="form-row align-items-center col-md-5">
-				<InputGroup className="mb-3" style={{ width: "50vx" }}>
-					<FormControl
-						placeholder="Password"
-						aria-label="password"
-						aria-describedby="basic-addon2"
-						onChange={(e) => setPassword(e.target.value)}
-						type="password"
-						required
-					/>
+				<InputGroup
+					className="mb-3"
+					hasValidation
+					style={{ width: "50vx" }}
+				>
+					<FloatingLabel controlId="floatingInput" label="Password">
+						<FormControl
+							placeholder="Password"
+							aria-label="password"
+							aria-describedby="basic-addon2"
+							onChange={(e) => setPassword(e.target.value)}
+							type="password"
+							required
+							htmlSize="31"
+						/>
+					</FloatingLabel>
 					<Button
 						size="sm"
 						as="input"
