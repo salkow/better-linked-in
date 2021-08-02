@@ -12,10 +12,6 @@ const Email = ({ emailFromServer, addEmail }) => {
 	const onSumbit = (e) => {
 		e.preventDefault();
 
-		if (!email) {
-			return;
-		}
-
 		addEmail({ content: email });
 	};
 
@@ -30,6 +26,7 @@ const Email = ({ emailFromServer, addEmail }) => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						type="email"
+						required
 					/>
 					<Button
 						size="sm"

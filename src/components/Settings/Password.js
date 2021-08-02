@@ -8,10 +8,6 @@ const Password = ({ addPassword }) => {
 	const onSumbit = (e) => {
 		e.preventDefault();
 
-		if (!password) {
-			return;
-		}
-
 		addPassword({ content: password });
 	};
 
@@ -25,6 +21,7 @@ const Password = ({ addPassword }) => {
 						aria-describedby="basic-addon2"
 						onChange={(e) => setPassword(e.target.value)}
 						type="password"
+						required
 					/>
 					<Button
 						size="sm"
