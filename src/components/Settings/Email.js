@@ -29,6 +29,7 @@ const Email = ({ emailFromServer, addEmail }) => {
 						aria-describedby="basic-addon2"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						type="email"
 					/>
 					<Button
 						size="sm"
