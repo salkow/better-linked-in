@@ -1,4 +1,10 @@
 {
+  "email": {
+    "content": "test@mail.com"
+  },
+  "password": {
+    "content": "246889"
+  },
   "messages": [
     {
       "id": 1,
@@ -99,6 +105,10 @@
     {
       "content": "σδφησδφη\nγηξλφηξ'φηξλφ\nγηξλφ",
       "id": 25
+    },
+    {
+      "content": "Test",
+      "id": 26
     }
   ]
 }

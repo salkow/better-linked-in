@@ -109,7 +109,7 @@ const Personal = () => {
 					<div className="d-flex justify-content-center">
 						<Button
 							as="input"
-							type="sumbit"
+							type="submit"
 							value="Submit"
 							readOnly
 						/>
