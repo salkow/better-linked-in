@@ -11,14 +11,14 @@ import { useState } from "react";
 const Password = ({ addPassword }) => {
 	const [password, setPassword] = useState("");
 
-	const onSumbit = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
 
 		addPassword({ content: password });
 	};
 
 	return (
-		<Form onSubmit={onSumbit}>
+		<Form onSubmit={onSubmit}>
 			<div className="form-row align-items-center col-md-5">
 				<InputGroup
 					className="mb-3"

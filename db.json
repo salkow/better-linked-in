@@ -1,9 +1,21 @@
 {
+  "experience": {
+    "content": "Experienceasdgg",
+    "visible": true
+  },
+  "education": {
+    "content": "Education",
+    "visible": false
+  },
+  "skills": {
+    "content": "Abilities",
+    "visible": false
+  },
   "email": {
-    "content": "test@mail.com"
+    "content": "test@mail.commmaa"
   },
   "password": {
-    "content": "123456"
+    "content": "newpassword"
   },
   "messages": [
     {

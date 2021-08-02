@@ -17,7 +17,6 @@ const Settings = () => {
 		getEmail();
 	}, []);
 
-	// Fetch Email
 	const fetchEmail = async () => {
 		const res = await fetch("http://localhost:5000/email");
 
@@ -26,7 +25,6 @@ const Settings = () => {
 		return data;
 	};
 
-	// Add Email
 	const addEmail = async (newEmail) => {
 		const res = await fetch("http://localhost:5000/email", {
 			method: "POST",
@@ -38,10 +36,9 @@ const Settings = () => {
 
 		const data = await res.json();
 
-		setEmail(email, data.email);
+		setEmail(email, data.content);
 	};
 
-	// Add Password
 	const addPassword = async (newPassword) => {
 		const res = await fetch("http://localhost:5000/password", {
 			method: "POST",

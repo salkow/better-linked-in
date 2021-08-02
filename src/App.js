@@ -4,7 +4,7 @@ import Network from "./components/Network";
 import Adverts from "./components/Adverts";
 import Discussions from "./components/Discussions";
 import Notifications from "./components/Notifications";
-import Personal from "./components/Personal";
+import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
 
 // import SignUpIn from "./components/SignUpIn";

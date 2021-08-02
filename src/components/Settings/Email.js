@@ -15,29 +15,24 @@ const Email = ({ emailFromServer, addEmail }) => {
 		setEmail(emailFromServer);
 	}, [setEmail, emailFromServer]);
 
-	const onSumbit = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
 
 		addEmail({ content: email });
 	};
 
 	return (
-		<Form onSubmit={onSumbit}>
+		<Form onSubmit={onSubmit}>
 			<div className="form-row align-items-center col-md-5">
 				<InputGroup
 					hasValidation
 					className="mb-3"
 					style={{ width: "50vx" }}
 				>
-					<FloatingLabel
-						controlId="floatingInput"
-						label="Email"
-						// className="mb-3"
-					>
+					<FloatingLabel controlId="floatingInput" label="Email">
 						<FormControl
 							placeholder="Email"
 							aria-label="email"
-							aria-describedby="basic-addon2"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 							type="email"
