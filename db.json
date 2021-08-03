@@ -17,6 +17,20 @@
   "password": {
     "content": "newpassword"
   },
+  "sign_in": {
+    "firstName": "",
+    "lastName": "",
+    "email": "sdlghasdlgk@asdg",
+    "password": "asdga",
+    "phone": ""
+  },
+  "sign_up": {
+    "firstName": "name",
+    "lastName": "lastname",
+    "email": "mymail@mail.com",
+    "password": "mypassword",
+    "phone": "12345"
+  },
   "messages": [
     {
       "id": 1,

@@ -1,49 +1,149 @@
+import {
+	Form,
+	Button,
+	Container,
+	FloatingLabel,
+	Row,
+	Col,
+} from "react-bootstrap";
+
+import "./SignUp.css";
+
+import { useState } from "react";
+
 const SignUp = () => {
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [repeatPassword, setRepeatPassword] = useState("");
+	const [phone, setPhone] = useState("");
+
+	const sendData = async (sign_up_data) => {
+		const res = await fetch("http://localhost:5000/sign_up", {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(sign_up_data),
+		});
+
+		await res.json();
+
+		// const data = await res.json();
+		// TODO: use this and handle the response.
+	};
+
+	const onSubmit = (e) => {
+		if (password !== repeatPassword) {
+			e.preventDefault();
+			alert("Passwords don't match.");
+		} else {
+			sendData({ firstName, lastName, email, password, phone });
+		}
+	};
+
 	return (
-		<form>
-			<div className="login-box">
-				<div className="box-header">
-					<h2>Sign Up</h2>
+		<Container>
+			<Form onSubmit={onSubmit}>
+				<div className="input-text">
+					<Row>
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Όνομα">
+								<Form.Control
+									type="text"
+									placeholder="Όνομα"
+									required
+									onChange={(e) =>
+										setFirstName(e.target.value)
+									}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Επίθετο">
+								<Form.Control
+									type="text"
+									placeholder="Επίθετο"
+									required
+									onChange={(e) =>
+										setLastName(e.target.value)
+									}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+					</Row>
+
+					<Row>
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Email">
+								<Form.Control
+									type="email"
+									placeholder="Email"
+									required
+									onChange={(e) => setEmail(e.target.value)}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+					</Row>
+
+					<Row>
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Κωδικός">
+								<Form.Control
+									type="password"
+									placeholder="Κωδικός"
+									required
+									onChange={(e) =>
+										setPassword(e.target.value)
+									}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Επανέλαβε τον κωδικό">
+								<Form.Control
+									type="password"
+									placeholder="Επανέλαβε τον κωδικό"
+									required
+									onChange={(e) =>
+										setRepeatPassword(e.target.value)
+									}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+					</Row>
+
+					<Row>
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Τηλέφωνο">
+								<Form.Control
+									type="number"
+									placeholder="number"
+									required
+									onChange={(e) => setPhone(e.target.value)}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+
+						<Form.Group as={Col} className="mb-3">
+							<Form.Control
+								type="file"
+								accept="image/*"
+								required
+							/>
+						</Form.Group>
+					</Row>
+					<div className="bottom-area">
+						<Button variant="primary" type="submit" id="my-btn">
+							Submit
+						</Button>
+					</div>
 				</div>
-
-				<label for="first_name">First Name</label>
-				<br />
-				<input type="text" id="first_name" />
-				<br />
-
-				<label for="last_name">Last Name</label>
-				<br />
-				<input type="text" id="last_name" />
-				<br />
-
-				<label for="email">Email</label>
-				<br />
-				<input type="text" id="email" />
-				<br />
-
-				<label for="password">Password</label>
-				<br />
-				<input type="password" id="password" />
-				<br />
-
-				<label for="repeat_password">Repeat Your Password</label>
-				<br />
-				<input type="password" id="repeat_password" />
-				<br />
-
-				<label for="phone">Phone Number</label>
-				<br />
-				<input type="text" id="phone" />
-				<br />
-
-				<label for="photo">Upload a photo</label>
-				<br />
-				<input type="file" id="photo" />
-				<br />
-
-				<button type="submit">Sign Up</button>
-			</div>
-		</form>
+			</Form>
+		</Container>
 	);
 };
 

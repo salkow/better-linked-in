@@ -1,28 +1,70 @@
 import { Link } from "react-router-dom";
+import { Form, Button, Container, FloatingLabel } from "react-bootstrap";
+
+import { useState } from "react";
+
+import "./SignIn.css";
 
 const SignIn = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	const sendData = async (sign_in_data) => {
+		const res = await fetch("http://localhost:5000/sign_in", {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(sign_in_data),
+		});
+
+		await res.json();
+
+		// const data = await res.json();
+		// TODO: use this and handle the response.
+	};
+
+	const onSubmit = (e) => {
+		sendData({ email: email, password: password });
+	};
+
 	return (
-		<form>
-			<div className="login-box">
-				<div className="box-header">
-					<h2>Sign In</h2>
+		<Container>
+			<Form onSubmit={onSubmit}>
+				<div className="input-text">
+					<Form.Group className="mb-3">
+						<FloatingLabel label="Email">
+							<Form.Control
+								type="email"
+								placeholder="Email"
+								required
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+						</FloatingLabel>
+					</Form.Group>
+
+					<Form.Group className="mb-3">
+						<FloatingLabel label="Password">
+							<Form.Control
+								type="password"
+								placeholder="Password"
+								required
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</FloatingLabel>
+					</Form.Group>
+					<div className="bottom-area">
+						<Button variant="primary" type="submit" id="my-btn">
+							Submit
+						</Button>
+						<br />
+						<Link to="/sign-up">
+							<u>Sign up here.</u>
+						</Link>
+					</div>
 				</div>
-				<label for="email">Email</label>
-				<br />
-				<input type="text" id="email" />
-				<br />
-				<label for="password">Password</label>
-				<br />
-				<input type="password" id="password" />
-				<br />
-				<button type="submit">Sign In</button>
-				<br />
-				<br />
-				<Link to="/sign-up">
-					<u>Sign up here.</u>
-				</Link>
-			</div>
-		</form>
+			</Form>
+		</Container>
 	);
 };
 

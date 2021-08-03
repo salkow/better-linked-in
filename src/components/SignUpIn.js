@@ -3,16 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
-import "./SignUpIn.css";
-
 const SignUpIn = () => {
 	return (
 		<Router>
-			<div class="container">
-				<div class="top">
-					<h1 id="title" class="hidden">
+			<div className="container">
+				<div className="top">
+					<h1 id="title" className="hidden">
 						<span id="logo">
-							Better <span>LinkedIn</span>
+							Better <span>Linked In</span>
 						</span>
 					</h1>
 				</div>
