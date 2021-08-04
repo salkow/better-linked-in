@@ -11,3 +11,11 @@
 .message {
 	white-space: pre-wrap;
 }
+
+.sender-message {
+	background: lightblue;
+}
+
+.recipient-message {
+	background: lightgreen;
+}
