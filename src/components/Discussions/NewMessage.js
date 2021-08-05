@@ -17,13 +17,13 @@ const NewMessage = ({ addNewMessage }) => {
 
 	return (
 		<Form onSubmit={onSubmit}>
-			<div className="form-row align-items-center">
-				<InputGroup className="mb-3" style={{ width: "50vx" }}>
+			<div className="form-row align-items-center new-message-box">
+				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="message"
 						as="textarea"
 						rows="3"
-						placeholder="Type here."
+						placeholder="Type here..."
 						value={newMessage}
 						onChange={(e) => setNewMessage(e.target.value)}
 						required

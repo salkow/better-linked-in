@@ -61,9 +61,7 @@ const Discussions = () => {
 			},
 			body: JSON.stringify(message),
 		});
-
 		const data = await res.json();
-
 		setMessages([...messages, data]);
 	};
 
@@ -80,7 +78,7 @@ const Discussions = () => {
 		<div>
 			<Container fluid>
 				<Row>
-					<Col xs={3}>
+					<Col sm="2">
 						<Contacts
 							contacts={contacts}
 							focusContact={focusContact}
@@ -92,6 +90,7 @@ const Discussions = () => {
 							senderName={senderName}
 							recipientName={recipientName}
 						/>
+						<br />
 						<NewMessage addNewMessage={addNewMessage} />
 					</Col>
 				</Row>

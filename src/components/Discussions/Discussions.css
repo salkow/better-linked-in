@@ -4,7 +4,7 @@
 }
 
 .message-box {
-	max-height: 79vh;
+	max-height: 78vh;
 	overflow: auto;
 }
 
@@ -18,4 +18,8 @@
 
 .recipient-message {
 	background: lightgreen;
+}
+
+.new-message-box {
+	/* width: 100%; */
 }

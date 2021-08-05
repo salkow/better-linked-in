@@ -24,11 +24,11 @@ const TextArea = ({ textFromServer, visibleFromServer, addText }) => {
 			<Form onSubmit={onSubmit}>
 				<FormControl
 					as="textarea"
-					aria-label="With textarea"
 					className="textArea"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 					required
+					placeholder="Type here..."
 				/>
 
 				<Form.Check
