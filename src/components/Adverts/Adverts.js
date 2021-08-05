@@ -8,7 +8,7 @@ import "./Adverts.css";
 
 const Adverts = () => {
 	return (
-		<Tabs defaultActiveKey="c" className="mb-3">
+		<Tabs defaultActiveKey="a" className="mb-3">
 			<Tab eventKey="a" title="Αγγελίες">
 				<OtherAdverts />
 			</Tab>
