@@ -3,7 +3,7 @@ import MainPage from "./components/MainPage";
 import Network from "./components/Network";
 import Adverts from "./components/Adverts/Adverts";
 import Discussions from "./components/Discussions/Discussions";
-import Notifications from "./components/Notifications";
+import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
 
