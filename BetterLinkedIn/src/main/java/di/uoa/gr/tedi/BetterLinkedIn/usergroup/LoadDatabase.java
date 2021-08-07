@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class LoadDatabase {
 
     @Bean
-    CommandLineRunner initDatabase(UserRepository repository) {
+    CommandLineRunner initDatabase(UserService userService) {
         return args -> {
-            //log.info("Preloading " + repository.save(new User("Bilbo Baggins", "burglar", "bilbo@gmail.com")));
+            //log.info("Preloading " + userService.signUpUser(new User("Bilbo", "Baggins", "pss", "bilbo@gmail.com", "+306666666", "baggins.jpeg", UserRole.ADMIN)));
         };
     }
 }
