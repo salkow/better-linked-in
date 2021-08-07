@@ -1,13 +1,16 @@
 import { NavLink } from "react-router-dom";
 
-import logo from "../images/LionLogo.png";
-
 const Nav = () => {
 	return (
 		<nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 			<div className="container-fluid">
 				<NavLink className="navbar-brand" to="/">
-					<img src={logo} alt="Lion Logo" width="24" height="35" />
+					<img
+						src="/images/LionLogo.png"
+						alt="Lion Logo"
+						width="24"
+						height="35"
+					/>
 				</NavLink>
 				<button
 					className="navbar-toggler"
