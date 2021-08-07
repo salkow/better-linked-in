@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -27,30 +26,6 @@ public class User implements UserDetails {
     private UserRole userRole = UserRole.USER;
     private Boolean locked = false;
     private Boolean enabled = true;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable")),
-            @AttributeOverride(name = "text", column = @Column(name = "experience_text"))
-    })
-
-    private UserExperience experience;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "displayable", column = @Column(name = "education_displayable")),
-            @AttributeOverride(name = "text", column = @Column(name = "education_text"))
-    })
-    private UserEducation education;
-    @Embedded
-    @AttributeOverride( name = "displayable", column = @Column(name = "skills_displayable"))
-    private UserSkills skills;
-    /*
-    @OneToMany(mappedBy = "User")
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Set<UserConnectionRequests> connectionRequestsDone;
-    @OneToMany(mappedBy = "User")
-    @JoinColumn(name = "sender_id", referencedColumnName = "id")
-    private Set<UserConnectionRequests> connectionRequestsSent;
-*/
 
     public User() {}
 
@@ -61,10 +36,6 @@ public class User implements UserDetails {
         this.email = email;
         this.phone = phone;
         this.photo = photo;
-        this.experience= new UserExperience();
-        this.education= new UserEducation();
-        this.skills= new UserSkills();
-
     }
 
     public User(String firstName, String LastName, String password, String email, String phone, String photo, UserRole userRole) {
@@ -75,11 +46,6 @@ public class User implements UserDetails {
         this.phone = phone;
         this.photo = photo;
         this.userRole= userRole;
-        this.experience= new UserExperience();
-        this.education= new UserEducation();
-        this.skills= new UserSkills();
-
-
     }
 
 
@@ -95,7 +61,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
-
 
 
     @Override

@@ -1,11 +1,13 @@
 package di.uoa.gr.tedi.BetterLinkedIn.registration;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/v1/registration", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "api/v1/registration")
 @AllArgsConstructor
 public class RegistrationController {
 
