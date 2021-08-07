@@ -28,39 +28,54 @@ const MyAdverts = () => {
 				<Col xs="7" className="all_adverts">
 					<div className="advert">
 						<div className="d-grid gap-2">
-							{adverts.map((advert, index) => (
-								<Card key={index}>
-									<Card.Body>
-										<Card.Title>{advert.title}</Card.Title>
-										<Card.Text className="content">
-											{advert.content}
-										</Card.Text>
-										<Dropdown>
-											<Dropdown.Toggle variant="success">
-												Αιτήσεις
-											</Dropdown.Toggle>
+							{adverts.length === 0 ? (
+								<h1>Δεν έχεις δημιουργήσει ακόμα αγγελίες.</h1>
+							) : (
+								<div>
+									{adverts.map((advert, index) => (
+										<Card key={index}>
+											<Card.Body>
+												<Card.Title>
+													{advert.title}
+												</Card.Title>
+												<Card.Text className="content">
+													{advert.content}
+												</Card.Text>
+												<Dropdown>
+													<Dropdown.Toggle variant="success">
+														Αιτήσεις
+													</Dropdown.Toggle>
 
-											<Dropdown.Menu>
-												{advert.applications.map(
-													(applicant, my_index) => (
-														<Dropdown.Item
-															as="button"
-															key={my_index}
-														>
-															<Link
-																to="/discussions"
-																className="name"
-															>
-																{applicant.name}
-															</Link>
-														</Dropdown.Item>
-													)
-												)}
-											</Dropdown.Menu>
-										</Dropdown>
-									</Card.Body>
-								</Card>
-							))}
+													<Dropdown.Menu>
+														{advert.applications.map(
+															(
+																applicant,
+																my_index
+															) => (
+																<Dropdown.Item
+																	as="button"
+																	key={
+																		my_index
+																	}
+																>
+																	<Link
+																		to="/discussions"
+																		className="name"
+																	>
+																		{
+																			applicant.name
+																		}
+																	</Link>
+																</Dropdown.Item>
+															)
+														)}
+													</Dropdown.Menu>
+												</Dropdown>
+											</Card.Body>
+										</Card>
+									))}
+								</div>
+							)}
 						</div>
 					</div>
 				</Col>

@@ -28,27 +28,35 @@ const OtherAdverts = () => {
 				<Col xs="7" className="all_adverts">
 					<div className="advert">
 						<div className="d-grid gap-2">
-							{adverts.map((advert, index) => (
-								<Card key={index}>
-									<Card.Header as="h5">
-										<Link
-											to="/discussions"
-											className="name"
-										>
-											{advert.name}
-										</Link>
-									</Card.Header>
-									<Card.Body>
-										<Card.Title>{advert.title}</Card.Title>
-										<Card.Text className="content">
-											{advert.content}
-										</Card.Text>
-										<Button variant="primary">
-											Κάνε αίτηση
-										</Button>
-									</Card.Body>
-								</Card>
-							))}
+							{adverts.length === 0 ? (
+								<h1>Δεν υπάρχουν αγγελίες</h1>
+							) : (
+								<div>
+									{adverts.map((advert, index) => (
+										<Card key={index}>
+											<Card.Header as="h5">
+												<Link
+													to="/discussions"
+													className="name"
+												>
+													{advert.name}
+												</Link>
+											</Card.Header>
+											<Card.Body>
+												<Card.Title>
+													{advert.title}
+												</Card.Title>
+												<Card.Text className="content">
+													{advert.content}
+												</Card.Text>
+												<Button variant="primary">
+													Κάνε αίτηση
+												</Button>
+											</Card.Body>
+										</Card>
+									))}
+								</div>
+							)}
 						</div>
 					</div>
 				</Col>

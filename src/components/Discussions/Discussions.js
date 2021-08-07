@@ -79,17 +79,26 @@ const Discussions = () => {
 			<Container fluid>
 				<Row>
 					<Col sm="2">
-						<Contacts
-							contacts={contacts}
-							focusContact={focusContact}
-						/>
+						{contacts.length === 0 ? (
+							<h1>Δεν υπάρχουν επαφές</h1>
+						) : (
+							<Contacts
+								contacts={contacts}
+								focusContact={focusContact}
+							/>
+						)}
 					</Col>
 					<Col>
-						<Messages
-							messages={messages}
-							senderName={senderName}
-							recipientName={recipientName}
-						/>
+						{messages.length === 0 ? (
+							<h1>Δεν υπάρχουν μηνύματα</h1>
+						) : (
+							<Messages
+								messages={messages}
+								senderName={senderName}
+								recipientName={recipientName}
+							/>
+						)}
+
 						<br />
 						<NewMessage addNewMessage={addNewMessage} />
 					</Col>
