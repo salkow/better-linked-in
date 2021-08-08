@@ -26,6 +26,9 @@ public class User implements UserDetails {
     private UserRole userRole = UserRole.USER;
     private Boolean locked = false;
     private Boolean enabled = true;
+    @Embedded
+    @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable"))
+    private UserExperience experience;
 
     public User() {}
 
@@ -36,6 +39,10 @@ public class User implements UserDetails {
         this.email = email;
         this.phone = phone;
         this.photo = photo;
+        this.experience= new UserExperience();
+
+        experience.setPersonalExperience("test");
+        experience.setDisplayable(false);
     }
 
     public User(String firstName, String LastName, String password, String email, String phone, String photo, UserRole userRole) {
