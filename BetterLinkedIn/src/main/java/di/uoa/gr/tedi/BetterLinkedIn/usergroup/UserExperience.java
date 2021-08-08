@@ -1,6 +1,7 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,15 +9,10 @@ import javax.persistence.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Embeddable
 public class UserExperience {
 
-    private String text;
+    private String personalExperience;
     private Boolean displayable;
-
-    public UserExperience() {
-        text =  "2";
-        displayable = false;
-    }
 }
-
