@@ -1,10 +1,16 @@
-import { Container, Form, FormControl, Button } from "react-bootstrap";
+import { Container, Row, Form, FormControl, Button } from "react-bootstrap";
 
 import { useState, useEffect } from "react";
 
 import "./TextArea.css";
 
-const TextArea = ({ textFromServer, visibleFromServer, addText }) => {
+const TextArea = ({
+	textFromServer,
+	visibleFromServer,
+	addText,
+	navHeight,
+	pageHeight,
+}) => {
 	const [text, setText] = useState("");
 	const [visible, setVisible] = useState(false);
 
@@ -21,27 +27,32 @@ const TextArea = ({ textFromServer, visibleFromServer, addText }) => {
 
 	return (
 		<Container>
-			<Form onSubmit={onSubmit}>
-				<FormControl
-					as="textarea"
-					className="textArea"
-					value={text}
-					onChange={(e) => setText(e.target.value)}
-					required
-					placeholder="Type here..."
-				/>
+			<Row>
+				<Form onSubmit={onSubmit}>
+					<FormControl
+						as="textarea"
+						className="textArea"
+						value={text}
+						onChange={(e) => setText(e.target.value)}
+						required
+						placeholder="Type here..."
+						style={{
+							height: `${pageHeight - navHeight - 180}px`,
+						}}
+					/>
 
-				<Form.Check
-					type="switch"
-					label="Εμφάνιση σε όλους."
-					onChange={(e) => setVisible(e.target.checked)}
-					checked={visible}
-				/>
+					<Form.Check
+						type="switch"
+						label="Εμφάνιση σε όλους."
+						onChange={(e) => setVisible(e.target.checked)}
+						checked={visible}
+					/>
 
-				<Button type="submit" variable="primary" size="lg">
-					Submit
-				</Button>
-			</Form>
+					<Button type="submit" variable="primary" size="lg">
+						Submit
+					</Button>
+				</Form>
+			</Row>
 		</Container>
 	);
 };

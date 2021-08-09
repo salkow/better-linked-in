@@ -1,8 +1,19 @@
 import { NavLink } from "react-router-dom";
 
-const Nav = () => {
+import React, { useEffect, useRef } from "react";
+
+const Nav = ({ setNavHeight }) => {
+	const navRef = useRef(null);
+
+	useEffect(() => {
+		setNavHeight(navRef.current.clientHeight);
+	}, [setNavHeight]);
+
 	return (
-		<nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+		<nav
+			className="navbar navbar-expand-md navbar-dark bg-dark mb-4"
+			ref={navRef}
+		>
 			<div className="container-fluid">
 				<NavLink className="navbar-brand" to="/">
 					<img

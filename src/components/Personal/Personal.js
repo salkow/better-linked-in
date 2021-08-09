@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import TextArea from "./TextArea";
 
-const Personal = () => {
+const Personal = ({ navHeight, pageHeight }) => {
 	const [experience, setExperience] = useState("");
 	const [visibleExperience, setVisibleExperience] = useState("off");
 
@@ -97,6 +97,8 @@ const Personal = () => {
 					textFromServer={experience}
 					visibleFromServer={visibleExperience}
 					addText={addExperience}
+					navHeight={navHeight}
+					pageHeight={pageHeight}
 				/>
 			</Tab>
 			<Tab eventKey="b" title="Εκπαίδευση">
@@ -104,6 +106,8 @@ const Personal = () => {
 					textFromServer={education}
 					visibleFromServer={visibleEducation}
 					addText={addEducation}
+					navHeight={navHeight}
+					pageHeight={pageHeight}
 				/>
 			</Tab>
 			<Tab eventKey="c" title="Ικανότητες">
@@ -111,6 +115,8 @@ const Personal = () => {
 					textFromServer={skills}
 					visibleFromServer={visibleSkills}
 					addText={addSkills}
+					navHeight={navHeight}
+					pageHeight={pageHeight}
 				/>
 			</Tab>
 		</Tabs>

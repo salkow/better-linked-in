@@ -1,6 +1,6 @@
 import Nav from "./components/Nav";
 import MainPage from "./components/MainPage";
-import Network from "./components/Network";
+import Network from "./components/Network/Network";
 import Adverts from "./components/Adverts/Adverts";
 import Discussions from "./components/Discussions/Discussions";
 import Notifications from "./components/Notifications/Notifications";
@@ -9,23 +9,71 @@ import Settings from "./components/Settings/Settings";
 
 // import SignUpIn from "./components/SignUpIn";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Container, Row, Button } from "react-bootstrap";
+
+import React, { useState, useEffect } from "react";
+
+import "./App.css";
+
 function App() {
+	const [navHeight, setNavHeight] = useState(0);
+	const [pageHeight, setPageHeight] = useState(window.innerHeight);
+
+	const test = () => {
+		console.log(navHeight);
+		console.log(pageHeight);
+	};
+
+	const updateDimensions = () => {
+		setPageHeight(window.innerHeight);
+	};
+
+	useEffect(() => {
+		window.addEventListener("resize", updateDimensions);
+		return () => window.removeEventListener("resize", updateDimensions);
+	}, []);
+
 	return (
 		<Router>
-			<Nav />
-			<Switch>
-				<Route path="/" exact component={MainPage} />
-				<Route path="/network" component={Network} />
-				<Route path="/adverts" component={Adverts} />
-				<Route path="/discussions" component={Discussions} />
-				<Route path="/notifications" component={Notifications} />
-				<Route path="/personal" component={Personal} />
-				<Route path="/settings" component={Settings} />
-			</Switch>
+			<Nav setNavHeight={setNavHeight} />
+			{/* <Button onClick={test}> Hey </Button> */}
+			<Container className="ffullscreen" fluid>
+				<Row className="ffullscreen">
+					<Switch>
+						<Route path="/" exact>
+							<MainPage />
+						</Route>
+
+						<Route path="/network" component={Network} />
+						<Route path="/adverts">
+							<Adverts
+								navHeight={navHeight}
+								pageHeight={pageHeight}
+							/>
+						</Route>
+						<Route path="/discussions">
+							<Discussions
+								navHeight={navHeight}
+								pageHeight={pageHeight}
+							/>
+						</Route>
+						<Route
+							path="/notifications"
+							component={Notifications}
+						/>
+						<Route path="/personal">
+							<Personal
+								navHeight={navHeight}
+								pageHeight={pageHeight}
+							/>
+						</Route>
+						<Route path="/settings" component={Settings} />
+					</Switch>
+				</Row>
+			</Container>
 		</Router>
 		// <SignUpIn />
 	);

@@ -1,0 +1,9 @@
+.fullscreen {
+	position: fixed;
+	top: 16mm;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: auto;
+	background: blue;
+}

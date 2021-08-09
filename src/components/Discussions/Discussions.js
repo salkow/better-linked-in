@@ -8,7 +8,7 @@ import NewMessage from "./NewMessage";
 
 import "./Discussions.css";
 
-const Discussions = () => {
+const Discussions = ({ navHeight, pageHeight }) => {
 	const [messages, setMessages] = useState([]);
 	const [contacts, setContacts] = useState([]);
 	const [senderName, setSenderName] = useState("");
@@ -69,6 +69,8 @@ const Discussions = () => {
 	const focusContact = (id, name) => {
 		console.log(id);
 		console.log(name);
+		console.log(navHeight);
+		console.log(pageHeight);
 		// Fetch messages with the id.
 		// Set the id.
 		// setMessages([...messages, data]);
@@ -85,6 +87,8 @@ const Discussions = () => {
 							<Contacts
 								contacts={contacts}
 								focusContact={focusContact}
+								navHeight={navHeight}
+								pageHeight={pageHeight}
 							/>
 						)}
 					</Col>
@@ -96,6 +100,8 @@ const Discussions = () => {
 								messages={messages}
 								senderName={senderName}
 								recipientName={recipientName}
+								navHeight={navHeight}
+								pageHeight={pageHeight}
 							/>
 						)}
 

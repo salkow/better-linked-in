@@ -1,4 +1,4 @@
-import { Container, Form, FormControl, Button } from "react-bootstrap";
+import { Container, Row, Form, FormControl, Button } from "react-bootstrap";
 
 import { useState } from "react";
 
@@ -30,32 +30,34 @@ const NewAdvert = () => {
 	};
 
 	return (
-		<Container>
-			<Form onSubmit={onSubmit}>
-				<FormControl
-					onChange={(e) => setTitle(e.target.value)}
-					placeholder="Τίτλος"
-					required
-					value={title}
-				/>
+		<Container fluid>
+			<Row>
+				<Form onSubmit={onSubmit}>
+					<FormControl
+						onChange={(e) => setTitle(e.target.value)}
+						placeholder="Τίτλος"
+						required
+						value={title}
+					/>
 
-				<br />
+					<br />
 
-				<FormControl
-					as="textarea"
-					className="textarea"
-					onChange={(e) => setDescription(e.target.value)}
-					placeholder="Περιγραφή"
-					required
-					value={description}
-				/>
+					<FormControl
+						as="textarea"
+						className="textarea"
+						onChange={(e) => setDescription(e.target.value)}
+						placeholder="Περιγραφή"
+						required
+						value={description}
+					/>
 
-				<br />
+					<br />
 
-				<Button type="submit" variable="primary" size="lg">
-					Submit
-				</Button>
-			</Form>
+					<Button type="submit" variable="primary" size="lg">
+						Submit
+					</Button>
+				</Form>
+			</Row>
 		</Container>
 	);
 };

@@ -1,7 +1,13 @@
 import { Card } from "react-bootstrap";
 import { useEffect, useRef } from "react";
 
-const Messages = ({ messages, senderName, recipientName }) => {
+const Messages = ({
+	messages,
+	senderName,
+	recipientName,
+	navHeight,
+	pageHeight,
+}) => {
 	const lastMessage = useRef(null);
 
 	const scrollToLastMessage = () => lastMessage.current.scrollIntoView();
@@ -12,7 +18,10 @@ const Messages = ({ messages, senderName, recipientName }) => {
 	});
 
 	return (
-		<div className="message-box">
+		<div
+			className="message-box"
+			style={{ maxHeight: `${pageHeight - navHeight - 162}px` }}
+		>
 			<div className="d-grid gap-2">
 				{messages.map((message, index) => (
 					<Card key={index}>

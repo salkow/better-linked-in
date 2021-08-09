@@ -1,0 +1,36 @@
+html,
+body {
+	height: 100%;
+}
+.bg-purple {
+	background: rgb(48, 0, 50);
+}
+.bg-gray {
+	background: rgb(74, 74, 74);
+}
+.bg-blue {
+	background: rgb(50, 101, 196);
+}
+.bg-yellow {
+	background: rgb(200, 200, 0);
+}
+.bg-darkblue {
+	background: rgb(0, 0, 50);
+}
+.bg-red {
+	background: rgb(196, 50, 53);
+}
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(51, 51, 51, 0.7);
+	/* z-index: 10; */
+}
+
+.afullscreen {
+	height: 100%;
+	background: blue;
+}

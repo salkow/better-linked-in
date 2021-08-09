@@ -22,11 +22,11 @@ const NewMessage = ({ addNewMessage }) => {
 					<FormControl
 						aria-label="message"
 						as="textarea"
-						rows="3"
 						placeholder="Type here..."
 						value={newMessage}
 						onChange={(e) => setNewMessage(e.target.value)}
 						required
+						className="new-message"
 					/>
 					<Button
 						size="sm"
