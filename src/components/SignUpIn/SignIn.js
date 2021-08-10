@@ -3,8 +3,6 @@ import { Form, Button, Container, FloatingLabel } from "react-bootstrap";
 
 import { useState } from "react";
 
-import "./SignIn.css";
-
 const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -53,8 +51,12 @@ const SignIn = () => {
 							/>
 						</FloatingLabel>
 					</Form.Group>
-					<div className="bottom-area">
-						<Button variant="primary" type="submit" id="my-btn">
+					<div className="bottom-area-in">
+						<Button
+							variant="primary"
+							type="submit"
+							className="my-btn"
+						>
 							Submit
 						</Button>
 						<br />

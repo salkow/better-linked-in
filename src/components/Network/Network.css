@@ -34,3 +34,9 @@ body {
 	height: 100%;
 	background: blue;
 }
+
+.hor {
+	max-width: 200px;
+	overflow-x: auto;
+	white-space: nowrap;
+}

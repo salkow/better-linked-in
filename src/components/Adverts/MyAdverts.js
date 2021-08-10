@@ -1,4 +1,11 @@
-import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
+import {
+	Container,
+	Row,
+	Col,
+	Card,
+	Dropdown,
+	ListGroup,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -33,7 +40,10 @@ const MyAdverts = () => {
 							) : (
 								<div>
 									{adverts.map((advert, index) => (
-										<Card key={index}>
+										<Card
+											key={index}
+											style={{ margin: "10px" }}
+										>
 											<Card.Body>
 												<Card.Title>
 													{advert.title}
@@ -41,37 +51,45 @@ const MyAdverts = () => {
 												<Card.Text className="content">
 													{advert.content}
 												</Card.Text>
-												<Dropdown>
-													<Dropdown.Toggle variant="success">
-														Αιτήσεις
-													</Dropdown.Toggle>
-
-													<Dropdown.Menu>
-														{advert.applications.map(
-															(
-																applicant,
-																my_index
-															) => (
-																<Dropdown.Item
-																	as="button"
-																	key={
-																		my_index
-																	}
-																>
-																	<Link
-																		to="/discussions"
-																		className="name"
-																	>
-																		{
-																			applicant.name
-																		}
-																	</Link>
-																</Dropdown.Item>
-															)
-														)}
-													</Dropdown.Menu>
-												</Dropdown>
 											</Card.Body>
+
+											<ListGroup variant="flush">
+												<ListGroup.Item className="content">
+													{advert.abilities}
+												</ListGroup.Item>
+												<ListGroup.Item>
+													<Dropdown>
+														<Dropdown.Toggle variant="success">
+															Αιτήσεις
+														</Dropdown.Toggle>
+
+														<Dropdown.Menu>
+															{advert.applications.map(
+																(
+																	applicant,
+																	my_index
+																) => (
+																	<Dropdown.Item
+																		as="button"
+																		key={
+																			my_index
+																		}
+																	>
+																		<Link
+																			to="/discussions"
+																			className="name"
+																		>
+																			{
+																				applicant.name
+																			}
+																		</Link>
+																	</Dropdown.Item>
+																)
+															)}
+														</Dropdown.Menu>
+													</Dropdown>
+												</ListGroup.Item>
+											</ListGroup>
 										</Card>
 									))}
 								</div>

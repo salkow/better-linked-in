@@ -7,25 +7,18 @@ import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
 
-// import SignUpIn from "./components/SignUpIn";
+// import SignUpIn from "./components/SignUpIn/SignUpIn";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 import React, { useState, useEffect } from "react";
-
-import "./App.css";
 
 function App() {
 	const [navHeight, setNavHeight] = useState(0);
 	const [pageHeight, setPageHeight] = useState(window.innerHeight);
-
-	const test = () => {
-		console.log(navHeight);
-		console.log(pageHeight);
-	};
 
 	const updateDimensions = () => {
 		setPageHeight(window.innerHeight);
@@ -39,9 +32,8 @@ function App() {
 	return (
 		<Router>
 			<Nav setNavHeight={setNavHeight} />
-			{/* <Button onClick={test}> Hey </Button> */}
-			<Container className="ffullscreen" fluid>
-				<Row className="ffullscreen">
+			<Container fluid>
+				<Row>
 					<Switch>
 						<Route path="/" exact>
 							<MainPage />

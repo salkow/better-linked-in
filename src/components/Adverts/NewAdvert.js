@@ -2,19 +2,21 @@ import { Container, Row, Form, FormControl, Button } from "react-bootstrap";
 
 import { useState } from "react";
 
-const NewAdvert = () => {
+const NewAdvert = ({ navHeight, pageHeight }) => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
+	const [abilities, setAbilities] = useState("");
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		const id = Math.floor(Math.random() * 10000) + 1;
 
-		addAdvert({ id, name: "Name", title, content: description });
+		addAdvert({ id, name: "Name", title, content: description, abilities });
 
 		setTitle("");
 		setDescription("");
+		setAbilities("");
 	};
 
 	const addAdvert = async (newAdvert) => {
@@ -49,6 +51,23 @@ const NewAdvert = () => {
 						placeholder="Περιγραφή"
 						required
 						value={description}
+						style={{
+							height: `${(pageHeight - navHeight) / 2 - 180}px`,
+						}}
+					/>
+
+					<br />
+
+					<FormControl
+						as="textarea"
+						className="textarea"
+						onChange={(e) => setAbilities(e.target.value)}
+						placeholder="Απαιτούμενες ικανότητες. (Άφησε μια κενή γραμμή ανά ικανότητα)"
+						required
+						value={abilities}
+						style={{
+							height: `${(pageHeight - navHeight) / 2 - 100}px`,
+						}}
 					/>
 
 					<br />

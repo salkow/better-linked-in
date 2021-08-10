@@ -1,10 +1,14 @@
-#my-btn {
+.my-btn {
 	padding-left: 7%;
 	padding-right: 7%;
 }
 
-.bottom-area {
+.bottom-area-up {
 	margin-left: 41%;
+}
+
+.bottom-area-in {
+	margin-left: 46%;
 }
 
 .input-text {

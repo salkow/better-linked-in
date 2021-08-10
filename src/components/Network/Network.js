@@ -1,21 +1,99 @@
-import { Container, Row } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 import "./Network.css";
 
 const Network = () => {
 	return (
-		<div class="fullscreen">
-			Suspendisse aliquam in ante a ornare. Pellentesque quis sapien sit
-			amet dolor euismod congue. Donec non semper arcu. Sed tortor ante,
-			cursus in dui vitae, interdum vestibulum massa. Suspendisse aliquam
-			in ante a ornare. Pellentesque quis sapien sit amet dolor euismod
-			congue. Donec non semper arcu. Sed tortor ante, cursus in dui vitae,
-			interdum vestibulum massa. Suspendisse aliquam in ante a ornare.
-			Pellentesque quis sapien sit amet dolor euismod congue. Donec non
-			semper arcu. Sed tortor ante, cursus in dui vitae, interdum
-			vestibulum massa. Suspendisse aliquam in ante a ornare. Pellentesque
-			quis sapien sit amet dolor euismod congue. Donec non semper arcu.
-			Sed tortor ante, cursus in dui vitae, interdum vestibulum massa.
+		<div className="hor">
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
+
+			<Card style={({ width: "30em" }, { display: "inline-block" })}>
+				<Card.Body>
+					<Card.Title>request.name</Card.Title>
+					<Button variant="success" style={{ margin: "10px" }}>
+						Αποδοχή
+					</Button>
+					<Button variant="danger">Απόρριψη</Button>
+				</Card.Body>
+			</Card>
 		</div>
 	);
 };

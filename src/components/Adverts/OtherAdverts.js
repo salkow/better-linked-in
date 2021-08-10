@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -33,7 +33,10 @@ const OtherAdverts = () => {
 							) : (
 								<div>
 									{adverts.map((advert, index) => (
-										<Card key={index}>
+										<Card
+											key={index}
+											style={{ margin: "10px" }}
+										>
 											<Card.Header as="h5">
 												<Link
 													to="/discussions"
@@ -42,17 +45,21 @@ const OtherAdverts = () => {
 													{advert.name}
 												</Link>
 											</Card.Header>
+
 											<Card.Body>
 												<Card.Title>
 													{advert.title}
 												</Card.Title>
+
 												<Card.Text className="content">
 													{advert.content}
 												</Card.Text>
-												<Button variant="primary">
-													Κάνε αίτηση
-												</Button>
 											</Card.Body>
+											<ListGroup variant="flush">
+												<ListGroup.Item className="content">
+													{advert.abilities}
+												</ListGroup.Item>
+											</ListGroup>
 										</Card>
 									))}
 								</div>

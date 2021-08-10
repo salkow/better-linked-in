@@ -7,8 +7,6 @@ import {
 	Col,
 } from "react-bootstrap";
 
-import "./SignUp.css";
-
 import { useState } from "react";
 
 const SignUp = () => {
@@ -136,8 +134,12 @@ const SignUp = () => {
 							/>
 						</Form.Group>
 					</Row>
-					<div className="bottom-area">
-						<Button variant="primary" type="submit" id="my-btn">
+					<div className="bottom-area-up">
+						<Button
+							variant="primary"
+							type="submit"
+							className="my-btn"
+						>
 							Submit
 						</Button>
 					</div>

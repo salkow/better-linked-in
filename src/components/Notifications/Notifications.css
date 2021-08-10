@@ -4,15 +4,8 @@
 }
 
 .requests-box {
-	max-height: 40vh;
-	overflow: auto;
-
-	text-align: center;
-}
-
-.comment-like-box {
-	max-height: 40vh;
-	overflow: auto;
+	overflow-x: auto;
+	white-space: nowrap;
 }
 
 .row {
@@ -20,14 +13,14 @@
 	margin-right: auto;
 }
 
-.request {
-	width: 75vw;
+#request {
+	display: inline-block;
 }
 
-.comment {
-	width: 50rem;
+#comment {
+	background: lightblue;
 }
 
-.like {
-	width: 50rem;
+#like {
+	background: lightgreen;
 }

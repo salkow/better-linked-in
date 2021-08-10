@@ -1,28 +1,22 @@
 import { Card } from "react-bootstrap";
 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CommentLike = () => {
-	const [comments, setComments] = useState([]);
-	const [likes, setLikes] = useState([]);
+	const [commentLikes, setCommentLikes] = useState([]);
 
 	useEffect(() => {
-		const getComments = async () => {
-			const commentsFromServer = await fetchData("comments");
-			setComments(commentsFromServer);
+		const getCommentLikes = async () => {
+			const commentLikesFromServer = await fetchData();
+			setCommentLikes(commentLikesFromServer);
 		};
 
-		const getLikes = async () => {
-			const likesFromServer = await fetchData("likes");
-			setLikes(likesFromServer);
-		};
-
-		getComments();
-		getLikes();
+		getCommentLikes();
 	}, []);
 
-	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:5000/${topic}`);
+	const fetchData = async () => {
+		const res = await fetch("http://localhost:5000/commentLikes");
 
 		const data = await res.json();
 
@@ -30,28 +24,57 @@ const CommentLike = () => {
 	};
 
 	return (
-		<div className="comment-like-box">
-			<div className="d-grid gap-2">
-				<h2>Σημειώσεις ενδιαφέροντος \ Σχόλια</h2>
-				<Card className="comment">
-					<Card.Header as="h5">
-						Ο χρήστης Χρήστος Καφρίτσας έκανε σχόλιο στο άρθρο με
-						τίτλο: title
-					</Card.Header>
-					<Card.Body>
-						<Card.Text>Sample text</Card.Text>
-					</Card.Body>
-				</Card>
-
-				<br />
-
-				<Card className="like">
-					<Card.Header as="h5">
-						Ο χρήστης Χρήστος Καφρίτσας έδειξε ενδιαφέρον στο άρθρο
-						με τίτλο: title
-					</Card.Header>
-				</Card>
-			</div>
+		<div>
+			{commentLikes.length === 0 ? (
+				<h2>Δεν υπάρχουν σημειώσεις ενδιαφέροντος / σχόλια</h2>
+			) : (
+				<div className="comment-like-box">
+					<div className="d-grid gap-2">
+						<h2>Σημειώσεις ενδιαφέροντος / Σχόλια</h2>
+						{commentLikes.map((commentLike, index) => {
+							if (commentLike.isLike === true) {
+								return (
+									<Card id="like" key={index}>
+										<Card.Header as="h5">
+											Ο χρήστης{" "}
+											<Link
+												to="/discussions"
+												className="name"
+											>
+												{commentLike.name}
+											</Link>{" "}
+											έδειξε ενδιαφέρον στο άρθρο με
+											τίτλο: {commentLike.title}
+										</Card.Header>
+									</Card>
+								);
+							} else {
+								return (
+									<Card id="comment" key={index}>
+										<Card.Header as="h5">
+											Ο χρήστης{" "}
+											<Link
+												to="/discussions"
+												className="name"
+											>
+												{commentLike.name}
+											</Link>{" "}
+											έκανε σχόλιο στο άρθρο με τίτλο:{" "}
+											{commentLike.title}
+										</Card.Header>
+										<Card.Body>
+											<Card.Text>
+												{commentLike.content}
+											</Card.Text>
+										</Card.Body>
+									</Card>
+								);
+							}
+						})}
+						<br />
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
