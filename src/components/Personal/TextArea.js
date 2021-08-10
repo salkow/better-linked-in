@@ -10,6 +10,7 @@ const TextArea = ({
 	addText,
 	navHeight,
 	pageHeight,
+	placeholderText,
 }) => {
 	const [text, setText] = useState("");
 	const [visible, setVisible] = useState(false);
@@ -22,7 +23,7 @@ const TextArea = ({
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		addText({ content: text, visible: visible });
+		addText({ content: text, visible });
 	};
 
 	return (
@@ -35,7 +36,7 @@ const TextArea = ({
 						value={text}
 						onChange={(e) => setText(e.target.value)}
 						required
-						placeholder="Type here..."
+						placeholder={placeholderText}
 						style={{
 							height: `${pageHeight - navHeight - 180}px`,
 						}}

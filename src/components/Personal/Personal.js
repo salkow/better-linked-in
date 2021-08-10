@@ -28,7 +28,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 
 		const getSkills = async () => {
 			const skillsFromServer = await fetchData("skills");
-			setSkills(skillsFromServer.content);
+			setSkills(skillsFromServer.content.join("\n\n"));
 			setVisibleSkills(skillsFromServer.visible);
 		};
 
@@ -76,12 +76,17 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addSkills = async (newSkills) => {
+		const newSkillsArr = {
+			content: newSkills.content.trim().split("\n\n"),
+			visible: newSkills.visible,
+		};
+
 		const res = await fetch("http://localhost:5000/skills", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
 			},
-			body: JSON.stringify(newSkills),
+			body: JSON.stringify(newSkillsArr),
 		});
 
 		const data = await res.json();
@@ -99,6 +104,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 					addText={addExperience}
 					navHeight={navHeight}
 					pageHeight={pageHeight}
+					placeholderText="Γράψε εδώ..."
 				/>
 			</Tab>
 			<Tab eventKey="b" title="Εκπαίδευση">
@@ -108,6 +114,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 					addText={addEducation}
 					navHeight={navHeight}
 					pageHeight={pageHeight}
+					placeholderText="Γράψε εδώ..."
 				/>
 			</Tab>
 			<Tab eventKey="c" title="Ικανότητες">
@@ -117,6 +124,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 					addText={addSkills}
 					navHeight={navHeight}
 					pageHeight={pageHeight}
+					placeholderText="Γράψε εδώ... (Άφησε μια κενή γραμμή ανά δεξιότητα)"
 				/>
 			</Tab>
 		</Tabs>

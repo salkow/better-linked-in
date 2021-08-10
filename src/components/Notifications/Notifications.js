@@ -12,6 +12,7 @@ const Notifications = () => {
 				<Row>
 					<FriendRequests />
 				</Row>
+				<br />
 				<Row>
 					<CommentLike />
 				</Row>

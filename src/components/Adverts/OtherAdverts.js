@@ -32,36 +32,41 @@ const OtherAdverts = () => {
 								<h1>Δεν υπάρχουν αγγελίες</h1>
 							) : (
 								<div>
-									{adverts.map((advert, index) => (
-										<Card
-											key={index}
-											style={{ margin: "10px" }}
-										>
-											<Card.Header as="h5">
-												<Link
-													to="/discussions"
-													className="name"
-												>
-													{advert.name}
-												</Link>
-											</Card.Header>
+									{adverts.map((advert, index) => {
+										const abilitiesString =
+											advert.abilities.join("\n\n");
 
-											<Card.Body>
-												<Card.Title>
-													{advert.title}
-												</Card.Title>
+										return (
+											<Card
+												key={index}
+												style={{ margin: "10px" }}
+											>
+												<Card.Header as="h5">
+													<Link
+														to="/discussions"
+														className="name"
+													>
+														{advert.name}
+													</Link>
+												</Card.Header>
 
-												<Card.Text className="content">
-													{advert.content}
-												</Card.Text>
-											</Card.Body>
-											<ListGroup variant="flush">
-												<ListGroup.Item className="content">
-													{advert.abilities}
-												</ListGroup.Item>
-											</ListGroup>
-										</Card>
-									))}
+												<Card.Body>
+													<Card.Title>
+														{advert.title}
+													</Card.Title>
+
+													<Card.Text className="content">
+														{advert.content}
+													</Card.Text>
+												</Card.Body>
+												<ListGroup variant="flush">
+													<ListGroup.Item className="content">
+														{abilitiesString}
+													</ListGroup.Item>
+												</ListGroup>
+											</Card>
+										);
+									})}
 								</div>
 							)}
 						</div>

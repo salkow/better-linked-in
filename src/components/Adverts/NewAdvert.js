@@ -12,7 +12,15 @@ const NewAdvert = ({ navHeight, pageHeight }) => {
 
 		const id = Math.floor(Math.random() * 10000) + 1;
 
-		addAdvert({ id, name: "Name", title, content: description, abilities });
+		const abilitiesArr = abilities.trim().split("\n\n");
+
+		addAdvert({
+			id,
+			name: "Name",
+			title,
+			content: description,
+			abilities: abilitiesArr,
+		});
 
 		setTitle("");
 		setDescription("");
@@ -62,7 +70,7 @@ const NewAdvert = ({ navHeight, pageHeight }) => {
 						as="textarea"
 						className="textarea"
 						onChange={(e) => setAbilities(e.target.value)}
-						placeholder="Απαιτούμενες ικανότητες. (Άφησε μια κενή γραμμή ανά ικανότητα)"
+						placeholder="Απαιτούμενες ικανότητες. (Άφησε μια κενή γραμμή ανά δεξιότητα)"
 						required
 						value={abilities}
 						style={{

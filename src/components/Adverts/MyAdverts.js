@@ -39,59 +39,64 @@ const MyAdverts = () => {
 								<h1>Δεν έχεις δημιουργήσει ακόμα αγγελίες.</h1>
 							) : (
 								<div>
-									{adverts.map((advert, index) => (
-										<Card
-											key={index}
-											style={{ margin: "10px" }}
-										>
-											<Card.Body>
-												<Card.Title>
-													{advert.title}
-												</Card.Title>
-												<Card.Text className="content">
-													{advert.content}
-												</Card.Text>
-											</Card.Body>
+									{adverts.map((advert, index) => {
+										const abilitiesArr =
+											advert.abilities.join("\n\n");
 
-											<ListGroup variant="flush">
-												<ListGroup.Item className="content">
-													{advert.abilities}
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<Dropdown>
-														<Dropdown.Toggle variant="success">
-															Αιτήσεις
-														</Dropdown.Toggle>
+										return (
+											<Card
+												key={index}
+												style={{ margin: "10px" }}
+											>
+												<Card.Body>
+													<Card.Title>
+														{advert.title}
+													</Card.Title>
+													<Card.Text className="content">
+														{advert.content}
+													</Card.Text>
+												</Card.Body>
 
-														<Dropdown.Menu>
-															{advert.applications.map(
-																(
-																	applicant,
-																	my_index
-																) => (
-																	<Dropdown.Item
-																		as="button"
-																		key={
-																			my_index
-																		}
-																	>
-																		<Link
-																			to="/discussions"
-																			className="name"
-																		>
-																			{
-																				applicant.name
+												<ListGroup variant="flush">
+													<ListGroup.Item className="content">
+														{abilitiesArr}
+													</ListGroup.Item>
+													<ListGroup.Item>
+														<Dropdown>
+															<Dropdown.Toggle variant="success">
+																Αιτήσεις
+															</Dropdown.Toggle>
+
+															<Dropdown.Menu>
+																{advert.applications.map(
+																	(
+																		applicant,
+																		my_index
+																	) => (
+																		<Dropdown.Item
+																			as="button"
+																			key={
+																				my_index
 																			}
-																		</Link>
-																	</Dropdown.Item>
-																)
-															)}
-														</Dropdown.Menu>
-													</Dropdown>
-												</ListGroup.Item>
-											</ListGroup>
-										</Card>
-									))}
+																		>
+																			<Link
+																				to="/discussions"
+																				className="name"
+																			>
+																				{
+																					applicant.name
+																				}
+																			</Link>
+																		</Dropdown.Item>
+																	)
+																)}
+															</Dropdown.Menu>
+														</Dropdown>
+													</ListGroup.Item>
+												</ListGroup>
+											</Card>
+										);
+									})}
 								</div>
 							)}
 						</div>
