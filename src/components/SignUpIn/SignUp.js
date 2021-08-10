@@ -16,6 +16,8 @@ const SignUp = () => {
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const [phone, setPhone] = useState("");
+	const [job, setJob] = useState("");
+	const [employmentInstitution, setEmploymentInstitution] = useState("");
 
 	const sendData = async (sign_up_data) => {
 		const res = await fetch("http://localhost:5000/sign_up", {
@@ -37,7 +39,15 @@ const SignUp = () => {
 			e.preventDefault();
 			alert("Passwords don't match.");
 		} else {
-			sendData({ firstName, lastName, email, password, phone });
+			sendData({
+				firstName,
+				lastName,
+				email,
+				password,
+				phone,
+				job,
+				employmentInstitution,
+			});
 		}
 	};
 
@@ -127,13 +137,42 @@ const SignUp = () => {
 						</Form.Group>
 
 						<Form.Group as={Col} className="mb-3">
+							<Form.Label>Επέλεξε μια φωτογραφία σου</Form.Label>
 							<Form.Control
 								type="file"
 								accept="image/*"
 								required
+								size="sm"
 							/>
 						</Form.Group>
 					</Row>
+
+					<Row>
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Εππαγελματική θέση">
+								<Form.Control
+									type="text"
+									placeholder="Εππαγελματική θέση"
+									required
+									onChange={(e) => setJob(e.target.value)}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+
+						<Form.Group as={Col} className="mb-3">
+							<FloatingLabel label="Φορέας Απασχόλησης">
+								<Form.Control
+									type="text"
+									placeholder="Φορέας Απασχόλησης"
+									required
+									onChange={(e) =>
+										setEmploymentInstitution(e.target.value)
+									}
+								/>
+							</FloatingLabel>
+						</Form.Group>
+					</Row>
+
 					<div className="bottom-area-up">
 						<Button
 							variant="primary"
