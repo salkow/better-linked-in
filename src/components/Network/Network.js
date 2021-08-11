@@ -1,100 +1,16 @@
-import { Button, Card } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import "./Network.css";
 
+import People from "./People";
+import Search from "./Search";
+
 const Network = () => {
 	return (
-		<div className="hor">
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-
-			<Card style={({ width: "30em" }, { display: "inline-block" })}>
-				<Card.Body>
-					<Card.Title>request.name</Card.Title>
-					<Button variant="success" style={{ margin: "10px" }}>
-						Αποδοχή
-					</Button>
-					<Button variant="danger">Απόρριψη</Button>
-				</Card.Body>
-			</Card>
-		</div>
+		<Container>
+			<Search />
+			<People />
+		</Container>
 	);
 };
 

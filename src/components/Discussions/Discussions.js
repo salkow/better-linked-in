@@ -26,7 +26,7 @@ const Discussions = ({ navHeight, pageHeight }) => {
 		};
 
 		const getSenderName = async () => {
-			const dataFromServer = await fetchData("sign_in");
+			const dataFromServer = await fetchData("sign_up");
 
 			const userName =
 				dataFromServer.firstName + " " + dataFromServer.lastName;

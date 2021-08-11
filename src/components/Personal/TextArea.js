@@ -18,7 +18,7 @@ const TextArea = ({
 	useEffect(() => {
 		setText(textFromServer);
 		setVisible(visibleFromServer);
-	}, [textFromServer, visibleFromServer, setText, setVisible]);
+	}, [textFromServer, visibleFromServer]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();

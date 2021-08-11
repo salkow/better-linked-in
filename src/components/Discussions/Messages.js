@@ -15,7 +15,7 @@ const Messages = ({
 	// Scroll to the last message when the page loads.
 	useEffect(() => {
 		scrollToLastMessage();
-	});
+	}, []);
 
 	return (
 		<div
