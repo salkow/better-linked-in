@@ -1,5 +1,5 @@
 import Nav from "./components/Nav";
-import MainPage from "./components/MainPage";
+import MainPage from "./components/MainPage/MainPage";
 import Network from "./components/Network/Network";
 import Adverts from "./components/Adverts/Adverts";
 import Discussions from "./components/Discussions/Discussions";
