@@ -9,10 +9,15 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Embeddable
 public class UserExperience {
 
     private String personalExperience;
     private Boolean displayable;
+
+    public UserExperience() {
+        personalExperience = "";
+        displayable = false;
+    }
 }
+

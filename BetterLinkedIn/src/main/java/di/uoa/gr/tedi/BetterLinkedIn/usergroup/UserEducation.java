@@ -9,11 +9,11 @@ import javax.persistence.Embeddable;
 @Setter
 @Embeddable
 public class UserEducation {
-    private String text;
+    private String userEducation;
     private Boolean displayable;
 
     public UserEducation() {
-        text = "2";
+        userEducation = "";
         displayable = false;
     }
 }

@@ -1,7 +1,6 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
 public class UserController {
     private final UserService userService;
 
@@ -39,13 +37,8 @@ public class UserController {
 
     }
 
-    @GetMapping("api/v1/userexperience")
-    public UserExperience readUserExperience(Authentication authentication) {
-        return userService.readUserExperience(authentication);
-    }
-
     @PutMapping("api/v1/usereducation")
-    public void updateUserEducation(Authentication authentication, @RequestBody UserEducation userEducation) {
+    public void updatePersonalExperience(Authentication authentication, @RequestBody UserEducation userEducation) {
         userService.updateUserEducation(authentication, userEducation);
 
     }
