@@ -35,6 +35,8 @@ const SignUp = () => {
 	};
 
 	const onSubmit = (e) => {
+		e.preventDefault();
+
 		if (password !== repeatPassword) {
 			e.preventDefault();
 			alert("Passwords don't match.");

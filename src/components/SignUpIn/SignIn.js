@@ -23,6 +23,8 @@ const SignIn = () => {
 	};
 
 	const onSubmit = (e) => {
+		e.preventDefault();
+
 		sendData({ email: email, password: password });
 	};
 
