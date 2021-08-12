@@ -1,23 +1,21 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-
+import javax.persistence.Embeddable;
+import java.util.*;
 
 @Getter
 @Setter
 @Embeddable
-public class UserExperience {
+public class UserSkills {
 
-    private String personalExperience;
+    private String personalSkills;
     private Boolean displayable;
 
-    public UserExperience() {
-        personalExperience = "";
+    public UserSkills() {
+        personalSkills = "";
         displayable = false;
     }
 }
-

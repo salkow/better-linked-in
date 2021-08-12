@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,6 +30,20 @@ public class User implements UserDetails {
     @Embedded
     @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable"))
     private UserExperience experience;
+    @Embedded
+    @AttributeOverride( name = "displayable", column = @Column(name = "education_displayable"))
+    private UserEducation education;
+    @Embedded
+    @AttributeOverride( name = "displayable", column = @Column(name = "skills_displayable"))
+    private UserSkills skills;
+    /*
+    @OneToMany(mappedBy = "User")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Set<UserConnectionRequests> connectionRequestsDone;
+    @OneToMany(mappedBy = "User")
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
+    private Set<UserConnectionRequests> connectionRequestsSent;
+*/
 
     public User() {}
 
@@ -40,9 +55,9 @@ public class User implements UserDetails {
         this.phone = phone;
         this.photo = photo;
         this.experience= new UserExperience();
+        this.education= new UserEducation();
+        this.skills= new UserSkills();
 
-        experience.setPersonalExperience("test");
-        experience.setDisplayable(false);
     }
 
     public User(String firstName, String LastName, String password, String email, String phone, String photo, UserRole userRole) {
@@ -53,6 +68,9 @@ public class User implements UserDetails {
         this.phone = phone;
         this.photo = photo;
         this.userRole= userRole;
+
+
+
     }
 
 
@@ -68,6 +86,7 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
+
 
 
     @Override
