@@ -15,13 +15,13 @@ const Personal = ({ navHeight, pageHeight }) => {
 
 	useEffect(() => {
 		const getExperinece = async () => {
-			const experienceFromServer = await fetchData("experience");
+			const experienceFromServer = await fetchData("userexperience");
 			setExperience(experienceFromServer.content);
 			setVisibleExperience(experienceFromServer.visible);
 		};
 
 		const getEducation = async () => {
-			const educationFromServer = await fetchData("education");
+			const educationFromServer = await fetchData("usereducation");
 			setEducation(educationFromServer.content);
 			setVisibleEducation(educationFromServer.visible);
 		};
@@ -38,7 +38,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 	}, []);
 
 	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:5000/${topic}`);
+		const res = await fetch(`http://localhost:8081/api/v1/${topic}`);
 
 		const data = await res.json();
 
@@ -46,7 +46,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addExperience = async (newExperience) => {
-		const res = await fetch("http://localhost:5000/experience", {
+		const res = await fetch("http://localhost:8081/api/v1/userexperience", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
@@ -61,7 +61,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addEducation = async (newEducation) => {
-		const res = await fetch("http://localhost:5000/education", {
+		const res = await fetch("http://localhost:8081/api/v1/usereducation", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",

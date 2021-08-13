@@ -7,7 +7,7 @@ import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
 
-import SignUpIn from "./components/SignUpIn/SignUpIn";
+// import SignUpIn from "./components/SignUpIn/SignUpIn";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -30,44 +30,44 @@ function App() {
 	}, []);
 
 	return (
-		// <Router>
-		// 	<Nav setNavHeight={setNavHeight} />
-		// 	<Container fluid>
-		// 		<Row>
-		// 			<Switch>
-		// 				<Route path="/" exact>
-		// 					<MainPage />
-		// 				</Route>
+		<Router>
+			<Nav setNavHeight={setNavHeight} />
+			<Container fluid>
+				<Row>
+					<Switch>
+						<Route path="/" exact>
+							<MainPage />
+						</Route>
 
-		// 				<Route path="/network" component={Network} />
-		// 				<Route path="/adverts">
-		// 					<Adverts
-		// 						navHeight={navHeight}
-		// 						pageHeight={pageHeight}
-		// 					/>
-		// 				</Route>
-		// 				<Route path="/discussions">
-		// 					<Discussions
-		// 						navHeight={navHeight}
-		// 						pageHeight={pageHeight}
-		// 					/>
-		// 				</Route>
-		// 				<Route
-		// 					path="/notifications"
-		// 					component={Notifications}
-		// 				/>
-		// 				<Route path="/personal">
-		// 					<Personal
-		// 						navHeight={navHeight}
-		// 						pageHeight={pageHeight}
-		// 					/>
-		// 				</Route>
-		// 				<Route path="/settings" component={Settings} />
-		// 			</Switch>
-		// 		</Row>
-		// 	</Container>
-		// </Router>
-		<SignUpIn />
+						<Route path="/network" component={Network} />
+						<Route path="/adverts">
+							<Adverts
+								navHeight={navHeight}
+								pageHeight={pageHeight}
+							/>
+						</Route>
+						<Route path="/discussions">
+							<Discussions
+								navHeight={navHeight}
+								pageHeight={pageHeight}
+							/>
+						</Route>
+						<Route
+							path="/notifications"
+							component={Notifications}
+						/>
+						<Route path="/personal">
+							<Personal
+								navHeight={navHeight}
+								pageHeight={pageHeight}
+							/>
+						</Route>
+						<Route path="/settings" component={Settings} />
+					</Switch>
+				</Row>
+			</Container>
+		</Router>
+		// <SignUpIn />
 	);
 }
 

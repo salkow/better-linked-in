@@ -23,7 +23,7 @@ const TextArea = ({
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		addText({ content: text, visible });
+		addText({ text, displayable: visible });
 	};
 
 	return (
