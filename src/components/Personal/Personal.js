@@ -5,25 +5,25 @@ import TextArea from "./TextArea";
 
 const Personal = ({ navHeight, pageHeight }) => {
 	const [experience, setExperience] = useState("");
-	const [visibleExperience, setVisibleExperience] = useState("off");
+	const [visibleExperience, setVisibleExperience] = useState(false);
 
 	const [education, setEducation] = useState("");
-	const [visibleEducation, setVisibleEducation] = useState("off");
+	const [visibleEducation, setVisibleEducation] = useState(false);
 
 	const [skills, setSkills] = useState("");
 	const [visibleSkills, setVisibleSkills] = useState("off");
 
 	useEffect(() => {
 		const getExperinece = async () => {
-			const experienceFromServer = await fetchData("experience");
-			setExperience(experienceFromServer.content);
-			setVisibleExperience(experienceFromServer.visible);
+			const experienceFromServer = await fetchData("userexperience");
+			setExperience(experienceFromServer.text);
+			setVisibleExperience(experienceFromServer.displayable);
 		};
 
 		const getEducation = async () => {
-			const educationFromServer = await fetchData("education");
-			setEducation(educationFromServer.content);
-			setVisibleEducation(educationFromServer.visible);
+			const educationFromServer = await fetchData("usereducation");
+			setEducation(educationFromServer.text);
+			setVisibleEducation(educationFromServer.displayable);
 		};
 
 		const getSkills = async () => {
@@ -38,7 +38,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 	}, []);
 
 	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:5000/${topic}`);
+		const res = await fetch(`http://localhost:8081/api/v1/${topic}`);
 
 		const data = await res.json();
 
@@ -46,10 +46,11 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addExperience = async (newExperience) => {
-		const res = await fetch("http://localhost:5000/experience", {
-			method: "POST",
+		const res = await fetch("http://localhost:8081/api/v1/userexperience", {
+			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
+				"Access-Control-Allow-Origin" : "*"
 			},
 			body: JSON.stringify(newExperience),
 		});
@@ -61,8 +62,8 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addEducation = async (newEducation) => {
-		const res = await fetch("http://localhost:5000/education", {
-			method: "POST",
+		const res = await fetch("http://localhost:8081/api/v1/usereducation", {
+			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
 			},
