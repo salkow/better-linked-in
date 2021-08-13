@@ -71,4 +71,13 @@ public class UserService implements UserDetailsService {
     List<User> all() {
         return repository.findAll();
     }
+
+    public UserExperience readUserExperience(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        return opt.get().getExperience();
+
+    }
 }

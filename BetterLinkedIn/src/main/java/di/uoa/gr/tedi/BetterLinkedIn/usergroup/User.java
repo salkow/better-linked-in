@@ -28,10 +28,17 @@ public class User implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = true;
     @Embedded
-    @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable"))
+    @AttributeOverrides({
+            @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable")),
+            @AttributeOverride(name = "text", column = @Column(name = "experience_text"))
+    })
+
     private UserExperience experience;
     @Embedded
-    @AttributeOverride( name = "displayable", column = @Column(name = "education_displayable"))
+    @AttributeOverrides({
+            @AttributeOverride(name = "displayable", column = @Column(name = "education_displayable")),
+            @AttributeOverride(name = "text", column = @Column(name = "education_text"))
+    })
     private UserEducation education;
     @Embedded
     @AttributeOverride( name = "displayable", column = @Column(name = "skills_displayable"))

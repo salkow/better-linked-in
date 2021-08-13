@@ -37,12 +37,16 @@ public class UserController {
 
     }
 
+    @GetMapping("api/v1/userexperience")
+    public UserExperience readUserExperience(Authentication authentication) {
+        return userService.readUserExperience(authentication);
+    }
+
     @PutMapping("api/v1/usereducation")
-    public void updatePersonalExperience(Authentication authentication, @RequestBody UserEducation userEducation) {
+    public void updateUserEducation(Authentication authentication, @RequestBody UserEducation userEducation) {
         userService.updateUserEducation(authentication, userEducation);
 
     }
-
 
 
 }
