@@ -132,7 +132,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 					placeholderText="Γράψε εδώ..."
 				/>
 			</Tab>
-			<Tab eventKey="c" title="Ικανότητες">
+			<Tab eventKey="c" title="Δεξιότητες">
 				<TextArea
 					textFromServer={skills}
 					visibleFromServer={visibleSkills}
