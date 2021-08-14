@@ -1,31 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Container, FloatingLabel } from "react-bootstrap";
-
 import { useState } from "react";
+
+import axios from "axios";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
-	const sendData = async (sign_in_data) => {
-		const res = await fetch("http://localhost:5000/sign_in", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(sign_in_data),
-		});
-
-		await res.json();
-
-		// const data = await res.json();
-		// TODO: use this and handle the response.
-	};
+	const history = useHistory();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		sendData({ email: email, password: password });
+		let formData = new FormData();
+
+		formData.append("username", email); //append the values with key, value pair
+		formData.append("password", password);
+
+		const config = {
+			headers: { "content-type": "multipart/form-data" },
+		};
+
+		const url = "http://localhost:8081/perform_login";
+
+		axios.post(url, formData, config).then((response) => {
+			console.log(response);
+			history.push("/");
+		});
 	};
 
 	return (

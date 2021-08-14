@@ -5,6 +5,7 @@ import {
 	FloatingLabel,
 	Row,
 	Col,
+	Modal,
 } from "react-bootstrap";
 
 import { useState } from "react";
@@ -19,8 +20,16 @@ const SignUp = () => {
 	const [job, setJob] = useState("");
 	const [employmentInstitution, setEmploymentInstitution] = useState("");
 
+	const [show, setShow] = useState(false);
+	const [modalMessage, setModalMessage] = useState("");
+	const handleModalClose = () => setShow(false);
+	const handleModalShow = (message) => {
+		setModalMessage(message);
+		setShow(true);
+	};
+
 	const sendData = async (sign_up_data) => {
-		const res = await fetch("http://localhost:5000/sign_up", {
+		const res = await fetch("http://localhost:8081/api/v1/registration", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
@@ -39,7 +48,7 @@ const SignUp = () => {
 
 		if (password !== repeatPassword) {
 			e.preventDefault();
-			alert("Passwords don't match.");
+			handleModalShow("Οι κωδικοί δεν είναι οι ίδιοι.");
 		} else {
 			sendData({
 				firstName,
@@ -47,8 +56,9 @@ const SignUp = () => {
 				email,
 				password,
 				phone,
-				job,
-				employmentInstitution,
+				photo: "myphoto.jpg",
+				// job,
+				// employmentInstitution,
 			});
 		}
 	};
@@ -186,6 +196,16 @@ const SignUp = () => {
 					</div>
 				</div>
 			</Form>
+
+			<Modal show={show} onHide={handleModalClose} animation={false}>
+				<Modal.Header closeButton>
+					<Modal.Title>Κάτι πήγε στραβά.</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>{modalMessage}</Modal.Body>
+				<Modal.Footer>
+					<Button onClick={handleModalClose}>Close</Button>
+				</Modal.Footer>
+			</Modal>
 		</Container>
 	);
 };

@@ -19,7 +19,7 @@ public class UserController {
         this.userService= userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/v1/users")
     List<User> all() {
         return userService.all();
     }
@@ -29,10 +29,6 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/")
-    String index() {
-        return "index";
-    }
 
 
 /*
@@ -58,6 +54,23 @@ public class UserController {
         userService.updateUserEducation(authentication, userEducation);
 
     }
+
+    @GetMapping("api/v1/usereducation")
+    public UserEducation readUserEducation(Authentication authentication) {
+        return userService.readUserEducation(authentication);
+    }
+
+    @PutMapping("api/v1/userskills")
+    public void updateUserSkills(Authentication authentication, @RequestBody UserSkills userSkills) {
+        userService.updateUserSkills(authentication, userSkills);
+
+    }
+
+    @GetMapping("api/v1/userskills")
+    public UserSkills readUserSkills(Authentication authentication) {
+        return userService.readUserSkills(authentication);
+    }
+
 
 
 }

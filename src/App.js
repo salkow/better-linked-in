@@ -6,8 +6,7 @@ import Discussions from "./components/Discussions/Discussions";
 import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
-
- //import SignUpIn from "./components/SignUpIn/SignUpIn";
+import SignUpIn from "./components/SignUpIn/SignUpIn";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -63,11 +62,12 @@ function App() {
 							/>
 						</Route>
 						<Route path="/settings" component={Settings} />
+
+						<SignUpIn />
 					</Switch>
 				</Row>
 			</Container>
 		</Router>
-		// <SignUpIn />
 	);
 }
 

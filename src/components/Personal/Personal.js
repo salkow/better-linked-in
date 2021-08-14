@@ -1,5 +1,6 @@
 import { Tabs, Tab } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 import TextArea from "./TextArea";
 
@@ -11,13 +12,13 @@ const Personal = ({ navHeight, pageHeight }) => {
 	const [visibleEducation, setVisibleEducation] = useState(false);
 
 	const [skills, setSkills] = useState("");
-	const [visibleSkills, setVisibleSkills] = useState("off");
+	const [visibleSkills, setVisibleSkills] = useState(false);
 
 	useEffect(() => {
 		const getExperinece = async () => {
 			const experienceFromServer = await fetchData("userexperience");
-			setExperience(experienceFromServer.text);
-			setVisibleExperience(experienceFromServer.displayable);
+			// setExperience(experienceFromServer.text);
+			// setVisibleExperience(experienceFromServer.displayable);
 		};
 
 		const getEducation = async () => {
@@ -33,26 +34,39 @@ const Personal = ({ navHeight, pageHeight }) => {
 		};
 
 		getExperinece();
-		getEducation();
-		getSkills();
+		// getEducation();
+		// getSkills();
 	}, []);
 
 	const fetchData = async (topic) => {
+		// const res = await fetch(`http://localhost:8081/api/v1/${topic}`, {
+		// 	method: "GET",
+		// 	headers: {
+		// 		Accept: "application/json",
+		// 	},
+		// });
+
 		const res = await fetch(`http://localhost:8081/api/v1/${topic}`);
 
-		const data = await res.json();
+		console.log(res);
 
-		return data;
+		// const data = await res.json();
+
+		// console.log(data);
+
+		// return data;
+
+		// axios.get(`http://localhost:8081/api/v1/${topic}`).then((response) => {
+		// 	console.log(response);
+		// });
 	};
 
 	const addExperience = async (newExperience) => {
 		const res = await fetch("http://localhost:8081/api/v1/userexperience", {
-			method: "PUT",
+			method: "POST",
 			headers: {
 				"Content-type": "application/json",
-				"Access-Control-Allow-Origin" : "*"
 			},
-			body: JSON.stringify(newExperience),
 		});
 
 		const data = await res.json();
@@ -63,7 +77,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 
 	const addEducation = async (newEducation) => {
 		const res = await fetch("http://localhost:8081/api/v1/usereducation", {
-			method: "PUT",
+			method: "POST",
 			headers: {
 				"Content-type": "application/json",
 			},
@@ -118,7 +132,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 					placeholderText="Γράψε εδώ..."
 				/>
 			</Tab>
-			<Tab eventKey="c" title="Ικανότητες">
+			<Tab eventKey="c" title="Δεξιότητες">
 				<TextArea
 					textFromServer={skills}
 					visibleFromServer={visibleSkills}

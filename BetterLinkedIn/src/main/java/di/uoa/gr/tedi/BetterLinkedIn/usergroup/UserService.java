@@ -80,4 +80,32 @@ public class UserService implements UserDetailsService {
         return opt.get().getExperience();
 
     }
+
+    public UserEducation readUserEducation(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        return opt.get().getEducation();
+    }
+
+    public void updateUserSkills(Authentication authentication, UserSkills userSkills) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+
+        User user = opt.get();
+        user.setSkills(userSkills);
+        repository.save(user);
+
+    }
+
+    public UserSkills readUserSkills(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        return opt.get().getSkills();
+    }
 }
