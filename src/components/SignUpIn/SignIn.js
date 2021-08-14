@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Container, FloatingLabel } from "react-bootstrap";
-
 import { useState } from "react";
 
-import { axios } from "react";
+import axios from "axios";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const history = useHistory();
 
 	const sendData = async (sign_in_data) => {
 		const res = await fetch("http://localhost:5000/sign_in", {
@@ -38,14 +38,10 @@ const SignIn = () => {
 
 		const url = "http://localhost:8081/perform_login";
 
-		axios
-			.post(url, formData, config)
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		axios.post(url, formData, config).then((response) => {
+			console.log(response);
+			history.push("/");
+		});
 	};
 
 	return (
