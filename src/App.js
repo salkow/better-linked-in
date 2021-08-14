@@ -7,7 +7,7 @@ import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
 
-// import SignUpIn from "./components/SignUpIn/SignUpIn";
+ //import SignUpIn from "./components/SignUpIn/SignUpIn";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

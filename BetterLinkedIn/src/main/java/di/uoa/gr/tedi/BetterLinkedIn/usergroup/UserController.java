@@ -24,6 +24,17 @@ public class UserController {
         return userService.all();
     }
 
+    @GetMapping("/perform_login")
+    String login() {
+        return "login";
+    }
+
+    @GetMapping("/")
+    String index() {
+        return "index";
+    }
+
+
 /*
     @GetMapping("/user")
     User one() {

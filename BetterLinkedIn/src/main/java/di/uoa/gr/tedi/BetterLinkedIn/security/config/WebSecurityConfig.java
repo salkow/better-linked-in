@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
@@ -25,7 +26,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()).and().csrf().disable().authorizeRequests().antMatchers("/api/v*/registration/**").permitAll().anyRequest().authenticated().and().formLogin();
+        http
+                .cors()
+                    .configurationSource(request -> new CorsConfiguration()
+                    .applyPermitDefaultValues())
+                    .and()
+                .csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/api/v*/registration/**", "/perform_login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("http://localhost:3000/sign-in")
+                    .loginProcessingUrl("/perform_login")
+                    .defaultSuccessUrl("http:localhost:3000/")
+                    .failureHandler((req, res, exp) -> {
+                        String errMsg= "";
+                        if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
+                            errMsg+= "Invalid email or password";
+                        }
+                        else {
+                            errMsg+= "Unknown Error";
+                        }
+                        req.getSession().setAttribute("message", errMsg);
+                        res.sendRedirect("/perform_login");
+                    })
+                .permitAll();
+
     }
 
     @Override
