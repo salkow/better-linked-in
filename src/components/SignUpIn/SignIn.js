@@ -9,21 +9,6 @@ const SignIn = () => {
 	const [password, setPassword] = useState("");
 	const history = useHistory();
 
-	const sendData = async (sign_in_data) => {
-		const res = await fetch("http://localhost:5000/sign_in", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(sign_in_data),
-		});
-
-		await res.json();
-
-		// const data = await res.json();
-		// TODO: use this and handle the response.
-	};
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 

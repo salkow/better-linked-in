@@ -7,33 +7,61 @@ import {
 	Accordion,
 	InputGroup,
 	Button,
+	Form,
 } from "react-bootstrap";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
 const Posts = ({ posts, setPosts }) => {
-	const likePost = (postId) => {};
-	const sendComment = (postId) => {
-		// posts.forEach(function (post) {
-		// if (post.id == postId) {
-		// 	const changedPost = post;
-		// 	const name = getSenderName();
-		// 	changedPost.comments.push({ id: 3, name, newComment });
-		// 	console.log(post);
-		// }
-		// });
-	};
+	useEffect(() => {
+		const getSenderName = async () => {
+			const dataFromServer = await fetchData("sign_up");
+			const userName =
+				dataFromServer.firstName + " " + dataFromServer.lastName;
+			setSenderName(userName);
+		};
 
-	const getSenderName = async () => {
-		// const dataFromServer = await fetchData("sign_up");
-		// const userName =
-		// 	dataFromServer.firstName + " " + dataFromServer.lastName;
-		// setSenderName(userName);
-	};
+		getSenderName();
+	});
 
 	const [newComment, setNewComment] = useState("");
+
+	const [senderName, setSenderName] = useState("");
+
+	const likePost = (postId) => {};
+	const sendComment = (postId) => {
+		if (newComment.length === 0) {
+			return;
+		}
+
+		const newPosts = [...posts];
+
+		newPosts.forEach(function (post) {
+			if (post.id === postId) {
+				post.comments.push({
+					id: 3,
+					name: senderName,
+					text: newComment,
+				});
+
+				return;
+			}
+		});
+
+		setNewComment("");
+
+		setPosts(newPosts);
+	};
+
+	const fetchData = async (topic) => {
+		const res = await fetch(`http://localhost:5000/${topic}`);
+
+		const data = await res.json();
+
+		return data;
+	};
 
 	return (
 		<Col xs="6" className="all_posts">
@@ -125,37 +153,39 @@ const Posts = ({ posts, setPosts }) => {
 										</ListGroup.Item>
 									)}
 									<ListGroup.Item>
-										<InputGroup>
-											<Button
-												style={{
-													marginRight: "10px",
-												}}
-												onClick={(e) =>
-													likePost(post.id)
-												}
-											>
-												Μου αρέσει
-											</Button>
+										<Form>
+											<InputGroup>
+												<Button
+													style={{
+														marginRight: "10px",
+													}}
+													onClick={(e) =>
+														likePost(post.id)
+													}
+												>
+													Μου αρέσει
+												</Button>
 
-											<FormControl
-												placeholder="Γράψε ένα σχόλιο"
-												as="textarea"
-												rows="2"
-												value={newComment}
-												onChange={(e) =>
-													setNewComment(
-														e.target.value
-													)
-												}
-											/>
-											<Button
-												onClick={(e) =>
-													sendComment(post.id)
-												}
-											>
-												Αποστολή
-											</Button>
-										</InputGroup>
+												<FormControl
+													placeholder="Γράψε ένα σχόλιο"
+													as="textarea"
+													rows="2"
+													onChange={(e) =>
+														setNewComment(
+															e.target.value
+														)
+													}
+												/>
+												<Button
+													onClick={(e) =>
+														sendComment(post.id)
+													}
+													type="reset"
+												>
+													Αποστολή
+												</Button>
+											</InputGroup>
+										</Form>
 									</ListGroup.Item>
 								</ListGroup>
 							</Card>
