@@ -1,29 +1,30 @@
 import { Tabs, Tab } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 import TextArea from "./TextArea";
 
 const Personal = ({ navHeight, pageHeight }) => {
 	const [experience, setExperience] = useState("");
-	const [visibleExperience, setVisibleExperience] = useState("off");
+	const [visibleExperience, setVisibleExperience] = useState(false);
 
 	const [education, setEducation] = useState("");
-	const [visibleEducation, setVisibleEducation] = useState("off");
+	const [visibleEducation, setVisibleEducation] = useState(false);
 
 	const [skills, setSkills] = useState("");
-	const [visibleSkills, setVisibleSkills] = useState("off");
+	const [visibleSkills, setVisibleSkills] = useState(false);
 
 	useEffect(() => {
 		const getExperinece = async () => {
 			const experienceFromServer = await fetchData("userexperience");
-			setExperience(experienceFromServer.content);
-			setVisibleExperience(experienceFromServer.visible);
+			// setExperience(experienceFromServer.text);
+			// setVisibleExperience(experienceFromServer.displayable);
 		};
 
 		const getEducation = async () => {
 			const educationFromServer = await fetchData("usereducation");
-			setEducation(educationFromServer.content);
-			setVisibleEducation(educationFromServer.visible);
+			setEducation(educationFromServer.text);
+			setVisibleEducation(educationFromServer.displayable);
 		};
 
 		const getSkills = async () => {
@@ -33,16 +34,31 @@ const Personal = ({ navHeight, pageHeight }) => {
 		};
 
 		getExperinece();
-		getEducation();
-		getSkills();
+		// getEducation();
+		// getSkills();
 	}, []);
 
 	const fetchData = async (topic) => {
+		// const res = await fetch(`http://localhost:8081/api/v1/${topic}`, {
+		// 	method: "GET",
+		// 	headers: {
+		// 		Accept: "application/json",
+		// 	},
+		// });
+
 		const res = await fetch(`http://localhost:8081/api/v1/${topic}`);
 
-		const data = await res.json();
+		console.log(res);
 
-		return data;
+		// const data = await res.json();
+
+		// console.log(data);
+
+		// return data;
+
+		// axios.get(`http://localhost:8081/api/v1/${topic}`).then((response) => {
+		// 	console.log(response);
+		// });
 	};
 
 	const addExperience = async (newExperience) => {
@@ -51,7 +67,6 @@ const Personal = ({ navHeight, pageHeight }) => {
 			headers: {
 				"Content-type": "application/json",
 			},
-			body: JSON.stringify(newExperience),
 		});
 
 		const data = await res.json();

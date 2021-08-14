@@ -20,7 +20,7 @@ const SignUp = () => {
 	const [employmentInstitution, setEmploymentInstitution] = useState("");
 
 	const sendData = async (sign_up_data) => {
-		const res = await fetch("http://localhost:5000/sign_up", {
+		const res = await fetch("http://localhost:8081/api/v1/registration", {
 			method: "POST",
 			headers: {
 				"Content-type": "application/json",
@@ -47,8 +47,9 @@ const SignUp = () => {
 				email,
 				password,
 				phone,
-				job,
-				employmentInstitution,
+				photo: "myphoto.jpg",
+				// job,
+				// employmentInstitution,
 			});
 		}
 	};
