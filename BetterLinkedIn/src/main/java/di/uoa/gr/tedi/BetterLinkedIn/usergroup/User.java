@@ -1,5 +1,7 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -41,16 +44,29 @@ public class User implements UserDetails {
     })
     private UserEducation education;
     @Embedded
-    @AttributeOverride( name = "displayable", column = @Column(name = "skills_displayable"))
+    @AttributeOverride(name = "displayable", column = @Column(name = "skills_displayable"))
     private UserSkills skills;
-    /*
-    @OneToMany(mappedBy = "User")
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Set<UserConnectionRequests> connectionRequestsDone;
-    @OneToMany(mappedBy = "User")
-    @JoinColumn(name = "sender_id", referencedColumnName = "id")
-    private Set<UserConnectionRequests> connectionRequestsSent;
-*/
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("sender")
+    private Set<UserConnectionRequest> connectionRequests= new HashSet<>();
+    @OneToMany(mappedBy = "receiver", orphanRemoval = true)
+    @JsonIgnoreProperties("receiver")
+    private Set<UserConnectionRequest> connectionRequestsR= new HashSet<>();
+    @ManyToMany
+    @JoinTable(name="tbl_friends",
+            joinColumns=@JoinColumn(name="personId"),
+            inverseJoinColumns=@JoinColumn(name="friendId")
+    )
+    @JsonIgnore
+    private Set<User> friends = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name="tbl_friends",
+            joinColumns=@JoinColumn(name="friendId"),
+            inverseJoinColumns=@JoinColumn(name="personId")
+    )
+    @JsonIgnore
+    private Set<User> friendOf = new HashSet<>();
 
     public User() {}
 
@@ -114,5 +130,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void addConnectionRequest(UserConnectionRequest userConnectionRequest) {
+        connectionRequests.add(userConnectionRequest);
+    }
+
+    public void addConnectionRequestR(UserConnectionRequest userConnectionRequest) {
+        connectionRequestsR.add(userConnectionRequest);
     }
 }

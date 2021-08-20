@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 public class UserController {
-    private final UserService userService;
 
+    private final UserService userService;
     @Autowired
     public UserController(UserService userService) {
         this.userService= userService;
@@ -28,6 +29,11 @@ public class UserController {
     String login() {
         return "login";
     }
+    @GetMapping("/")
+    String index() {
+        return "index";
+    }
+
 
 
 
@@ -38,37 +44,58 @@ public class UserController {
     }
 */
 
-    @PutMapping("api/v1/userexperience")
+    @PutMapping("api/v1/experience")
     public void updateUserExperience(Authentication authentication, @RequestBody UserExperience userExperience) {
         userService.updateUserExperience(authentication, userExperience);
 
     }
 
-    @GetMapping("api/v1/userexperience")
+    @GetMapping("api/v1/experience")
     public UserExperience readUserExperience(Authentication authentication) {
         return userService.readUserExperience(authentication);
     }
 
-    @PutMapping("api/v1/usereducation")
+    @PutMapping("api/v1/education")
     public void updateUserEducation(Authentication authentication, @RequestBody UserEducation userEducation) {
         userService.updateUserEducation(authentication, userEducation);
 
     }
 
-    @GetMapping("api/v1/usereducation")
+    @GetMapping("api/v1/education")
     public UserEducation readUserEducation(Authentication authentication) {
         return userService.readUserEducation(authentication);
     }
 
-    @PutMapping("api/v1/userskills")
+    @PutMapping("api/v1/skills")
     public void updateUserSkills(Authentication authentication, @RequestBody UserSkills userSkills) {
         userService.updateUserSkills(authentication, userSkills);
 
     }
 
-    @GetMapping("api/v1/userskills")
+    @GetMapping("api/v1/skills")
     public UserSkills readUserSkills(Authentication authentication) {
         return userService.readUserSkills(authentication);
+    }
+
+
+    @PutMapping("api/v1/friendRequest/{receiverid}")
+    public void sendFriendRequest(Authentication authentication, @PathVariable("receiverid") Long receiverId) {
+        userService.sendFriendRequest(authentication, receiverId);
+    }
+
+    @GetMapping("api/v1/friendRequestsSent")
+    public List<UserConnectionRequest> get_requestsSent(Authentication authentication) {
+        return userService.get_requestsSent(authentication);
+    }
+
+    @GetMapping("api/v1/friendRequestsReceived")
+    public List<UserConnectionRequest> get_requestsReceived(Authentication authentication) {
+        return userService.get_requestsReceived(authentication);
+    }
+
+    @PutMapping("api/v1/friendRequestResponse/{senderid}")
+    public void accept_friendRequest(Authentication authentication, @PathVariable("senderid") Long senderId) {
+        userService.accept_friendRequest(authentication, senderId);
     }
 
 
