@@ -5,16 +5,16 @@ import "./Notifications.css";
 import FriendRequests from "./FriendRequests";
 import CommentLike from "./CommentLike";
 
-const Notifications = () => {
+const Notifications = ({ fetchData, sendData }) => {
 	return (
 		<div>
 			<Container>
 				<Row>
-					<FriendRequests />
+					<FriendRequests fetchData={fetchData} sendData={sendData} />
 				</Row>
 				<br />
 				<Row>
-					<CommentLike />
+					<CommentLike fetchData={fetchData} />
 				</Row>
 			</Container>
 		</div>

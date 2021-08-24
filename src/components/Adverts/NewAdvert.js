@@ -2,7 +2,7 @@ import { Container, Row, Form, FormControl, Button } from "react-bootstrap";
 
 import { useState } from "react";
 
-const NewAdvert = ({ navHeight, pageHeight }) => {
+const NewAdvert = ({ navHeight, pageHeight, sendData }) => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [abilities, setAbilities] = useState("");
@@ -14,29 +14,21 @@ const NewAdvert = ({ navHeight, pageHeight }) => {
 
 		const abilitiesArr = abilities.trim().split("\n\n");
 
-		addAdvert({
-			id,
-			name: "Name",
-			title,
-			content: description,
-			abilities: abilitiesArr,
-		});
+		sendData(
+			{
+				id,
+				name: "Name",
+				title,
+				content: description,
+				abilities: abilitiesArr,
+			},
+			"adverts",
+			"POST"
+		);
 
 		setTitle("");
 		setDescription("");
 		setAbilities("");
-	};
-
-	const addAdvert = async (newAdvert) => {
-		const res = await fetch("http://localhost:5000/adverts", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(newAdvert),
-		});
-
-		await res.json();
 	};
 
 	return (

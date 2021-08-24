@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 import "./Profile.css";
 
-const Profile = ({ isMyProfile, isFriendsProfile }) => {
+const Profile = ({ isMyProfile, isFriendsProfile, fetchData, sendData }) => {
 	const [name, setName] = useState("");
 	const [surname, setSurname] = useState("");
 	const [email, setEmail] = useState("");
@@ -60,15 +60,7 @@ const Profile = ({ isMyProfile, isFriendsProfile }) => {
 		// getPhone();
 		// getJob();
 		// getEmploymentInstitution();
-	}, []);
-
-	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:8081/${topic}`);
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	const addFriend = () => {};
 

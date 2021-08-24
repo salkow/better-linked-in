@@ -2,28 +2,17 @@ import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const FriendRequests = () => {
+const FriendRequests = ({ fetchData, sendData }) => {
 	const [friendRequests, setFriendRequests] = useState([]);
 
 	useEffect(() => {
 		const getFriendRequests = async () => {
-			const friendRequestsFromServer = await fetchFriendRequests();
+			const friendRequestsFromServer = await fetchData("friend_requests");
 			setFriendRequests(friendRequestsFromServer);
 		};
 
 		getFriendRequests();
-	}, []);
-
-	const fetchFriendRequests = async () => {
-		const res = await fetch("http://localhost:5000/friend_requests");
-		// const res = await fetch(
-		// 	"http://localhost:8081/api/vi/friendRequestsSent"
-		// );
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	const handleRequest = async (id, decision) => {
 		console.log(id);
@@ -31,17 +20,7 @@ const FriendRequests = () => {
 
 		// He needs to delete the request from his database.
 
-		const url = "http://localhost:8081/friendRequestResponse" + id;
-
-		const res = await fetch(url, {
-			method: "PUT",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify({ isAccepted: decision }),
-		});
-
-		await res.json();
+		sendData({ isAccepted: decision }, "friendRequestResponse" + id, "PUT");
 
 		// Remove friend request from visible requests.
 		setFriendRequests(

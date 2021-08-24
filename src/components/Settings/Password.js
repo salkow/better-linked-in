@@ -8,13 +8,14 @@ import {
 
 import { useState } from "react";
 
-const Password = ({ addPassword }) => {
+const Password = ({ sendData }) => {
 	const [password, setPassword] = useState("");
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		addPassword({ content: password });
+		sendData({ content: password }, "password", "POST");
+		setPassword("");
 	};
 
 	return (
@@ -29,11 +30,11 @@ const Password = ({ addPassword }) => {
 						<FormControl
 							placeholder="Password"
 							aria-label="password"
-							aria-describedby="basic-addon2"
 							onChange={(e) => setPassword(e.target.value)}
 							type="password"
 							required
 							htmlSize="31"
+							value={password}
 						/>
 					</FloatingLabel>
 					<Button

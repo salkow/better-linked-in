@@ -1,11 +1,10 @@
 import { Tabs, Tab } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 import TextArea from "./TextArea";
 import Profile from "./Profile";
 
-const Personal = ({ navHeight, pageHeight }) => {
+const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [experience, setExperience] = useState("");
 	const [visibleExperience, setVisibleExperience] = useState(false);
 
@@ -50,55 +49,17 @@ const Personal = ({ navHeight, pageHeight }) => {
 		// getExperinece();
 		// getEducation();
 		// getSkills();
-	}, []);
-
-	const fetchData = async (topic) => {
-		// const res = await fetch(`http://localhost:8081/api/v1/${topic}`, {
-		// 	method: "GET",
-		// 	headers: {
-		// 		Accept: "application/json",
-		// 	},
-		// });
-
-		const res = await fetch(`http://localhost:8081/api/v1/${topic}`);
-
-		console.log(res);
-
-		// const data = await res.json();
-
-		// console.log(data);
-
-		// return data;
-
-		// axios.get(`http://localhost:8081/api/v1/${topic}`).then((response) => {
-		// 	console.log(response);
-		// });
-	};
+	}, [fetchData]);
 
 	const addExperience = async (newExperience) => {
-		const res = await fetch("http://localhost:8081/api/v1/experience", {
-			method: "PUT",
-			headers: {
-				"Content-type": "application/json",
-			},
-		});
-
-		const data = await res.json();
+		const data = sendData(newExperience, "experience", "PUT");
 
 		setExperience(experience, data.content);
 		setVisibleExperience(visibleExperience, data.visible);
 	};
 
 	const addEducation = async (newEducation) => {
-		const res = await fetch("http://localhost:8081/api/v1/education", {
-			method: "PUT",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(newEducation),
-		});
-
-		const data = await res.json();
+		const data = sendData(newEducation, "education", "PUT");
 
 		setEducation(education, data.content);
 		setVisibleEducation(visibleSkills, data.visible);
@@ -110,15 +71,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 			visible: newSkills.visible,
 		};
 
-		const res = await fetch("http://localhost:8081/api/v1/skills", {
-			method: "PUT",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(newSkillsArr),
-		});
-
-		const data = await res.json();
+		const data = sendData(newSkillsArr, "skills", "PUT");
 
 		setSkills(skills, data.content);
 		setVisibleSkills(visibleEducation, data.visible);
@@ -130,6 +83,8 @@ const Personal = ({ navHeight, pageHeight }) => {
 				<Profile
 					isMyProfile={isMyProfile}
 					isFriendsProfile={isFriendsProfile}
+					fetchData={fetchData}
+					sendData={sendData}
 				/>
 			</Tab>
 			<Tab eventKey="b" title="Προσωπική εμπειρία">

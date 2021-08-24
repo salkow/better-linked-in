@@ -16,10 +16,10 @@
     "visible": false
   },
   "email": {
-    "content": "test@mail.commmaa"
+    "content": "test@email.gr"
   },
   "password": {
-    "content": "newpassword"
+    "content": "123456"
   },
   "sign_in": {
     "email": "aditi_leonora@mail.com",
@@ -271,6 +271,26 @@
     {
       "content": "This is fine.",
       "id": 4563,
+      "from_sender": true
+    },
+    {
+      "content": "This is a text",
+      "id": 7563,
+      "from_sender": true
+    },
+    {
+      "content": "asdfasd",
+      "id": 5188,
+      "from_sender": true
+    },
+    {
+      "content": "abc",
+      "id": 6537,
+      "from_sender": true
+    },
+    {
+      "content": "asdahaf ah adhfa adfs hadfhad",
+      "id": 8718,
       "from_sender": true
     }
   ],

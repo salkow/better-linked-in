@@ -8,7 +8,7 @@ import {
 	Form,
 } from "react-bootstrap";
 
-const NewPost = ({ setPosts }) => {
+const NewPost = ({ setPosts, sendData }) => {
 	const [selectedFile, setSelectedFile] = useState();
 	const [isFileSelected, setIsFileSelected] = useState(false);
 	const [message, setMessage] = useState("");
@@ -31,36 +31,26 @@ const NewPost = ({ setPosts }) => {
 			return;
 		}
 
-		let typeOfMedia = "";
+		if (isFileSelected) {
+			let typeOfMedia = "";
 
-		if (selectedFile.type.match("image.*")) {
-			typeOfMedia = "image";
-		} else if (selectedFile.type.match("video.*")) {
-			typeOfMedia = "video";
-		} else if (selectedFile.type.match("audio.*")) {
-			typeOfMedia = "audio";
-		} else {
-			handleModalShow(
-				"Το αρχείο θα πρέπει να είνα εικόνα, βίντεο ή ήχος."
-			);
-			return;
+			if (selectedFile.type.match("image.*")) {
+				typeOfMedia = "image";
+			} else if (selectedFile.type.match("video.*")) {
+				typeOfMedia = "video";
+			} else if (selectedFile.type.match("audio.*")) {
+				typeOfMedia = "audio";
+			} else {
+				handleModalShow(
+					"Το αρχείο θα πρέπει να είνα εικόνα, βίντεο ή ήχος."
+				);
+				return;
+			}
 		}
 
 		// Add post to the other posts.
 
 		// sendData({})
-	};
-
-	const sendData = async (data) => {
-		const res = await fetch("http://localhost:8081/api/v1/", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
-
-		await res.json();
 	};
 
 	const changeHandler = (e) => {

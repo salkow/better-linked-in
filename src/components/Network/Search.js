@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Search = () => {
+const Search = ({ sendData }) => {
 	const [input, setInput] = useState("");
 	const [results, setResults] = useState([]);
 	const [showResults, setShowResults] = useState(false);
@@ -17,30 +17,12 @@ const Search = () => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		fetch("http://localhost:5000/searchResults")
-			.then((res) => res.json())
-			.then((data) => setResults(data));
+		const data = sendData(input, "searchResults");
+
+		setResults(data);
 
 		setShowResults(true);
 	};
-
-	// Uncomment the below code when the backend works.
-
-	// const searchPerson = () => {
-	// const res = await fetch("http://localhost:5000/searchResults", {
-	// 	method: "POST",
-	// 	headers: {
-	// 		"Content-type": "application/json",
-	// 	},
-	// 	body: JSON.stringify(input),
-	// });
-	// const data = await res.json();
-	// setResults(data);
-
-	// const res = await fetch("http://localhost:5000/messages");
-	// const data = await res.json();
-	// setResults(data);
-	// };
 
 	return (
 		<div>

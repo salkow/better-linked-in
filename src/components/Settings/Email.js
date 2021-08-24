@@ -8,7 +8,7 @@ import {
 
 import { useState, useEffect } from "react";
 
-const Email = ({ emailFromServer, addEmail }) => {
+const Email = ({ emailFromServer, sendData }) => {
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ const Email = ({ emailFromServer, addEmail }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		addEmail({ content: email });
+		sendData({ content: email }, "email", "POST");
 	};
 
 	return (

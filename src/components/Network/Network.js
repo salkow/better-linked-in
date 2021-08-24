@@ -5,11 +5,11 @@ import "./Network.css";
 import People from "./People";
 import Search from "./Search";
 
-const Network = () => {
+const Network = ({ fetchData, sendData }) => {
 	return (
 		<Container>
-			<Search />
-			<People />
+			<Search sendData={sendData} />
+			<People fetchData={fetchData} />
 		</Container>
 	);
 };

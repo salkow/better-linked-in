@@ -8,20 +8,20 @@ import NewMessage from "./NewMessage";
 
 import "./Discussions.css";
 
-const Discussions = ({ navHeight, pageHeight }) => {
+const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [messages, setMessages] = useState([]);
 	const [contacts, setContacts] = useState([]);
 	const [senderName, setSenderName] = useState("");
 	const [recipientName, setRecipientName] = useState("");
 	const [recipientId, setRecipientId] = useState("");
 
-	const getMessages = async () => {
-		// fetch messages/id from the recipientId
-		const messagesFromServer = await fetchData("messages");
-		setMessages(messagesFromServer);
-	};
-
 	useEffect(() => {
+		const getMessages = async () => {
+			// fetch messages/id from the recipientId
+			const messagesFromServer = await fetchData("messages");
+			setMessages(messagesFromServer);
+		};
+
 		const getContacts = async () => {
 			const contactsFromServer = await fetchData("contacts");
 			setContacts(contactsFromServer);
@@ -55,34 +55,21 @@ const Discussions = ({ navHeight, pageHeight }) => {
 		getContacts();
 		getSenderName();
 		getRecipientName();
-	}, [getMessages]);
-
-	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:5000/${topic}`);
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	const addNewMessage = async (message) => {
-		const res = await fetch("http://localhost:5000/messages", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(message),
-		});
-		const data = await res.json();
-		setMessages([...messages, data]);
+		sendData(message, "messages", "POST");
+
+		setMessages([...messages, message]);
 	};
 
 	// Focus the messages of a specific contact.
-	const focusContact = (id, name) => {
+	const focusContact = async (id, name) => {
 		setRecipientName(name);
 		setRecipientId(id);
 
-		getMessages();
+		const messagesFromServer = await fetchData("messages");
+		setMessages(messagesFromServer);
 	};
 
 	return (
