@@ -7,6 +7,7 @@ import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
 import SignUpIn from "./components/SignUpIn/SignUpIn";
+import Admin from "./components/Admin/Admin";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -61,7 +62,10 @@ function App() {
 								pageHeight={pageHeight}
 							/>
 						</Route>
+
 						<Route path="/settings" component={Settings} />
+
+						<Route path="/admin" component={Admin} />
 
 						<SignUpIn />
 					</Switch>

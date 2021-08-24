@@ -16,29 +16,32 @@ const FriendRequests = () => {
 
 	const fetchFriendRequests = async () => {
 		const res = await fetch("http://localhost:5000/friend_requests");
+		// const res = await fetch(
+		// 	"http://localhost:8081/api/vi/friendRequestsSent"
+		// );
 
 		const data = await res.json();
 
 		return data;
 	};
 
-	const handleRequest = (id, decision) => {
+	const handleRequest = async (id, decision) => {
 		console.log(id);
 		console.log(decision);
 
 		// He needs to delete the request from his database.
 
-		// const message = { id, decision };
+		const url = "http://localhost:8081/friendRequestResponse" + id;
 
-		// const res = await fetch("http://localhost:5000/request", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(message),
-		// });
+		const res = await fetch(url, {
+			method: "PUT",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify({ isAccepted: decision }),
+		});
 
-		// await res.json();
+		await res.json();
 
 		// Remove friend request from visible requests.
 		setFriendRequests(

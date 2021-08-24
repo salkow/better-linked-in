@@ -31,7 +31,7 @@ const NewPost = ({ setPosts }) => {
 			return;
 		}
 
-		const typeOfMedia = "";
+		let typeOfMedia = "";
 
 		if (selectedFile.type.match("image.*")) {
 			typeOfMedia = "image";

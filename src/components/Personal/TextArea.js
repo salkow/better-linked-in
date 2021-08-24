@@ -11,6 +11,7 @@ const TextArea = ({
 	navHeight,
 	pageHeight,
 	placeholderText,
+	isMyProfile,
 }) => {
 	const [text, setText] = useState("");
 	const [visible, setVisible] = useState(false);
@@ -30,28 +31,42 @@ const TextArea = ({
 		<Container>
 			<Row>
 				<Form onSubmit={onSubmit}>
-					<FormControl
-						as="textarea"
-						className="textArea"
-						value={text}
-						onChange={(e) => setText(e.target.value)}
-						required
-						placeholder={placeholderText}
-						style={{
-							height: `${pageHeight - navHeight - 180}px`,
-						}}
-					/>
+					{isMyProfile ? (
+						<div>
+							<FormControl
+								as="textarea"
+								className="textArea"
+								value={text}
+								onChange={(e) => setText(e.target.value)}
+								required
+								placeholder={placeholderText}
+								style={{
+									height: `${pageHeight - navHeight - 180}px`,
+								}}
+							/>
 
-					<Form.Check
-						type="switch"
-						label="Εμφάνιση σε όλους."
-						onChange={(e) => setVisible(e.target.checked)}
-						checked={visible}
-					/>
+							<Form.Check
+								type="switch"
+								label="Εμφάνιση σε όλους."
+								onChange={(e) => setVisible(e.target.checked)}
+								checked={visible}
+							/>
 
-					<Button type="submit" variable="primary" size="lg">
-						Submit
-					</Button>
+							<Button type="submit" variable="primary" size="lg">
+								Submit
+							</Button>
+						</div>
+					) : (
+						<FormControl
+							as="textarea"
+							className="textArea"
+							value={text}
+							style={{
+								height: `${pageHeight - navHeight - 180}px`,
+							}}
+							readOnly
+						/>
+					)}
 				</Form>
 			</Row>
 		</Container>

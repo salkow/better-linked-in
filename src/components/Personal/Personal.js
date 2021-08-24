@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import TextArea from "./TextArea";
+import Profile from "./Profile";
 
 const Personal = ({ navHeight, pageHeight }) => {
 	const [experience, setExperience] = useState("");
@@ -14,15 +15,18 @@ const Personal = ({ navHeight, pageHeight }) => {
 	const [skills, setSkills] = useState("");
 	const [visibleSkills, setVisibleSkills] = useState(false);
 
+	const [isMyProfile, setIsMyProfile] = useState(false);
+	const [isFriendsProfile, setIsFriendsProfile] = useState(true);
+
 	useEffect(() => {
 		const getExperinece = async () => {
-			const experienceFromServer = await fetchData("userexperience");
+			const experienceFromServer = await fetchData("experience");
 			// setExperience(experienceFromServer.text);
 			// setVisibleExperience(experienceFromServer.displayable);
 		};
 
 		const getEducation = async () => {
-			const educationFromServer = await fetchData("usereducation");
+			const educationFromServer = await fetchData("education");
 			setEducation(educationFromServer.text);
 			setVisibleEducation(educationFromServer.displayable);
 		};
@@ -33,7 +37,17 @@ const Personal = ({ navHeight, pageHeight }) => {
 			setVisibleSkills(skillsFromServer.visible);
 		};
 
-		getExperinece();
+		const authResult = new URLSearchParams(window.location.search);
+		const id = authResult.get("id");
+
+		// Get mine or the person's id profile and experience (and etc...)
+		if (id == null) {
+			setIsMyProfile(true);
+		} else {
+			// Do get request to check if this id is mine, some friend or non friend.
+		}
+
+		// getExperinece();
 		// getEducation();
 		// getSkills();
 	}, []);
@@ -62,8 +76,8 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addExperience = async (newExperience) => {
-		const res = await fetch("http://localhost:8081/api/v1/userexperience", {
-			method: "POST",
+		const res = await fetch("http://localhost:8081/api/v1/experience", {
+			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
 			},
@@ -76,8 +90,8 @@ const Personal = ({ navHeight, pageHeight }) => {
 	};
 
 	const addEducation = async (newEducation) => {
-		const res = await fetch("http://localhost:8081/api/v1/usereducation", {
-			method: "POST",
+		const res = await fetch("http://localhost:8081/api/v1/education", {
+			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
 			},
@@ -96,8 +110,8 @@ const Personal = ({ navHeight, pageHeight }) => {
 			visible: newSkills.visible,
 		};
 
-		const res = await fetch("http://localhost:5000/skills", {
-			method: "POST",
+		const res = await fetch("http://localhost:8081/api/v1/skills", {
+			method: "PUT",
 			headers: {
 				"Content-type": "application/json",
 			},
@@ -112,7 +126,13 @@ const Personal = ({ navHeight, pageHeight }) => {
 
 	return (
 		<Tabs defaultActiveKey="a" className="mb-3">
-			<Tab eventKey="a" title="Προσωπική εμπειρία">
+			<Tab eventKey="a" title="Προφίλ">
+				<Profile
+					isMyProfile={isMyProfile}
+					isFriendsProfile={isFriendsProfile}
+				/>
+			</Tab>
+			<Tab eventKey="b" title="Προσωπική εμπειρία">
 				<TextArea
 					textFromServer={experience}
 					visibleFromServer={visibleExperience}
@@ -120,9 +140,10 @@ const Personal = ({ navHeight, pageHeight }) => {
 					navHeight={navHeight}
 					pageHeight={pageHeight}
 					placeholderText="Γράψε εδώ..."
+					isMyProfile={isMyProfile}
 				/>
 			</Tab>
-			<Tab eventKey="b" title="Εκπαίδευση">
+			<Tab eventKey="c" title="Εκπαίδευση">
 				<TextArea
 					textFromServer={education}
 					visibleFromServer={visibleEducation}
@@ -130,9 +151,10 @@ const Personal = ({ navHeight, pageHeight }) => {
 					navHeight={navHeight}
 					pageHeight={pageHeight}
 					placeholderText="Γράψε εδώ..."
+					isMyProfile={isMyProfile}
 				/>
 			</Tab>
-			<Tab eventKey="c" title="Δεξιότητες">
+			<Tab eventKey="d" title="Δεξιότητες">
 				<TextArea
 					textFromServer={skills}
 					visibleFromServer={visibleSkills}
@@ -140,6 +162,7 @@ const Personal = ({ navHeight, pageHeight }) => {
 					navHeight={navHeight}
 					pageHeight={pageHeight}
 					placeholderText="Γράψε εδώ... (Άφησε μια κενή γραμμή ανά δεξιότητα)"
+					isMyProfile={isMyProfile}
 				/>
 			</Tab>
 		</Tabs>

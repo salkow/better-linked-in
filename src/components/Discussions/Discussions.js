@@ -13,13 +13,15 @@ const Discussions = ({ navHeight, pageHeight }) => {
 	const [contacts, setContacts] = useState([]);
 	const [senderName, setSenderName] = useState("");
 	const [recipientName, setRecipientName] = useState("");
+	const [recipientId, setRecipientId] = useState("");
+
+	const getMessages = async () => {
+		// fetch messages/id from the recipientId
+		const messagesFromServer = await fetchData("messages");
+		setMessages(messagesFromServer);
+	};
 
 	useEffect(() => {
-		const getMessages = async () => {
-			const messagesFromServer = await fetchData("messages");
-			setMessages(messagesFromServer);
-		};
-
 		const getContacts = async () => {
 			const contactsFromServer = await fetchData("contacts");
 			setContacts(contactsFromServer);
@@ -36,14 +38,24 @@ const Discussions = ({ navHeight, pageHeight }) => {
 
 		const getRecipientName = async () => {
 			const recipientNameFromServer = await fetchData("recipient_name");
+
 			setRecipientName(recipientNameFromServer.content);
 		};
+
+		// Check if the user wants to chat with someone in particular or just wants to open
+		// the discussions page.
+		const authResult = new URLSearchParams(window.location.search);
+		const id = authResult.get("id");
+
+		if (id != null) {
+			setRecipientId(id);
+		}
 
 		getMessages();
 		getContacts();
 		getSenderName();
 		getRecipientName();
-	}, []);
+	}, [getMessages]);
 
 	const fetchData = async (topic) => {
 		const res = await fetch(`http://localhost:5000/${topic}`);
@@ -67,13 +79,10 @@ const Discussions = ({ navHeight, pageHeight }) => {
 
 	// Focus the messages of a specific contact.
 	const focusContact = (id, name) => {
-		console.log(id);
-		console.log(name);
-		console.log(navHeight);
-		console.log(pageHeight);
-		// Fetch messages with the id.
-		// Set the id.
-		// setMessages([...messages, data]);
+		setRecipientName(name);
+		setRecipientId(id);
+
+		getMessages();
 	};
 
 	return (
