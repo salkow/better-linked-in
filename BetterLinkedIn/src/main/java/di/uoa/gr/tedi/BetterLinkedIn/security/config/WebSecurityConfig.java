@@ -1,35 +1,25 @@
 package di.uoa.gr.tedi.BetterLinkedIn.security.config;
 
-import di.uoa.gr.tedi.BetterLinkedIn.security.CustomAuthenticationFailureHandler;
-import di.uoa.gr.tedi.BetterLinkedIn.security.CustomAuthenticationSuccessHandler;
-import di.uoa.gr.tedi.BetterLinkedIn.security.PasswordEncoder;
+import di.uoa.gr.tedi.BetterLinkedIn.filters.CustomAuthenticationFilter;
+import di.uoa.gr.tedi.BetterLinkedIn.filters.CustomAuthorizationFilter;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-
-import static java.util.Collections.singletonList;
-
 
 
 @Configuration
@@ -43,10 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        authenticationFilter.setFilterProcessesUrl("/perform_login");
+        http.addFilter(authenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
         http
                 .cors().and()
-                .csrf().disable()
-                .authorizeRequests()
+                .csrf().disable();
+                http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                http.authorizeRequests()
                     .antMatchers("/api/v*/registration/**", "/perform_login")
                     .permitAll()
                     .anyRequest()
@@ -55,10 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("http://localhost:3000/sign-in")
                     .loginProcessingUrl("/perform_login")
-                    .failureHandler(authenticationFailureHandler())
-                    .defaultSuccessUrl("/perform_login")
-                    //.successHandler(authenticationSuccessHandler())
-                .permitAll();
+                    .permitAll();
+
+
+
 
     }
 
@@ -73,16 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         };
     }
 
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler();
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new CustomAuthenticationSuccessHandler();
-    }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -95,6 +80,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         provider.setUserDetailsService(userService);
         return provider;
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 }
