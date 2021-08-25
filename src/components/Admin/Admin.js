@@ -1,5 +1,6 @@
 import {
 	ListGroup,
+	Modal,
 	Container,
 	Row,
 	Col,
@@ -8,7 +9,6 @@ import {
 	Form,
 	Button,
 	useAccordionButton,
-	Modal
 } from "react-bootstrap";
 
 import { useState, useEffect } from "react";

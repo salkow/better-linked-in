@@ -18,8 +18,11 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [isFriendsProfile, setIsFriendsProfile] = useState(true);
 
 	useEffect(() => {
-		const getExperinece = async () => {
+		const getExperience = async () => {
 			const experienceFromServer = await fetchData("experience");
+
+			console.log(experienceFromServer);
+
 			setExperience(experienceFromServer.text);
 			setVisibleExperience(experienceFromServer.displayable);
 		};
@@ -46,9 +49,9 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			// Do get request to check if this id is mine, some friend or non friend.
 		}
 
-		getExperinece();
-		getEducation();
-		getSkills();
+		getExperience();
+		// getEducation();
+		// getSkills();
 	}, [fetchData]);
 
 	const addExperience = async (newExperience) => {

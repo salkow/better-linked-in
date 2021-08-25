@@ -22,11 +22,13 @@ function App() {
 	const [accessToken, setAccessToken] = useState("");
 
 	const fetchData = async (path) => {
-		console.log(accessToken);
+		console.log("access_token: " + accessToken);
+
 		const res = await fetch(`http://localhost:8081/api/v1/${path}`, {
 			method: "GET",
 			headers: new Headers({
 				Authorization: "Bearer " + accessToken,
+				credentials: "include",
 			}),
 		});
 
@@ -41,6 +43,7 @@ function App() {
 			headers: {
 				Authorization: "Bearer " + accessToken,
 				"Content-type": "application/json",
+				credentials: "include",
 			},
 			body: JSON.stringify(data),
 		});

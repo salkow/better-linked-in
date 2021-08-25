@@ -28,7 +28,7 @@ const SignIn = ({ setAccessToken }) => {
 
 			setAccessToken(response.data.access_token);
 
-			history.push("/");
+			history.push("/personal");
 		});
 	};
 

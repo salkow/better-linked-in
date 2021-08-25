@@ -53,19 +53,14 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "receiver", orphanRemoval = true)
     @JsonIgnoreProperties("receiver")
     private Set<UserConnectionRequest> connectionRequestsR= new HashSet<>();
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name="tbl_friends",
             joinColumns=@JoinColumn(name="personId"),
             inverseJoinColumns=@JoinColumn(name="friendId")
     )
     @JsonIgnore
     private Set<User> friends = new HashSet<>();
-    @ManyToMany
-    @JoinTable(name="tbl_friends",
-            joinColumns=@JoinColumn(name="friendId"),
-            inverseJoinColumns=@JoinColumn(name="personId")
-    )
-    @JsonIgnore
+    @ManyToMany(mappedBy = "friends")
     private Set<User> friendOf = new HashSet<>();
 
     public User() {}

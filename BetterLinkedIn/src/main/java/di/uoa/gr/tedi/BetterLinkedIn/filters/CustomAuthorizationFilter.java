@@ -36,7 +36,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         } else {
 
             String authorizationHeader = httpServletRequest.getHeader(AUTHORIZATION);
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer")) {
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
                     Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
@@ -55,10 +55,10 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     httpServletResponse.setHeader("error", exception.getMessage());
                     httpServletResponse.setStatus(FORBIDDEN.value());
                     //httpServletResponse.sendError(FORBIDDEN.value());
-                    Map<String, String> error= new HashMap<>();
-                    error.put("error_message", exception.getMessage());
-                    httpServletResponse.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
-                    new ObjectMapper().writeValue(httpServletResponse.getOutputStream(), httpServletResponse);
+                    //Map<String, String> error= new HashMap<>();
+                    //error.put("error_message", exception.getMessage());
+                    //httpServletResponse.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
+                    //new ObjectMapper().writeValue(httpServletResponse.getOutputStream(), httpServletResponse);
                 }
             }
             else {
