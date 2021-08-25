@@ -6,12 +6,18 @@ import Discussions from "./components/Discussions/Discussions";
 import Notifications from "./components/Notifications/Notifications";
 import Personal from "./components/Personal/Personal";
 import Settings from "./components/Settings/Settings";
-import SignUpIn from "./components/SignUpIn/SignUpIn";
 import Admin from "./components/Admin/Admin";
+import SignIn from "./components/SignUpIn/SignIn";
+import SignUp from "./components/SignUpIn/SignUp";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	useHistory,
+} from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 
 import React, { useState, useEffect } from "react";
@@ -20,6 +26,10 @@ function App() {
 	const [navHeight, setNavHeight] = useState(0);
 	const [pageHeight, setPageHeight] = useState(window.innerHeight);
 	const [accessToken, setAccessToken] = useState("");
+
+	const history = useHistory();
+
+	console.log("history: " + history);
 
 	const fetchData = async (path) => {
 		console.log("access_token: " + accessToken);
@@ -31,6 +41,14 @@ function App() {
 				credentials: "include",
 			}),
 		});
+
+		const x = 3;
+
+		if (x === 3) {
+			history.push("/perform_login");
+		}
+		// if (res.hasOwnProperty("status") && res.status === 401) {
+		// }
 
 		const data = await res.json();
 
@@ -61,72 +79,80 @@ function App() {
 		return () => window.removeEventListener("resize", updateDimensions);
 	}, []);
 	return (
-		<Router>
-			<Nav setNavHeight={setNavHeight} />
-			<Container fluid>
-				<Row>
-					<Switch>
-						<Route path="/" exact>
-							<MainPage
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
+		<div>
+			<Router>
+				<Switch>
+					<Route path="/" exact>
+						<SignIn setAccessToken={setAccessToken} />
+					</Route>
 
-						<Route path="/network">
-							<Network
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
-						<Route path="/adverts">
-							<Adverts
-								navHeight={navHeight}
-								pageHeight={pageHeight}
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
-						<Route path="/discussions">
-							<Discussions
-								navHeight={navHeight}
-								pageHeight={pageHeight}
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
-						<Route path="/notifications">
-							<Notifications
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
-						<Route path="/personal">
-							<Personal
-								navHeight={navHeight}
-								pageHeight={pageHeight}
-								accessToken={accessToken}
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
+					<Route path="/sign-up" component={SignUp} />
 
-						<Route path="/settings">
-							<Settings
-								fetchData={fetchData}
-								sendData={sendData}
-							/>
-						</Route>
+					<Route path="/admin">
+						<Admin fetchData={fetchData} />
+					</Route>
 
-						<Route path="/admin">
-							<Admin fetchData={fetchData} />
-						</Route>
+					<div>
+						<Nav setNavHeight={setNavHeight} />
+						<Container fluid>
+							<Row>
+								<Route path="/home" exact>
+									<MainPage
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
 
-						<SignUpIn setAccessToken={setAccessToken} />
-					</Switch>
-				</Row>
-			</Container>
-		</Router>
+								<Route path="/network">
+									<Network
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
+								<Route path="/adverts">
+									<Adverts
+										navHeight={navHeight}
+										pageHeight={pageHeight}
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
+								<Route path="/discussions">
+									<Discussions
+										navHeight={navHeight}
+										pageHeight={pageHeight}
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
+								<Route path="/notifications">
+									<Notifications
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
+								<Route path="/personal">
+									<Personal
+										navHeight={navHeight}
+										pageHeight={pageHeight}
+										accessToken={accessToken}
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
+
+								<Route path="/settings">
+									<Settings
+										fetchData={fetchData}
+										sendData={sendData}
+									/>
+								</Route>
+							</Row>
+						</Container>
+					</div>
+				</Switch>
+			</Router>
+		</div>
 	);
 }
 

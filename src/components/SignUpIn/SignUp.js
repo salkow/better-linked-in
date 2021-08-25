@@ -10,6 +10,8 @@ import {
 
 import { useState } from "react";
 
+import "./SignUpIn.css";
+
 const SignUp = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -65,6 +67,14 @@ const SignUp = () => {
 
 	return (
 		<Container>
+			<div className="top">
+				<h1 id="title" className="hidden">
+					<span id="logo">
+						Better <span>Linked In</span>
+					</span>
+				</h1>
+			</div>
+
 			<Form onSubmit={onSubmit}>
 				<div className="input-text">
 					<Row>

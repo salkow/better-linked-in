@@ -50,7 +50,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		}
 
 		getExperience();
-		// getEducation();
+		getEducation();
 		// getSkills();
 	}, [fetchData]);
 
