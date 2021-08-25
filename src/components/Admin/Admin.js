@@ -62,206 +62,214 @@ const Admin = ({ fetchData }) => {
 		<Container fluid>
 			<Row>
 				<Col xs="6" className="middle">
-					<Accordion>
-						{people.map((person, index) => (
-							<Card key={index}>
-								<Card.Header>
-									<Container>
-										<Row>
-											<Form.Check
-												type="checkbox"
-												label="Επιλογή"
-												onChange={(e) =>
-													setExportStatus(
-														e.target.checked,
-														person.id
-													)
-												}
-											/>
-											<CustomToggle eventKey={person.id}>
-												{person.name}
-											</CustomToggle>
-										</Row>
-									</Container>
-								</Card.Header>
-								<Accordion.Collapse eventKey={person.id}>
-									<Card.Body>
-										<Container fluid>
-											<Form className="user-data">
-												<ListGroup variant="flush">
-													<ListGroup.Item>
-														<Card
-															style={{
-																width: "18rem",
-															}}
-														>
-															<Card.Img
-																variant="top"
-																src={
-																	person.picture
-																}
-															/>
-														</Card>
-													</ListGroup.Item>
-
-													<ListGroup.Item>
-														<Form.Group
-															as={Row}
-															className="mb-3"
-														>
-															<Form.Label
-																column
-																sm="2"
+					{people.length === 0 ? (
+						<h2>Δεν υπάρχουν χρήστες</h2>
+					) : (
+						<Accordion>
+							{people.map((person, index) => (
+								<Card key={index}>
+									<Card.Header>
+										<Container>
+											<Row>
+												<Form.Check
+													type="checkbox"
+													label="Επιλογή"
+													onChange={(e) =>
+														setExportStatus(
+															e.target.checked,
+															person.id
+														)
+													}
+												/>
+												<CustomToggle
+													eventKey={person.id}
+												>
+													{person.name}
+												</CustomToggle>
+											</Row>
+										</Container>
+									</Card.Header>
+									<Accordion.Collapse eventKey={person.id}>
+										<Card.Body>
+											<Container fluid>
+												<Form className="user-data">
+													<ListGroup variant="flush">
+														<ListGroup.Item>
+															<Card
+																style={{
+																	width: "18rem",
+																}}
 															>
-																Όνομα
-															</Form.Label>
-
-															<Col sm="10">
-																<Form.Label
-																	column
-																	sm="2"
-																>
-																	{
-																		person.name
+																<Card.Img
+																	variant="top"
+																	src={
+																		person.picture
 																	}
-																</Form.Label>
-															</Col>
-														</Form.Group>
-													</ListGroup.Item>
+																/>
+															</Card>
+														</ListGroup.Item>
 
-													<ListGroup.Item>
-														<Form.Group
-															as={Row}
-															className="mb-3"
-														>
-															<Form.Label
-																column
-																sm="2"
+														<ListGroup.Item>
+															<Form.Group
+																as={Row}
+																className="mb-3"
 															>
-																Επίθετο
-															</Form.Label>
-
-															<Col sm="10">
 																<Form.Label
 																	column
 																	sm="2"
 																>
-																	{/* {
+																	Όνομα
+																</Form.Label>
+
+																<Col sm="10">
+																	<Form.Label
+																		column
+																		sm="2"
+																	>
+																		{
+																			person.name
+																		}
+																	</Form.Label>
+																</Col>
+															</Form.Group>
+														</ListGroup.Item>
+
+														<ListGroup.Item>
+															<Form.Group
+																as={Row}
+																className="mb-3"
+															>
+																<Form.Label
+																	column
+																	sm="2"
+																>
+																	Επίθετο
+																</Form.Label>
+
+																<Col sm="10">
+																	<Form.Label
+																		column
+																		sm="2"
+																	>
+																		{/* {
 																		person.surname
 																	} */}
-																	Surname
-																</Form.Label>
-															</Col>
-														</Form.Group>
-													</ListGroup.Item>
+																		Surname
+																	</Form.Label>
+																</Col>
+															</Form.Group>
+														</ListGroup.Item>
 
-													<ListGroup.Item>
-														<Form.Group
-															as={Row}
-															className="mb-3"
-														>
-															<Form.Label
-																column
-																sm="2"
+														<ListGroup.Item>
+															<Form.Group
+																as={Row}
+																className="mb-3"
 															>
-																Email
-															</Form.Label>
-
-															<Col sm="10">
 																<Form.Label
 																	column
 																	sm="2"
 																>
-																	{/* {
+																	Email
+																</Form.Label>
+
+																<Col sm="10">
+																	<Form.Label
+																		column
+																		sm="2"
+																	>
+																		{/* {
 																		person.email
 																	} */}
-																	person.email.com
-																</Form.Label>
-															</Col>
-														</Form.Group>
-													</ListGroup.Item>
+																		person.email.com
+																	</Form.Label>
+																</Col>
+															</Form.Group>
+														</ListGroup.Item>
 
-													<ListGroup.Item>
-														<Form.Group
-															as={Row}
-															className="mb-3"
-														>
-															<Form.Label
-																column
-																sm="2"
+														<ListGroup.Item>
+															<Form.Group
+																as={Row}
+																className="mb-3"
 															>
-																Τηλέφωνο
-															</Form.Label>
-
-															<Col sm="10">
 																<Form.Label
 																	column
 																	sm="2"
 																>
-																	{/* person.email */}
-																	6912345678
+																	Τηλέφωνο
 																</Form.Label>
-															</Col>
-														</Form.Group>
-													</ListGroup.Item>
 
-													<ListGroup.Item>
-														<Form.Group
-															as={Row}
-															className="mb-3"
-														>
-															<Form.Label
-																column
-																sm="2"
+																<Col sm="10">
+																	<Form.Label
+																		column
+																		sm="2"
+																	>
+																		{/* person.email */}
+																		6912345678
+																	</Form.Label>
+																</Col>
+															</Form.Group>
+														</ListGroup.Item>
+
+														<ListGroup.Item>
+															<Form.Group
+																as={Row}
+																className="mb-3"
 															>
-																Εππαγελματική
-																θέση
-															</Form.Label>
-
-															<Col sm="10">
 																<Form.Label
 																	column
 																	sm="2"
 																>
-																	{person.job}
+																	Εππαγελματική
+																	θέση
 																</Form.Label>
-															</Col>
-														</Form.Group>
-													</ListGroup.Item>
 
-													<ListGroup.Item>
-														<Form.Group
-															as={Row}
-															className="mb-3"
-														>
-															<Form.Label
-																column
-																sm="2"
+																<Col sm="10">
+																	<Form.Label
+																		column
+																		sm="2"
+																	>
+																		{
+																			person.job
+																		}
+																	</Form.Label>
+																</Col>
+															</Form.Group>
+														</ListGroup.Item>
+
+														<ListGroup.Item>
+															<Form.Group
+																as={Row}
+																className="mb-3"
 															>
-																Φορέας
-																Απασχόλησης
-															</Form.Label>
-
-															<Col sm="10">
 																<Form.Label
 																	column
 																	sm="2"
 																>
-																	{
-																		person.employmentInstitution
-																	}
+																	Φορέας
+																	Απασχόλησης
 																</Form.Label>
-															</Col>
-														</Form.Group>
-													</ListGroup.Item>
-												</ListGroup>
-											</Form>
-										</Container>
-									</Card.Body>
-								</Accordion.Collapse>
-							</Card>
-						))}
-					</Accordion>
+
+																<Col sm="10">
+																	<Form.Label
+																		column
+																		sm="2"
+																	>
+																		{
+																			person.employmentInstitution
+																		}
+																	</Form.Label>
+																</Col>
+															</Form.Group>
+														</ListGroup.Item>
+													</ListGroup>
+												</Form>
+											</Container>
+										</Card.Body>
+									</Accordion.Collapse>
+								</Card>
+							))}
+						</Accordion>
+					)}
 				</Col>
 			</Row>
 			<Row>

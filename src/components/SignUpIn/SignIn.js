@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { Form, Button, Container, FloatingLabel } from "react-bootstrap";
 import { useState } from "react";
 
@@ -6,10 +6,13 @@ import "./SignUpIn.css";
 
 import axios from "axios";
 
-const SignIn = ({ setAccessToken }) => {
+const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const history = useHistory();
+
+	const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+
+	const { state } = useLocation();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -26,13 +29,16 @@ const SignIn = ({ setAccessToken }) => {
 		const url = "http://localhost:8081/perform_login";
 
 		axios.post(url, formData, config).then((response) => {
-			console.log(response);
-
 			setAccessToken(response.data.access_token);
-
-			history.push("/personal");
 		});
+
+		setIsAuthenticated(true);
+		setRedirectToReferrer(true);
 	};
+
+	if (redirectToReferrer === true) {
+		return <Redirect to={state?.from || "/settings"} />;
+	}
 
 	return (
 		<Container>
@@ -77,7 +83,7 @@ const SignIn = ({ setAccessToken }) => {
 						</Button>
 						<br />
 						<Link to="/sign-up" className="signup-link">
-							<u>Sign up.</u>
+							<u>Sign up</u>
 						</Link>
 					</div>
 				</div>

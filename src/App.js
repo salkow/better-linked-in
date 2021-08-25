@@ -9,15 +9,11 @@ import Settings from "./components/Settings/Settings";
 import Admin from "./components/Admin/Admin";
 import SignIn from "./components/SignUpIn/SignIn";
 import SignUp from "./components/SignUpIn/SignUp";
+import PrivateRoute from "./components/PrivateRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	useHistory,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 
 import React, { useState, useEffect } from "react";
@@ -27,13 +23,9 @@ function App() {
 	const [pageHeight, setPageHeight] = useState(window.innerHeight);
 	const [accessToken, setAccessToken] = useState("");
 
-	const history = useHistory();
-
-	console.log("history: " + history);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const fetchData = async (path) => {
-		console.log("access_token: " + accessToken);
-
 		const res = await fetch(`http://localhost:8081/api/v1/${path}`, {
 			method: "GET",
 			headers: new Headers({
@@ -42,17 +34,15 @@ function App() {
 			}),
 		});
 
-		const x = 3;
-
-		if (x === 3) {
-			history.push("/perform_login");
+		if (!res.ok) {
+			console.log("Error while fetching resource");
+			return "";
 		}
+
 		// if (res.hasOwnProperty("status") && res.status === 401) {
 		// }
 
-		const data = await res.json();
-
-		return data;
+		return await res.json();
 	};
 
 	const sendData = async (data, path, post_put) => {
@@ -78,81 +68,105 @@ function App() {
 		window.addEventListener("resize", updateDimensions);
 		return () => window.removeEventListener("resize", updateDimensions);
 	}, []);
+
 	return (
-		<div>
-			<Router>
-				<Switch>
-					<Route path="/" exact>
-						<SignIn setAccessToken={setAccessToken} />
-					</Route>
+		<Router>
+			<Switch>
+				<Route path="/" exact>
+					<SignIn
+						setAccessToken={setAccessToken}
+						setIsAuthenticated={setIsAuthenticated}
+					/>
+				</Route>
 
-					<Route path="/sign-up" component={SignUp} />
+				<Route path="/sign-up" component={SignUp} />
 
-					<Route path="/admin">
-						<Admin fetchData={fetchData} />
-					</Route>
+				<PrivateRoute isAuthenticated={isAuthenticated} path="/admin">
+					<Admin fetchData={fetchData} />
+				</PrivateRoute>
 
-					<div>
-						<Nav setNavHeight={setNavHeight} />
-						<Container fluid>
-							<Row>
-								<Route path="/home" exact>
-									<MainPage
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
+				<Route>
+					<Nav setNavHeight={setNavHeight} />
+					<Container fluid>
+						<Row>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/home"
+								exact
+							>
+								<MainPage
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
 
-								<Route path="/network">
-									<Network
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
-								<Route path="/adverts">
-									<Adverts
-										navHeight={navHeight}
-										pageHeight={pageHeight}
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
-								<Route path="/discussions">
-									<Discussions
-										navHeight={navHeight}
-										pageHeight={pageHeight}
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
-								<Route path="/notifications">
-									<Notifications
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
-								<Route path="/personal">
-									<Personal
-										navHeight={navHeight}
-										pageHeight={pageHeight}
-										accessToken={accessToken}
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/network"
+							>
+								<Network
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/adverts"
+							>
+								<Adverts
+									navHeight={navHeight}
+									pageHeight={pageHeight}
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/discussions"
+							>
+								<Discussions
+									navHeight={navHeight}
+									pageHeight={pageHeight}
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/notifications"
+							>
+								<Notifications
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/personal"
+							>
+								<Personal
+									navHeight={navHeight}
+									pageHeight={pageHeight}
+									accessToken={accessToken}
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
 
-								<Route path="/settings">
-									<Settings
-										fetchData={fetchData}
-										sendData={sendData}
-									/>
-								</Route>
-							</Row>
-						</Container>
-					</div>
-				</Switch>
-			</Router>
-		</div>
+							<PrivateRoute
+								isAuthenticated={isAuthenticated}
+								path="/settings"
+							>
+								<Settings
+									fetchData={fetchData}
+									sendData={sendData}
+								/>
+							</PrivateRoute>
+						</Row>
+					</Container>
+				</Route>
+			</Switch>
+		</Router>
 	);
 }
 
