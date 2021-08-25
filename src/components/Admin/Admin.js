@@ -1,5 +1,6 @@
 import {
 	ListGroup,
+	Modal,
 	Container,
 	Row,
 	Col,

@@ -24,11 +24,11 @@ const SignIn = ({ setAccessToken }) => {
 		const url = "http://localhost:8081/perform_login";
 
 		axios.post(url, formData, config).then((response) => {
-			console.log(response);
+			console.log(response.data.access_token);
 
-			// setAccessToken(response.accessToken);
+			setAccessToken(response.data.access_token);
 
-			history.push("/");
+			history.push("/personal");
 		});
 	};
 
