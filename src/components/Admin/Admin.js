@@ -10,8 +10,6 @@ import {
 	useAccordionButton,
 } from "react-bootstrap";
 
-import { Link } from "react-router-dom";
-
 import { useState, useEffect } from "react";
 
 import "./Admin.css";
@@ -19,6 +17,14 @@ import "./Admin.css";
 const Admin = ({ fetchData }) => {
 	const [people, setPeople] = useState([]);
 	const [peopleToExport, setPeopleToExport] = useState([]);
+
+	const [show, setShow] = useState(false);
+	const [modalMessage, setModalMessage] = useState("");
+	const handleModalClose = () => setShow(false);
+	const handleModalShow = (message) => {
+		setModalMessage(message);
+		setShow(true);
+	};
 
 	function CustomToggle({ children, eventKey }) {
 		const selectUser = useAccordionButton(eventKey);
@@ -39,9 +45,17 @@ const Admin = ({ fetchData }) => {
 
 	const setExportStatus = (checked, id) => {
 		if (checked) {
+			setPeople([...peopleToExport, id]);
 		} else {
+			setPeopleToExport(
+				peopleToExport.filter((person) => person.id !== id)
+			);
 		}
 	};
+
+	const exportJSON = () => {};
+
+	const exportXML = () => {};
 
 	return (
 		<Container fluid>
@@ -251,12 +265,22 @@ const Admin = ({ fetchData }) => {
 			</Row>
 			<Row>
 				<Col xs="6" className="middle export-button footer middle">
-					<Button>Εξαγωγή ως JSON</Button>
+					<Button onClick={exportJSON}>Εξαγωγή ως JSON</Button>
 					<br />
 					<br />
-					<Button>Εξαγωγή ως XML</Button>
+					<Button onClick={exportXML}>Εξαγωγή ως XML</Button>
 				</Col>
 			</Row>
+
+			<Modal show={show} onHide={handleModalClose} animation={false}>
+				<Modal.Header closeButton>
+					<Modal.Title>Κάτι πήγε στραβά.</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>{modalMessage}</Modal.Body>
+				<Modal.Footer>
+					<Button onClick={handleModalClose}>Close</Button>
+				</Modal.Footer>
+			</Modal>
 		</Container>
 	);
 };

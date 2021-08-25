@@ -20,8 +20,8 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	useEffect(() => {
 		const getExperinece = async () => {
 			const experienceFromServer = await fetchData("experience");
-			// setExperience(experienceFromServer.text);
-			// setVisibleExperience(experienceFromServer.displayable);
+			setExperience(experienceFromServer.text);
+			setVisibleExperience(experienceFromServer.displayable);
 		};
 
 		const getEducation = async () => {
@@ -46,23 +46,17 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			// Do get request to check if this id is mine, some friend or non friend.
 		}
 
-		// getExperinece();
-		// getEducation();
-		// getSkills();
+		getExperinece();
+		getEducation();
+		getSkills();
 	}, [fetchData]);
 
 	const addExperience = async (newExperience) => {
-		const data = sendData(newExperience, "experience", "PUT");
-
-		setExperience(experience, data.content);
-		setVisibleExperience(visibleExperience, data.visible);
+		sendData(newExperience, "experience", "PUT");
 	};
 
 	const addEducation = async (newEducation) => {
-		const data = sendData(newEducation, "education", "PUT");
-
-		setEducation(education, data.content);
-		setVisibleEducation(visibleSkills, data.visible);
+		sendData(newEducation, "education", "PUT");
 	};
 
 	const addSkills = async (newSkills) => {
@@ -71,10 +65,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			visible: newSkills.visible,
 		};
 
-		const data = sendData(newSkillsArr, "skills", "PUT");
-
-		setSkills(skills, data.content);
-		setVisibleSkills(visibleEducation, data.visible);
+		sendData(newSkillsArr, "skills", "PUT");
 	};
 
 	return (

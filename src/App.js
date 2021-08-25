@@ -22,7 +22,7 @@ function App() {
 	const [accessToken, setAccessToken] = useState("");
 
 	const fetchData = async (path) => {
-		const res = await fetch(`http://localhost:5000/${path}`, {
+		const res = await fetch(`http://localhost:8081/api/vi/${path}`, {
 			method: "GET",
 			headers: new Headers({
 				Authorization: "Bearer" + accessToken,
@@ -35,7 +35,7 @@ function App() {
 	};
 
 	const sendData = async (data, path, post_put) => {
-		const res = await fetch(`http://localhost:5000/${path}`, {
+		const res = await fetch(`http://localhost:8081/api/v1/${path}`, {
 			method: post_put,
 			headers: {
 				Authorization: "Bearer" + accessToken,
