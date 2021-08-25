@@ -9,25 +9,17 @@ import {
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const MyAdverts = () => {
+const MyAdverts = ({ fetchData }) => {
 	const [adverts, setAdverts] = useState([]);
 
 	useEffect(() => {
 		const getAdverts = async () => {
-			const advertsFromServer = await fetchAdverts();
+			const advertsFromServer = await fetchData("my_adverts");
 			setAdverts(advertsFromServer);
 		};
 
 		getAdverts();
-	}, []);
-
-	const fetchAdverts = async () => {
-		const res = await fetch("http://localhost:5000/my_adverts");
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	return (
 		<Container fluid>

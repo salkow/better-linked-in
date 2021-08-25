@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
-const Posts = ({ posts, setPosts }) => {
+const Posts = ({ posts, setPosts, fetchData }) => {
 	useEffect(() => {
 		const getSenderName = async () => {
 			const dataFromServer = await fetchData("sign_up");
@@ -53,14 +53,6 @@ const Posts = ({ posts, setPosts }) => {
 		setNewComment("");
 
 		setPosts(newPosts);
-	};
-
-	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:5000/${topic}`);
-
-		const data = await res.json();
-
-		return data;
 	};
 
 	return (

@@ -6,17 +6,21 @@ import MyAdverts from "./MyAdverts";
 
 import "./Adverts.css";
 
-const Adverts = ({ navHeight, pageHeight }) => {
+const Adverts = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	return (
 		<Tabs defaultActiveKey="a" className="mb-3">
 			<Tab eventKey="a" title="Αγγελίες">
-				<OtherAdverts />
+				<OtherAdverts fetchData={fetchData} />
 			</Tab>
 			<Tab eventKey="b" title="Δημιουργία Αγγελίας">
-				<NewAdvert navHeight={navHeight} pageHeight={pageHeight} />
+				<NewAdvert
+					navHeight={navHeight}
+					pageHeight={pageHeight}
+					sendData={sendData}
+				/>
 			</Tab>
 			<Tab eventKey="c" title="Οι αγγελίες μου">
-				<MyAdverts />
+				<MyAdverts fetchData={fetchData} />
 			</Tab>
 		</Tabs>
 	);

@@ -1,0 +1,17 @@
+.middle {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.user-data {
+	word-wrap: normal;
+}
+
+.footer {
+	margin-top: 1rem;
+	padding: 1rem;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	margin: 1px;
+}

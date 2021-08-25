@@ -8,14 +8,16 @@ import NewMessage from "./NewMessage";
 
 import "./Discussions.css";
 
-const Discussions = ({ navHeight, pageHeight }) => {
+const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [messages, setMessages] = useState([]);
 	const [contacts, setContacts] = useState([]);
 	const [senderName, setSenderName] = useState("");
 	const [recipientName, setRecipientName] = useState("");
+	const [recipientId, setRecipientId] = useState("");
 
 	useEffect(() => {
 		const getMessages = async () => {
+			// fetch messages/id from the recipientId
 			const messagesFromServer = await fetchData("messages");
 			setMessages(messagesFromServer);
 		};
@@ -36,44 +38,38 @@ const Discussions = ({ navHeight, pageHeight }) => {
 
 		const getRecipientName = async () => {
 			const recipientNameFromServer = await fetchData("recipient_name");
+
 			setRecipientName(recipientNameFromServer.content);
 		};
+
+		// Check if the user wants to chat with someone in particular or just wants to open
+		// the discussions page.
+		const authResult = new URLSearchParams(window.location.search);
+		const id = authResult.get("id");
+
+		if (id != null) {
+			setRecipientId(id);
+		}
 
 		getMessages();
 		getContacts();
 		getSenderName();
 		getRecipientName();
-	}, []);
-
-	const fetchData = async (topic) => {
-		const res = await fetch(`http://localhost:5000/${topic}`);
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	const addNewMessage = async (message) => {
-		const res = await fetch("http://localhost:5000/messages", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(message),
-		});
-		const data = await res.json();
-		setMessages([...messages, data]);
+		sendData(message, "messages", "POST");
+
+		setMessages([...messages, message]);
 	};
 
 	// Focus the messages of a specific contact.
-	const focusContact = (id, name) => {
-		console.log(id);
-		console.log(name);
-		console.log(navHeight);
-		console.log(pageHeight);
-		// Fetch messages with the id.
-		// Set the id.
-		// setMessages([...messages, data]);
+	const focusContact = async (id, name) => {
+		setRecipientName(name);
+		setRecipientId(id);
+
+		const messagesFromServer = await fetchData("messages");
+		setMessages(messagesFromServer);
 	};
 
 	return (

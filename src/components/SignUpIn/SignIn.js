@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import axios from "axios";
 
-const SignIn = () => {
+const SignIn = ({ setAccessToken }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const history = useHistory();
@@ -24,7 +24,10 @@ const SignIn = () => {
 		const url = "http://localhost:8081/perform_login";
 
 		axios.post(url, formData, config).then((response) => {
-			console.log(response);
+			console.log(response.data.access_token);
+
+			setAccessToken(response.data.access_token);
+
 			history.push("/");
 		});
 	};

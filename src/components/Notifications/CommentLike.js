@@ -3,25 +3,17 @@ import { Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const CommentLike = () => {
+const CommentLike = ({ fetchData }) => {
 	const [commentLikes, setCommentLikes] = useState([]);
 
 	useEffect(() => {
 		const getCommentLikes = async () => {
-			const commentLikesFromServer = await fetchData();
+			const commentLikesFromServer = await fetchData("commentLikes");
 			setCommentLikes(commentLikesFromServer);
 		};
 
 		getCommentLikes();
-	}, []);
-
-	const fetchData = async () => {
-		const res = await fetch("http://localhost:5000/commentLikes");
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	return (
 		<div>

@@ -6,33 +6,29 @@ import NewPost from "./NewPost";
 
 import "./MainPage.css";
 
-const MainPage = () => {
+const MainPage = ({ fetchData, sendData }) => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
 		const getPosts = async () => {
-			const postsFromServer = await fetchPosts();
+			const postsFromServer = await fetchData("posts");
 			setPosts(postsFromServer);
 		};
 
 		getPosts();
-	}, []);
-
-	const fetchPosts = async () => {
-		const res = await fetch("http://localhost:5000/posts");
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	return (
 		<Container fluid>
 			<Row>
-				<NewPost setPosts={setPosts} />
+				<NewPost setPosts={setPosts} sendData={sendData} />
 			</Row>
 			<Row>
-				<Posts posts={posts} setPosts={setPosts} />
+				<Posts
+					posts={posts}
+					setPosts={setPosts}
+					fetchData={fetchData}
+				/>
 			</Row>
 		</Container>
 	);

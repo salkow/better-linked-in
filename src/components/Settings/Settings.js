@@ -5,51 +5,17 @@ import { useState, useEffect } from "react";
 import Email from "./Email";
 import Password from "./Password";
 
-const Settings = () => {
+const Settings = ({ fetchData, sendData }) => {
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
 		const getEmail = async () => {
-			const emailFromServer = await fetchEmail();
+			const emailFromServer = await fetchData("email");
 			setEmail(emailFromServer.content);
 		};
 
 		getEmail();
-	}, []);
-
-	const fetchEmail = async () => {
-		const res = await fetch("http://localhost:5000/email");
-
-		const data = await res.json();
-
-		return data;
-	};
-
-	const addEmail = async (newEmail) => {
-		const res = await fetch("http://localhost:5000/email", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(newEmail),
-		});
-
-		const data = await res.json();
-
-		setEmail(email, data.content);
-	};
-
-	const addPassword = async (newPassword) => {
-		const res = await fetch("http://localhost:5000/password", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(newPassword),
-		});
-
-		await res.json();
-	};
+	}, [fetchData]);
 
 	return (
 		<Container>
@@ -57,10 +23,10 @@ const Settings = () => {
 				<h2 className="align-middle">Άλλαξε τα στοιχεία σου.</h2>
 			</Row>
 			<Row>
-				<Email emailFromServer={email} addEmail={addEmail}></Email>
+				<Email emailFromServer={email} sendData={sendData}></Email>
 			</Row>
 			<Row>
-				<Password addPassword={addPassword}></Password>
+				<Password sendData={sendData}></Password>
 			</Row>
 		</Container>
 	);

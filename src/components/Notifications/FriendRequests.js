@@ -2,43 +2,25 @@ import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const FriendRequests = () => {
+const FriendRequests = ({ fetchData, sendData }) => {
 	const [friendRequests, setFriendRequests] = useState([]);
 
 	useEffect(() => {
 		const getFriendRequests = async () => {
-			const friendRequestsFromServer = await fetchFriendRequests();
+			const friendRequestsFromServer = await fetchData("friend_requests");
 			setFriendRequests(friendRequestsFromServer);
 		};
 
 		getFriendRequests();
-	}, []);
+	}, [fetchData]);
 
-	const fetchFriendRequests = async () => {
-		const res = await fetch("http://localhost:5000/friend_requests");
-
-		const data = await res.json();
-
-		return data;
-	};
-
-	const handleRequest = (id, decision) => {
+	const handleRequest = async (id, decision) => {
 		console.log(id);
 		console.log(decision);
 
 		// He needs to delete the request from his database.
 
-		// const message = { id, decision };
-
-		// const res = await fetch("http://localhost:5000/request", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(message),
-		// });
-
-		// await res.json();
+		sendData({ isAccepted: decision }, "friendRequestResponse" + id, "PUT");
 
 		// Remove friend request from visible requests.
 		setFriendRequests(

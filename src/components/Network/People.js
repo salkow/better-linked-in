@@ -3,25 +3,17 @@ import { Card, ListGroup, Row } from "react-bootstrap";
 
 import { useState, useEffect } from "react";
 
-const People = () => {
+const People = ({ fetchData }) => {
 	const [people, setPeople] = useState([]);
 
 	useEffect(() => {
 		const getPeople = async () => {
-			const peopleFromServer = await fetchPeople();
+			const peopleFromServer = await fetchData("people");
 			setPeople(peopleFromServer);
 		};
 
 		getPeople();
-	}, []);
-
-	const fetchPeople = async () => {
-		const res = await fetch("http://localhost:5000/people");
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	return (
 		<div>

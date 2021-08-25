@@ -2,25 +2,17 @@ import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const OtherAdverts = () => {
+const OtherAdverts = ({ fetchData }) => {
 	const [adverts, setAdverts] = useState([]);
 
 	useEffect(() => {
 		const getAdverts = async () => {
-			const advertsFromServer = await fetchAdverts();
+			const advertsFromServer = await fetchData("adverts");
 			setAdverts(advertsFromServer);
 		};
 
 		getAdverts();
-	}, []);
-
-	const fetchAdverts = async () => {
-		const res = await fetch("http://localhost:5000/adverts");
-
-		const data = await res.json();
-
-		return data;
-	};
+	}, [fetchData]);
 
 	return (
 		<Container fluid>
