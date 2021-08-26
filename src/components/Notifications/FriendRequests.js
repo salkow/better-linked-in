@@ -7,7 +7,9 @@ const FriendRequests = ({ fetchData, sendData }) => {
 
 	useEffect(() => {
 		const getFriendRequests = async () => {
-			const friendRequestsFromServer = await fetchData("friend_requests");
+			const friendRequestsFromServer = await fetchData(
+				"friendRequestsReceived"
+			);
 			setFriendRequests(friendRequestsFromServer);
 		};
 
