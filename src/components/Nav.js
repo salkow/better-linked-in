@@ -15,7 +15,7 @@ const Nav = ({ setNavHeight }) => {
 			ref={navRef}
 		>
 			<div className="container-fluid">
-				<NavLink className="navbar-brand" to="/">
+				<NavLink className="navbar-brand" to="/home">
 					<img
 						src="/images/LionLogo.png"
 						alt="Lion Logo"
@@ -44,7 +44,7 @@ const Nav = ({ setNavHeight }) => {
 								exact
 								activeClassName="active"
 								className="nav-link"
-								to="/"
+								to="/home"
 							>
 								Αρχική Σελίδα
 							</NavLink>

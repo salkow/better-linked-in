@@ -1,5 +1,6 @@
-package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
+package di.uoa.gr.tedi.BetterLinkedIn.utils;
 
+import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

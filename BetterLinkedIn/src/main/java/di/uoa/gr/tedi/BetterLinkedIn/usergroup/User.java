@@ -2,34 +2,46 @@ package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
 @Entity
 public class User implements UserDetails {
 
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue @NaturalId
+    Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String password;
+
     private String email;
+
     private String phone;
+
     private String photo;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole = UserRole.USER;
+
+    @JsonIgnore
     private Boolean locked = false;
+
+    @JsonIgnore
     private Boolean enabled = true;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable")),
@@ -37,22 +49,26 @@ public class User implements UserDetails {
     })
 
     private UserExperience experience;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "displayable", column = @Column(name = "education_displayable")),
             @AttributeOverride(name = "text", column = @Column(name = "education_text"))
     })
     private UserEducation education;
+
     @Embedded
     @AttributeOverride(name = "displayable", column = @Column(name = "skills_displayable"))
     private UserSkills skills;
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("sender")
+    @JsonIgnore
     private Set<UserConnectionRequest> connectionRequests= new HashSet<>();
+
     @OneToMany(mappedBy = "receiver", orphanRemoval = true)
-    @JsonIgnoreProperties("receiver")
+    @JsonIgnore
     private Set<UserConnectionRequest> connectionRequestsR= new HashSet<>();
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name="tbl_friends",
             joinColumns=@JoinColumn(name="personId"),
@@ -60,8 +76,20 @@ public class User implements UserDetails {
     )
     @JsonIgnore
     private Set<User> friends = new HashSet<>();
+
     @ManyToMany(mappedBy = "friends")
+    @JsonIgnore
     private Set<User> friendOf = new HashSet<>();
+
+    @OneToMany(mappedBy = "friend1", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Contact> contactList= new ArrayList<>();
+
+    @OneToMany(mappedBy = "friend2", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Contact> contactOf= new ArrayList<>();
+
+
 
     public User() {}
 
@@ -133,5 +161,13 @@ public class User implements UserDetails {
 
     public void addConnectionRequestR(UserConnectionRequest userConnectionRequest) {
         connectionRequestsR.add(userConnectionRequest);
+    }
+
+    public void addContact(Contact contact) {
+        contactList.add(contact);
+    }
+
+    public void addContactOf(Contact contact) {
+        contactOf.add(contact);
     }
 }

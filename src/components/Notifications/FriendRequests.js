@@ -7,7 +7,7 @@ const FriendRequests = ({ fetchData, sendData }) => {
 
 	useEffect(() => {
 		const getFriendRequests = async () => {
-			const friendRequestsFromServer = await fetchData("friend_requests");
+			const friendRequestsFromServer = await fetchData("friendRequestsReceived");
 			setFriendRequests(friendRequestsFromServer);
 		};
 
@@ -20,7 +20,7 @@ const FriendRequests = ({ fetchData, sendData }) => {
 
 		// He needs to delete the request from his database.
 
-		sendData({ isAccepted: decision }, "friendRequestResponse" + id, "PUT");
+		sendData({ isAccepted: decision }, "friendRequestResponse/" + id, "PUT");
 
 		// Remove friend request from visible requests.
 		setFriendRequests(

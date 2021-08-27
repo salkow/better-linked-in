@@ -5,16 +5,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.WBool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
 @RestController
@@ -50,6 +44,7 @@ public class UserController {
     String login() {
         return "login";
     }
+
     @GetMapping("/")
     String index() {
         return "index";
@@ -105,7 +100,7 @@ public class UserController {
 
     @PutMapping("api/v1/experience")
     public void updateUserExperience(Authentication authentication, @RequestBody UserExperience userExperience) {
-        userService.updateUserExperience(authentication, userExperience);
+        userService.update_userExperience(authentication, userExperience);
 
     }
 
@@ -148,16 +143,41 @@ public class UserController {
     }
 
     @GetMapping("api/v1/friendRequestsReceived")
-    public List<UserConnectionRequest> get_requestsReceived(Authentication authentication) {
+    public List<FriendRequest> get_requestsReceived(Authentication authentication) {
         return userService.get_requestsReceived(authentication);
     }
 
+
+
     @PutMapping("api/v1/friendRequestResponse/{senderid}")
-    public void accept_friendRequest(Authentication authentication, @PathVariable("senderid") Long senderId) {
-        userService.accept_friendRequest(authentication, senderId);
+    public void accept_friendRequest(Authentication authentication, @PathVariable("senderid") Long senderId, @RequestBody WBool wrapper) {
+        System.out.println(wrapper.getResponse());
+        userService.respond_friendRequest(authentication, senderId, wrapper.getResponse());
     }
 
+    @GetMapping("api/v1/friends")
+    public Set<User> get_friends(Authentication authentication) {
+        return userService.get_friends(authentication);
+    }
 
+    @GetMapping("api/v1/contacts")
+    public List<Contact> get_contacts(Authentication authentication) {
+        return userService.get_contacts(authentication);
+    }
 
+    @GetMapping("api/v1/contactOf")
+    public List<Contact> get_contactOf(Authentication authentication) {
+        return userService.get_contactOf(authentication);
+    }
 
+    @PutMapping("api/v1/addContact/{receiverId}")
+    public void add_contact(Authentication authentication, @PathVariable("receiverId") Long id) {
+        userService.add_contact(authentication, id);
+    }
+
+    @PutMapping("api/v1/sendMessage/{receiverId}")
+    public void send_message(Authentication authentication, @PathVariable("receiverId") Long id, @RequestBody String text) {
+        System.out.println(text);
+        userService.send_message(authentication, id, text);
+    }
 }

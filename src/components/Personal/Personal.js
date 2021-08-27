@@ -21,10 +21,8 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		const getExperience = async () => {
 			const experienceFromServer = await fetchData("experience");
 
-			console.log(experienceFromServer);
-
-			setExperience(experienceFromServer.text);
 			setVisibleExperience(experienceFromServer.displayable);
+			setExperience(experienceFromServer.text);
 		};
 
 		const getEducation = async () => {
@@ -50,7 +48,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		}
 
 		getExperience();
-		// getEducation();
+		getEducation();
 		// getSkills();
 	}, [fetchData]);
 
