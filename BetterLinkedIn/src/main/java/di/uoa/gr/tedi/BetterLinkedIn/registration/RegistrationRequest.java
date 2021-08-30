@@ -14,4 +14,6 @@ public class RegistrationRequest {
     private final String email;
     private final String phone;
     private final String photo;
+    private final String job;
+    private final String company;
 }

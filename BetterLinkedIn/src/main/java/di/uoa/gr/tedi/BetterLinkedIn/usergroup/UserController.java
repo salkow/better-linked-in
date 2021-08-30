@@ -5,8 +5,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.PersonalDetails;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.WBool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -91,12 +95,19 @@ public class UserController {
 
 
 
-/*
-    @GetMapping("/user")
-    User one() {
-        return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+
+    @GetMapping("/user/{id}")
+    PersonalDetails one(@PathVariable("id") Long id) {
+
+        User user = userService.one(id);
+        if (user != null) {
+            PersonalDetails details = new PersonalDetails();
+            details.user_to_details(user);
+            return details;
+        }
+        else return null;
     }
-*/
+
 
     @PutMapping("api/v1/experience")
     public void updateUserExperience(Authentication authentication, @RequestBody UserExperience userExperience) {
@@ -148,10 +159,8 @@ public class UserController {
     }
 
 
-
     @PutMapping("api/v1/friendRequestResponse/{senderid}")
     public void accept_friendRequest(Authentication authentication, @PathVariable("senderid") Long senderId, @RequestBody WBool wrapper) {
-        System.out.println(wrapper.getResponse());
         userService.respond_friendRequest(authentication, senderId, wrapper.getResponse());
     }
 
@@ -165,19 +174,23 @@ public class UserController {
         return userService.get_contacts(authentication);
     }
 
-    @GetMapping("api/v1/contactOf")
-    public List<Contact> get_contactOf(Authentication authentication) {
-        return userService.get_contactOf(authentication);
-    }
-
-    @PutMapping("api/v1/addContact/{receiverId}")
-    public void add_contact(Authentication authentication, @PathVariable("receiverId") Long id) {
-        userService.add_contact(authentication, id);
-    }
-
     @PutMapping("api/v1/sendMessage/{receiverId}")
     public void send_message(Authentication authentication, @PathVariable("receiverId") Long id, @RequestBody String text) {
-        System.out.println(text);
         userService.send_message(authentication, id, text);
+    }
+
+    @GetMapping("api/v1/message/{receiverId}")
+    public List<Message> get_messages(Authentication authentication, @PathVariable("receiverId") Long id) {
+        return userService.get_messages(authentication, id);
+    }
+
+    @GetMapping("api/v1/posts")
+    public Set<Post> get_posts(Authentication authentication) {
+        return userService.get_posts(authentication);
+    }
+
+    @PutMapping("api/v1/post")
+    public void upload_post(Authentication authentication, PostRequest req) {
+        userService.upload_post(authentication, req);
     }
 }

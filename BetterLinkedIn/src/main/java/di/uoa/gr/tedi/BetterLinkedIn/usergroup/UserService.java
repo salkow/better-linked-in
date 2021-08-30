@@ -1,8 +1,11 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.ContactRepository;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -212,15 +215,6 @@ public class UserService implements UserDetailsService {
         return list;
     }
 
-    public List<Contact> get_contactOf(Authentication authentication) {
-        Optional<User> optU = repository.findUserByEmail(authentication.getName());
-        if (!optU.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = optU.get();
-        return user.getContactOf();
-    }
-
     public void add_contact(Authentication authentication, Long id) {
         Optional<User> optU1 = repository.findUserByEmail(authentication.getName());
         if (!optU1.isPresent()) {
@@ -258,11 +252,64 @@ public class UserService implements UserDetailsService {
         List<Contact> contactList = get_contacts(authentication);
         Optional<Contact> optC = contactList.stream().findFirst();
         if (!optC.isPresent()) {
+            add_contact(authentication, id);
+            optC = contactList.stream().findFirst();
+            if (!optC.isPresent()) {
+                throw new IllegalStateException("contact not found bug");
+            }
+        }
+        Contact c = optC.get();
+        c.addMessage(text, sender.getId());
+        contRepo.save(c);
+        repository.save(sender);
+    }
+
+    public List<Message> get_messages(Authentication authentication, Long id) {
+        Optional<User> optU1 = repository.findUserByEmail(authentication.getName());
+        if (!optU1.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User sender = optU1.get();
+
+        Optional<User> optU2 = repository.findById(id);
+        if (!optU2.isPresent()) {
+            throw new IllegalStateException("wrong id");
+        }
+        User receiver = optU2.get();
+
+        Contact temp = new Contact(sender, receiver);
+        List<Contact> contactList = get_contacts(authentication);
+        Optional<Contact> optC = contactList.stream().findFirst();
+        if (!optC.isPresent()) {
             throw new IllegalStateException("Contact not found");
         }
         Contact c = optC.get();
-        c.addMessage(text, sender.getFirstName() + " " + sender.getLastName(), sender.getId());
-        contRepo.save(c);
-        repository.save(sender);
+        return c.getMessages();
+    }
+
+    public User one(Long id) {
+        return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public Set<Post> get_posts(Authentication authentication) {
+        Optional<User> opt= repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User owner = opt.get();
+        return owner.getPosts();
+    }
+
+    public void upload_post(Authentication authentication, PostRequest req) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User user = opt.get();
+
+        Post post = new Post(req.getTitle(), req.getText(), req.getMedia(), user);
+        Set<Post> postsSet = user.getPosts();
+        postsSet.add(post);
+        repository.save(user);
     }
 }

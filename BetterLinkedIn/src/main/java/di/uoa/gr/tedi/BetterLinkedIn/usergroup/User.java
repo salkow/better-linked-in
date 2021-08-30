@@ -2,6 +2,7 @@ package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,10 @@ public class User implements UserDetails {
 
     private String photo;
 
+    private String job;
+
+    private String company;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole = UserRole.USER;
 
@@ -47,7 +52,6 @@ public class User implements UserDetails {
             @AttributeOverride( name = "displayable", column = @Column(name = "experience_displayable")),
             @AttributeOverride(name = "text", column = @Column(name = "experience_text"))
     })
-
     private UserExperience experience;
 
     @Embedded
@@ -89,11 +93,13 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Contact> contactOf= new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Post> posts= new HashSet<>();
 
     public User() {}
 
-    public User(String firstName, String LastName, String password, String email, String phone, String photo) {
+    public User(String firstName, String LastName, String password, String email, String phone, String photo, String job, String company) {
         this.firstName= firstName;
         this.lastName = LastName;
         this.password = password;
@@ -103,10 +109,12 @@ public class User implements UserDetails {
         this.experience= new UserExperience();
         this.education= new UserEducation();
         this.skills= new UserSkills();
+        this.job= job;
+        this.company= company;
 
     }
 
-    public User(String firstName, String LastName, String password, String email, String phone, String photo, UserRole userRole) {
+    public User(String firstName, String LastName, String password, String email, String phone, String photo, String job, String company, UserRole userRole) {
         this.firstName= firstName;
         this.lastName = LastName;
         this.password = password;
@@ -114,8 +122,8 @@ public class User implements UserDetails {
         this.phone = phone;
         this.photo = photo;
         this.userRole= userRole;
-
-
+        this.job = job;
+        this.company = company;
 
     }
 

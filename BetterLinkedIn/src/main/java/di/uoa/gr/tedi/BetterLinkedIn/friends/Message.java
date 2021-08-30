@@ -1,5 +1,6 @@
 package di.uoa.gr.tedi.BetterLinkedIn.friends;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.Data;
 import lombok.Getter;
@@ -22,22 +23,20 @@ public class Message {
             @JoinColumn(name = "contact1_id", referencedColumnName = "friend1_id", nullable = false),
             @JoinColumn(name = "contact2_id", referencedColumnName = "friend2_id", nullable = false)
     })
+    @JsonIgnore
     private Contact contact;
 
-    private final String ownerName;
 
     private final Long ownerId;
 
     protected Message() {
         text = "";
-        ownerName = "";
         ownerId = new Long(0);
     }
 
 
-    public Message(String text, String ownerName, Long ownerId) {
+    public Message(String text, Long ownerId) {
         this.text = text;
-        this.ownerName = ownerName;
         this.ownerId = ownerId;
     }
 

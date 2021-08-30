@@ -20,7 +20,7 @@ const FriendRequests = ({ fetchData, sendData }) => {
 
 		// He needs to delete the request from his database.
 
-		sendData({ isAccepted: decision }, "friendRequestResponse/" + id, "PUT");
+		sendData({ response: decision }, "friendRequestResponse/" + id, "PUT");
 
 		// Remove friend request from visible requests.
 		setFriendRequests(

@@ -47,10 +47,9 @@ public class Contact {
         return Objects.hash(id, friend1, friend2);
     }
 
-    public void addMessage(String text, String s, Long id) {
-        Message mes = new Message(text, s, id);
+    public void addMessage(String text, Long id) {
+        Message mes = new Message(text, id);
         mes.setContact(this);
         this.messages.add(mes);
-        System.out.println(messages.size());
     }
 }
