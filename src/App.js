@@ -39,9 +39,6 @@ function App() {
 			return "";
 		}
 
-		// if (res.hasOwnProperty("status") && res.status === 401) {
-		// }
-
 		return await res.json();
 	};
 
@@ -56,8 +53,7 @@ function App() {
 			body: JSON.stringify(data),
 		});
 
-		const returned_data = await res.json();
-		return returned_data;
+		return res;
 	};
 
 	const updateDimensions = () => {
@@ -79,7 +75,9 @@ function App() {
 					/>
 				</Route>
 
-				<Route path="/sign-up" component={SignUp} />
+				<Route path="/sign-up">
+					<SignUp sendData={sendData} />
+				</Route>
 
 				<PrivateRoute isAuthenticated={isAuthenticated} path="/admin">
 					<Admin fetchData={fetchData} />

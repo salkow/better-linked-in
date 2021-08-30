@@ -1,5 +1,5 @@
 import { Link, useLocation, Redirect } from "react-router-dom";
-import { Form, Button, Container, FloatingLabel, Modal } from "react-bootstrap";
+import { Form, Button, Container, FloatingLabel } from "react-bootstrap";
 import { useState } from "react";
 
 import "./SignUpIn.css";
@@ -11,14 +11,6 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 	const [password, setPassword] = useState("");
 
 	const [redirectToReferrer, setRedirectToReferrer] = useState(false);
-
-	const [show, setShow] = useState(false);
-	const [modalMessage, setModalMessage] = useState("");
-	const handleModalClose = () => setShow(false);
-	const handleModalShow = (message) => {
-		setModalMessage(message);
-		setShow(true);
-	};
 
 	const { state } = useLocation();
 
@@ -37,10 +29,6 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 		const url = "http://localhost:8081/perform_login";
 
 		axios.post(url, formData, config).then((response) => {
-			if (!response.ok) {
-				handleModalShow("Λάθος στοιχεία.");
-			}
-
 			setAccessToken(response.data.access_token);
 		});
 
@@ -49,7 +37,7 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 	};
 
 	if (redirectToReferrer === true) {
-		return <Redirect to={state?.from || "/settings"} />;
+		return <Redirect to={state?.from || "/personal"} />;
 	}
 
 	return (
@@ -100,16 +88,6 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 					</div>
 				</div>
 			</Form>
-
-			<Modal show={show} onHide={handleModalClose} animation={false}>
-				<Modal.Header closeButton>
-					<Modal.Title>Κάτι πήγε στραβά.</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>{modalMessage}</Modal.Body>
-				<Modal.Footer>
-					<Button onClick={handleModalClose}>Close</Button>
-				</Modal.Footer>
-			</Modal>
 		</Container>
 	);
 };

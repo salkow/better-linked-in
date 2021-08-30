@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
 	Form,
 	Button,
@@ -9,60 +8,32 @@ import {
 	Card,
 } from "react-bootstrap";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./Profile.css";
 
-const Profile = ({ isMyProfile, isFriendsProfile, fetchData, sendData }) => {
-	const [name, setName] = useState("");
-	const [surname, setSurname] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [job, setJob] = useState("");
-	const [employmentInstitution, setEmploymentInstitution] = useState("");
+const Profile = ({
+	isMyProfile,
+	isFriendsProfile,
+	sendData,
+	id,
+	name,
+	surname,
+	email,
+	phone,
+	job,
+	employmentInstitution,
+}) => {
+	const addFriend = () => {
+		// TODO: Ask him to ignore more than one friend requests to the same user.
+		sendData("", "friendRequest/" + id, "PUT");
+	};
 
-	useEffect(() => {
-		const getName = async () => {
-			const nameFromServer = await fetchData("name");
-			setName(nameFromServer);
-		};
+	const history = useHistory();
 
-		const getSurname = async () => {
-			const surnameFromServer = await fetchData("surname");
-			setSurname(surnameFromServer);
-		};
-
-		const getEmail = async () => {
-			const emailFromServer = await fetchData("email");
-			setEmail(emailFromServer);
-		};
-
-		const getPhone = async () => {
-			const phoneFromServer = await fetchData("phone");
-			setPhone(phoneFromServer);
-		};
-
-		const getJob = async () => {
-			const jobFromServer = await fetchData("job");
-			setJob(jobFromServer);
-		};
-
-		const getEmploymentInstitution = async () => {
-			const employmentInstitution = await fetchData(
-				"employmentInstitution"
-			);
-			setEmploymentInstitution(employmentInstitution);
-		};
-
-		// getName();
-		// getSurname();
-		// getEmail();
-		// getPhone();
-		// getJob();
-		// getEmploymentInstitution();
-	}, [fetchData]);
-
-	const addFriend = () => {};
+	const goToDiscussions = () => {
+		history.push("/discussions?id=" + id);
+	};
 
 	return (
 		<Container>
@@ -78,7 +49,9 @@ const Profile = ({ isMyProfile, isFriendsProfile, fetchData, sendData }) => {
 								<Card.Body>
 									{isFriendsProfile ? (
 										<Link to="/discussions">
-											<Button>Μήνυμα</Button>
+											<Button onClick={goToDiscussions}>
+												Μήνυμα
+											</Button>
 										</Link>
 									) : (
 										<Button

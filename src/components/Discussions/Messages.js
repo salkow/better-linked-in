@@ -3,8 +3,9 @@ import { useEffect, useRef } from "react";
 
 const Messages = ({
 	messages,
-	senderName,
-	recipientName,
+	myName,
+	myId,
+	friendName,
 	navHeight,
 	pageHeight,
 }) => {
@@ -25,15 +26,13 @@ const Messages = ({
 					<Card key={index}>
 						<Card.Body
 							className={
-								message.from_sender === true
+								message.id === myId
 									? "sender-message"
 									: "recipient-message"
 							}
 						>
 							<Card.Title>
-								{message.from_sender === true
-									? senderName
-									: recipientName}
+								{message.id === myId ? myName : friendName}
 							</Card.Title>
 							<Card.Text className="message">
 								{message.content}

@@ -14,42 +14,73 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [skills, setSkills] = useState("");
 	const [visibleSkills, setVisibleSkills] = useState(false);
 
+	const [id, setId] = useState("");
+	const [name, setName] = useState("");
+	const [surname, setSurname] = useState("");
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [job, setJob] = useState("");
+	const [employmentInstitution, setEmploymentInstitution] = useState("");
+
 	const [isMyProfile, setIsMyProfile] = useState(false);
 	const [isFriendsProfile, setIsFriendsProfile] = useState(true);
 
+	const [myId, setMyId] = useState("");
+
 	useEffect(() => {
-		const getExperience = async () => {
-			const experienceFromServer = await fetchData("experience");
-
-			setVisibleExperience(experienceFromServer.displayable);
-			setExperience(experienceFromServer.text);
+		const getMyId = async () => {
+			const idFromServer = await fetchData("id");
+			setMyId(idFromServer.ownerId);
 		};
 
-		const getEducation = async () => {
-			const educationFromServer = await fetchData("education");
-			setEducation(educationFromServer.text);
-			setVisibleEducation(educationFromServer.displayable);
+		const getPersonalData = async (id) => {
+			const dataFromServer = await fetchData("user/" + id);
+
+			setExperience(dataFromServer.experience.text);
+			setVisibleExperience(dataFromServer.experience.displayable);
+
+			setEducation(dataFromServer.education.text);
+			setVisibleEducation(dataFromServer.education.displayable);
+
+			setSkills(dataFromServer.skills.text.join("\n\n"));
+			setVisibleSkills(dataFromServer.skills.visible);
+
+			setId(dataFromServer.id);
+			setName(dataFromServer.name);
+			setSurname(dataFromServer.surname);
+			setEmail(dataFromServer.email);
+			setPhone(dataFromServer.phone);
+			setJob(dataFromServer.job);
+			setEmploymentInstitution(dataFromServer.company);
 		};
 
-		const getSkills = async () => {
-			const skillsFromServer = await fetchData("skills");
-			setSkills(skillsFromServer.content.join("\n\n"));
-			setVisibleSkills(skillsFromServer.visible);
+		const setUpData = async () => {
+			const authResult = new URLSearchParams(window.location.search);
+			const id = authResult.get("id");
+
+			// Get mine or the person's id profile data.
+			if (id === null) {
+				setIsMyProfile(true);
+
+				getPersonalData("");
+			} else {
+				getMyId();
+
+				if (myId === id) {
+					setIsMyProfile(true);
+				} else {
+					const isFriendFromServer = await fetchData(
+						"checkFriend" + id
+					);
+
+					setIsFriendsProfile(isFriendFromServer.isFriend);
+				}
+
+				getPersonalData(id);
+			}
 		};
 
-		const authResult = new URLSearchParams(window.location.search);
-		const id = authResult.get("id");
-
-		// Get mine or the person's id profile and experience (and etc...)
-		if (id == null) {
-			setIsMyProfile(true);
-		} else {
-			// Do get request to check if this id is mine, some friend or non friend.
-		}
-
-		getExperience();
-		getEducation();
-		// getSkills();
+		setUpData();
 	}, [fetchData]);
 
 	const addExperience = async (newExperience) => {
@@ -75,8 +106,14 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 				<Profile
 					isMyProfile={isMyProfile}
 					isFriendsProfile={isFriendsProfile}
-					fetchData={fetchData}
 					sendData={sendData}
+					id={id}
+					name={name}
+					surname={surname}
+					email={email}
+					phone={phone}
+					job={job}
+					employmentInstitution={employmentInstitution}
 				/>
 			</Tab>
 			<Tab eventKey="b" title="Προσωπική εμπειρία">

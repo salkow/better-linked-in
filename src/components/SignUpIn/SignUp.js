@@ -8,11 +8,13 @@ import {
 	Modal,
 } from "react-bootstrap";
 
+import { useHistory } from "react-router";
+
 import { useState } from "react";
 
 import "./SignUpIn.css";
 
-const SignUp = () => {
+const SignUp = ({ sendData }) => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -30,19 +32,16 @@ const SignUp = () => {
 		setShow(true);
 	};
 
-	const sendData = async (sign_up_data) => {
-		const res = await fetch("http://localhost:8081/api/v1/registration", {
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			body: JSON.stringify(sign_up_data),
-		});
+	const history = useHistory();
 
-		await res.json();
+	const sendUserInformation = async (sign_up_data) => {
+		sendData(sign_up_data, "registration", "POST");
 
+		// TODO: use this and check if the email is available.
 		// const data = await res.json();
-		// TODO: use this and handle the response.
+
+		console.log(history);
+		history.push("/");
 	};
 
 	const onSubmit = (e) => {
@@ -52,15 +51,15 @@ const SignUp = () => {
 			e.preventDefault();
 			handleModalShow("Οι κωδικοί δεν είναι οι ίδιοι.");
 		} else {
-			sendData({
+			sendUserInformation({
 				firstName,
 				lastName,
 				email,
 				password,
 				phone,
 				photo: "myphoto.jpg",
-				// job,
-				// employmentInstitution,
+				job,
+				company: employmentInstitution,
 			});
 		}
 	};

@@ -8,7 +8,7 @@ const People = ({ fetchData }) => {
 
 	useEffect(() => {
 		const getPeople = async () => {
-			const peopleFromServer = await fetchData("people");
+			const peopleFromServer = await fetchData("friends");
 			setPeople(peopleFromServer);
 		};
 
@@ -23,13 +23,18 @@ const People = ({ fetchData }) => {
 				<Row>
 					{people.map((person, index) => (
 						<Card style={{ width: "18rem" }} key={index}>
-							<Link to="/personal" className="name">
+							<Link
+								to={"/personal?id=" + person.id}
+								className="name"
+							>
 								<Card.Img
 									variant="top"
 									src={person.picture}
 									className="aimg"
 								/>
-								<Card.Header as="h4">{person.name}</Card.Header>
+								<Card.Header as="h4">
+									{person.firstName + " " + person.lastName}
+								</Card.Header>
 							</Link>
 							<ListGroup variant="flush">
 								<ListGroup.Item>{person.job}</ListGroup.Item>
