@@ -31,12 +31,13 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 
 		const getMyId = async () => {
 			const idFromServer = await fetchData("id");
-			setMyId(idFromServer.ownerId);
+			setMyId(idFromServer);
 		};
 
-		const getMyName = async () => {};
-
-		const getFriendName = async () => {};
+		const getMyName = async () => {
+			const nameFromServer = await fetchData("name");
+			setMyId(nameFromServer);
+		};
 
 		// Check if the user wants to chat with someone in particular or just wants to open
 		// the discussions page.
@@ -52,10 +53,7 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 
 		getContacts();
 		getMyId();
-
-		// TODO: Find an easy way to get this data.
-		// getMyName();
-		// getFriendName();
+		getMyName();
 	}, [fetchData]);
 
 	const addNewMessage = async (message) => {

@@ -31,10 +31,6 @@ const Profile = ({
 
 	const history = useHistory();
 
-	const goToDiscussions = () => {
-		history.push("/discussions?id=" + id);
-	};
-
 	return (
 		<Container>
 			<Form>
@@ -48,10 +44,8 @@ const Profile = ({
 							{isMyProfile === false && (
 								<Card.Body>
 									{isFriendsProfile ? (
-										<Link to="/discussions">
-											<Button onClick={goToDiscussions}>
-												Μήνυμα
-											</Button>
+										<Link to={"/discussions?id=" + id}>
+											<Button>Μήνυμα</Button>
 										</Link>
 									) : (
 										<Button

@@ -30,24 +30,24 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	useEffect(() => {
 		const getMyId = async () => {
 			const idFromServer = await fetchData("id");
-			setMyId(idFromServer.ownerId);
+			setMyId(idFromServer);
 		};
 
 		const getPersonalData = async (id) => {
 			const dataFromServer = await fetchData("user/" + id);
 
-			setExperience(dataFromServer.experience.text);
-			setVisibleExperience(dataFromServer.experience.displayable);
+			setExperience(dataFromServer.experienceText);
+			setVisibleExperience(dataFromServer.experienceDisplayable);
 
-			setEducation(dataFromServer.education.text);
-			setVisibleEducation(dataFromServer.education.displayable);
+			setEducation(dataFromServer.educationText);
+			setVisibleEducation(dataFromServer.educationDisplayable);
 
-			setSkills(dataFromServer.skills.text.join("\n\n"));
-			setVisibleSkills(dataFromServer.skills.visible);
+			// setSkills(dataFromServer.skills.text.join("\n\n"));
+			// setVisibleSkills(dataFromServer.skills.visible);
 
 			setId(dataFromServer.id);
-			setName(dataFromServer.name);
-			setSurname(dataFromServer.surname);
+			setName(dataFromServer.firstName);
+			setSurname(dataFromServer.lastName);
 			setEmail(dataFromServer.email);
 			setPhone(dataFromServer.phone);
 			setJob(dataFromServer.job);
@@ -70,10 +70,10 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 					setIsMyProfile(true);
 				} else {
 					const isFriendFromServer = await fetchData(
-						"checkFriend" + id
+						"checkFriend/" + id
 					);
 
-					setIsFriendsProfile(isFriendFromServer.isFriend);
+					setIsFriendsProfile(isFriendFromServer);
 				}
 
 				getPersonalData(id);
