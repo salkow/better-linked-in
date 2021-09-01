@@ -37,7 +37,7 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 	};
 
 	if (redirectToReferrer === true) {
-		return <Redirect to={state?.from || "/settings"} />;
+		return <Redirect to={state?.from || "/personal"} />;
 	}
 
 	return (

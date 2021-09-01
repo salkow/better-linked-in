@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class PostRequest {
-    private final String title;
     private final String text;
     private final String media;
+    private final String typeOfMedia;
 }

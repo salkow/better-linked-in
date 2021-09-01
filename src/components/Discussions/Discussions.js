@@ -11,14 +11,16 @@ import "./Discussions.css";
 const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [messages, setMessages] = useState([]);
 	const [contacts, setContacts] = useState([]);
-	const [senderName, setSenderName] = useState("");
-	const [recipientName, setRecipientName] = useState("");
-	const [recipientId, setRecipientId] = useState("");
+
+	const [myName, setMyName] = useState("");
+	const [myId, setMyId] = useState("");
+
+	const [friendName, setFriendName] = useState("");
+	const [friendId, setFriendId] = useState("");
 
 	useEffect(() => {
-		const getMessages = async () => {
-			// fetch messages/id from the recipientId
-			const messagesFromServer = await fetchData("messages");
+		const getMessages = async (id) => {
+			const messagesFromServer = await fetchData("messages/" + id);
 			setMessages(messagesFromServer);
 		};
 
@@ -27,19 +29,14 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			setContacts(contactsFromServer);
 		};
 
-		const getSenderName = async () => {
-			const dataFromServer = await fetchData("sign_up");
-
-			const userName =
-				dataFromServer.firstName + " " + dataFromServer.lastName;
-
-			setSenderName(userName);
+		const getMyId = async () => {
+			const idFromServer = await fetchData("id");
+			setMyId(idFromServer);
 		};
 
-		const getRecipientName = async () => {
-			const recipientNameFromServer = await fetchData("recipient_name");
-
-			setRecipientName(recipientNameFromServer.content);
+		const getMyName = async () => {
+			const nameFromServer = await fetchData("name");
+			setMyId(nameFromServer);
 		};
 
 		// Check if the user wants to chat with someone in particular or just wants to open
@@ -48,27 +45,29 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		const id = authResult.get("id");
 
 		if (id != null) {
-			setRecipientId(id);
+			setFriendId(id);
+			getMessages(id);
+		} else {
+			getMessages("");
 		}
 
-		getMessages();
 		getContacts();
-		getSenderName();
-		getRecipientName();
+		getMyId();
+		getMyName();
 	}, [fetchData]);
 
 	const addNewMessage = async (message) => {
-		sendData(message, "messages", "POST");
+		sendData(message, "sendMessage", "PUT");
 
 		setMessages([...messages, message]);
 	};
 
 	// Focus the messages of a specific contact.
 	const focusContact = async (id, name) => {
-		setRecipientName(name);
-		setRecipientId(id);
+		setFriendName(name);
+		setFriendId(id);
 
-		const messagesFromServer = await fetchData("messages");
+		const messagesFromServer = await fetchData("messages/" + friendId);
 		setMessages(messagesFromServer);
 	};
 
@@ -94,8 +93,9 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 						) : (
 							<Messages
 								messages={messages}
-								senderName={senderName}
-								recipientName={recipientName}
+								myName={myName}
+								myId={myId}
+								friendName={friendName}
 								navHeight={navHeight}
 								pageHeight={pageHeight}
 							/>

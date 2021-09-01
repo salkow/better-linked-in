@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
@@ -97,6 +98,10 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Post> posts= new HashSet<>();
 
+    @OneToOne
+    @JsonIgnore
+    private Contact lastMessages;
+
     public User() {}
 
     public User(String firstName, String LastName, String password, String email, String phone, String photo, String job, String company) {
@@ -178,4 +183,5 @@ public class User implements UserDetails {
     public void addContactOf(Contact contact) {
         contactOf.add(contact);
     }
+
 }

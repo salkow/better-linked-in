@@ -28,6 +28,7 @@ const MainPage = ({ fetchData, sendData }) => {
 					posts={posts}
 					setPosts={setPosts}
 					fetchData={fetchData}
+					sendData={sendData}
 				/>
 			</Row>
 		</Container>

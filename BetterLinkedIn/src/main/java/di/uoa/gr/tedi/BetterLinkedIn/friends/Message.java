@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 public class Message {
     @Column(name = "message_id")
+    @JsonIgnore
     private @Id @GeneratedValue Long id;
 
     private final String text;
@@ -26,18 +27,21 @@ public class Message {
     @JsonIgnore
     private Contact contact;
 
-
     private final Long ownerId;
+
+    private final String ownerName;
 
     protected Message() {
         text = "";
         ownerId = new Long(0);
+        ownerName = "";
     }
 
 
-    public Message(String text, Long ownerId) {
+    public Message(String text, Long ownerId, String ownerName) {
         this.text = text;
         this.ownerId = ownerId;
+        this.ownerName = ownerName;
     }
 
 }

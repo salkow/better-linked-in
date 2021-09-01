@@ -16,8 +16,6 @@ public class Post {
 
     private @Id @GeneratedValue Long id;
 
-    @NotNull
-    private String title;
 
     private String text;
 
@@ -29,8 +27,10 @@ public class Post {
 
     protected Post() {}
 
-    public Post(String title, String text, String media, User owner) {
-        this.title = title;
+    public Post(String text, String media, User owner) {
+        if (text == null && media == null) {
+            throw new IllegalStateException("Post must have at least one of text or media");
+        }
         this.text = text;
         this.media = media;
         this.owner = owner;

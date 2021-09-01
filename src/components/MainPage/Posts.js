@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
-const Posts = ({ posts, setPosts, fetchData }) => {
+const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 	useEffect(() => {
 		const getSenderName = async () => {
 			const dataFromServer = await fetchData("sign_up");
@@ -71,7 +71,7 @@ const Posts = ({ posts, setPosts, fetchData }) => {
 									>
 										<Card.Header as="h5">
 											<Link
-												to="/discussions"
+												to={"/personal?id=" + post.id}
 												className="name"
 											>
 												{post.name}

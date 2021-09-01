@@ -2,10 +2,9 @@ package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
-import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
-import di.uoa.gr.tedi.BetterLinkedIn.friends.ContactRepository;
-import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
-import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
+import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.ContactDetails;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.SkillsList;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,13 +15,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static java.util.Arrays.stream;
-
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND_MSG= "User with email %s not found";
+    private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
     private final UserRepository repository;
     private final ContactRepository contRepo;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -95,24 +92,26 @@ public class UserService implements UserDetailsService {
         return opt.get().getEducation();
     }
 
-    public void updateUserSkills(Authentication authentication, UserSkills userSkills) {
+    public void updateUserSkills(Authentication authentication, SkillsList skillsList) {
         Optional<User> opt = repository.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
 
         User user = opt.get();
-        user.setSkills(userSkills);
+        UserSkills skills = new UserSkills(String.join(",", skillsList.getPersonalSkills()), skillsList.getDisplayable());
+
+        user.setSkills(skills);
         repository.save(user);
 
     }
 
-    public UserSkills readUserSkills(Authentication authentication) {
+    public SkillsList readUserSkills(Authentication authentication) {
         Optional<User> opt = repository.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
-        return opt.get().getSkills();
+        return new SkillsList(opt.get().getSkills());
     }
 
     public void sendFriendRequest(Authentication authentication, Long receiverId) {
@@ -155,7 +154,7 @@ public class UserService implements UserDetailsService {
         User user = opt.get();
         List<User> senders = repository.findFriendRequestsReceived(user);
         List<FriendRequest> ids = new ArrayList();
-        for(User u : senders) {
+        for (User u : senders) {
             ids.add(new FriendRequest(u.getId(), u.getFirstName() + " " + u.getLastName()));
         }
         return ids;
@@ -204,7 +203,7 @@ public class UserService implements UserDetailsService {
         return repository.findFriends(user);
     }
 
-    public List<Contact> get_contacts(Authentication authentication) {
+    public List<ContactDetails> get_contacts(Authentication authentication) {
         Optional<User> optU = repository.findUserByEmail(authentication.getName());
         if (!optU.isPresent()) {
             throw new IllegalStateException("authentication failed");
@@ -212,7 +211,31 @@ public class UserService implements UserDetailsService {
         User user = optU.get();
         List<Contact> list = new ArrayList<>(user.getContactList());
         list.addAll(user.getContactOf());
-        return list;
+
+        List<ContactDetails> details = new ArrayList<>();
+        for (Contact i : list) {
+            ContactId cId = i.getId();
+            Long id;
+            String name;
+            if (cId.getFriend1Id().equals(user.getId())) {
+                id = cId.getFriend2Id();
+                name = i.getFriend2Name();
+            } else {
+                id = cId.getFriend1Id();
+                name = i.getFriend1Name();
+            }
+            details.add(new ContactDetails(id, name));
+        }
+        return details;
+    }
+
+    public List<Contact> get_contactsList(Authentication authentication) {
+        Optional<User> optU = repository.findUserByEmail(authentication.getName());
+        if (!optU.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User user = optU.get();
+        return user.getContactList();
     }
 
     public void add_contact(Authentication authentication, Long id) {
@@ -249,7 +272,7 @@ public class UserService implements UserDetailsService {
         User receiver = optU2.get();
 
         Contact temp = new Contact(sender, receiver);
-        List<Contact> contactList = get_contacts(authentication);
+        List<Contact> contactList = get_contactsList(authentication);
         Optional<Contact> optC = contactList.stream().findFirst();
         if (!optC.isPresent()) {
             add_contact(authentication, id);
@@ -259,7 +282,9 @@ public class UserService implements UserDetailsService {
             }
         }
         Contact c = optC.get();
-        c.addMessage(text, sender.getId());
+        c.addMessage(text, sender.getId(), sender.getFirstName() + " " + sender.getLastName());
+        sender.setLastMessages(c);
+        receiver.setLastMessages(c);
         contRepo.save(c);
         repository.save(sender);
     }
@@ -278,7 +303,7 @@ public class UserService implements UserDetailsService {
         User receiver = optU2.get();
 
         Contact temp = new Contact(sender, receiver);
-        List<Contact> contactList = get_contacts(authentication);
+        List<Contact> contactList = get_contactsList(authentication);
         Optional<Contact> optC = contactList.stream().findFirst();
         if (!optC.isPresent()) {
             throw new IllegalStateException("Contact not found");
@@ -291,8 +316,8 @@ public class UserService implements UserDetailsService {
         return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    public Set<Post> get_posts(Authentication authentication) {
-        Optional<User> opt= repository.findUserByEmail(authentication.getName());
+    public Set<Post> get_MyPosts(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
@@ -307,9 +332,78 @@ public class UserService implements UserDetailsService {
         }
         User user = opt.get();
 
-        Post post = new Post(req.getTitle(), req.getText(), req.getMedia(), user);
+        Post post = new Post(req.getText(), req.getMedia(), user);
         Set<Post> postsSet = user.getPosts();
         postsSet.add(post);
         repository.save(user);
+    }
+
+    public User one(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        return opt.get();
+    }
+
+    public Long get_id(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        return opt.get().getId();
+    }
+
+    public Boolean check_friend(Authentication authentication, Long id) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User user = opt.get();
+
+        Set<User> friends = new HashSet<>(user.getFriends());
+        friends.addAll(user.getFriendOf());
+
+        Optional<User> opt2 = repository.findById(id);
+        if (!opt2.isPresent()) {
+            throw new IllegalStateException("wrong id");
+        }
+        User user2 = opt2.get();
+
+        return friends.contains(user2);
+    }
+
+    public String get_name(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User user = opt.get();
+        return user.getFirstName() + " " + user.getLastName();
+    }
+
+    public List<Message> get_lastMessages(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User user = opt.get();
+        return user.getLastMessages().getMessages();
+    }
+
+    public Set<Post> get_posts(Authentication authentication) {
+        Optional<User> opt = repository.findUserByEmail(authentication.getName());
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("authentication failed");
+        }
+        User owner = opt.get();
+
+        List<User> friends = new ArrayList<>(owner.getFriends());
+        friends.addAll(owner.getFriendOf());
+        Set<Post> postsOfFriends = new HashSet<>();
+        for (User u : friends) {
+            postsOfFriends.addAll(u.getPosts());
+        }
+        return postsOfFriends;
     }
 }

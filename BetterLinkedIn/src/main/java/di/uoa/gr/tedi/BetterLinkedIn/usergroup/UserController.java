@@ -10,8 +10,7 @@ import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
-import di.uoa.gr.tedi.BetterLinkedIn.utils.PersonalDetails;
-import di.uoa.gr.tedi.BetterLinkedIn.utils.WBool;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -93,10 +92,20 @@ public class UserController {
 
 
 
+    @GetMapping("api/v1/user")
+    PersonalDetails one(Authentication authentication) {
+
+        User user = userService.one(authentication);
+        if (user != null) {
+            PersonalDetails details = new PersonalDetails();
+            details.user_to_details(user);
+            return details;
+        }
+        else return null;
+    }
 
 
-
-    @GetMapping("/user/{id}")
+    @GetMapping("api/v1/user/{id}")
     PersonalDetails one(@PathVariable("id") Long id) {
 
         User user = userService.one(id);
@@ -106,6 +115,16 @@ public class UserController {
             return details;
         }
         else return null;
+    }
+
+    @GetMapping("api/v1/id")
+    Long get_id(Authentication authentication) {
+        return userService.get_id(authentication);
+    }
+
+    @GetMapping("api/v1/name")
+    String get_name(Authentication authentication) {
+        return userService.get_name(authentication);
     }
 
 
@@ -132,13 +151,12 @@ public class UserController {
     }
 
     @PutMapping("api/v1/skills")
-    public void updateUserSkills(Authentication authentication, @RequestBody UserSkills userSkills) {
-        userService.updateUserSkills(authentication, userSkills);
-
+    public void updateUserSkills(Authentication authentication, @RequestBody SkillsList skillsList) {
+        userService.updateUserSkills(authentication, skillsList);
     }
 
     @GetMapping("api/v1/skills")
-    public UserSkills readUserSkills(Authentication authentication) {
+    public SkillsList readUserSkills(Authentication authentication) {
         return userService.readUserSkills(authentication);
     }
 
@@ -158,7 +176,6 @@ public class UserController {
         return userService.get_requestsReceived(authentication);
     }
 
-
     @PutMapping("api/v1/friendRequestResponse/{senderid}")
     public void accept_friendRequest(Authentication authentication, @PathVariable("senderid") Long senderId, @RequestBody WBool wrapper) {
         userService.respond_friendRequest(authentication, senderId, wrapper.getResponse());
@@ -169,8 +186,14 @@ public class UserController {
         return userService.get_friends(authentication);
     }
 
+    @GetMapping("api/v1/checkFriend/{id}")
+    public Boolean check_friend(Authentication authentication, @PathVariable("id") Long id) {
+
+        return userService.check_friend(authentication, id);
+    }
+
     @GetMapping("api/v1/contacts")
-    public List<Contact> get_contacts(Authentication authentication) {
+    public List<ContactDetails> get_contacts(Authentication authentication) {
         return userService.get_contacts(authentication);
     }
 
@@ -179,9 +202,19 @@ public class UserController {
         userService.send_message(authentication, id, text);
     }
 
-    @GetMapping("api/v1/message/{receiverId}")
+    @GetMapping("api/v1/messages/{receiverId}")
     public List<Message> get_messages(Authentication authentication, @PathVariable("receiverId") Long id) {
         return userService.get_messages(authentication, id);
+    }
+
+    @GetMapping("api/v1/messages")
+    public List<Message> get_messages(Authentication authentication) {
+        return userService.get_lastMessages(authentication);
+    }
+
+    @GetMapping("api/v1/myPosts")
+    public Set<Post> get_MyPosts(Authentication authentication) {
+        return userService.get_MyPosts(authentication);
     }
 
     @GetMapping("api/v1/posts")
@@ -189,8 +222,8 @@ public class UserController {
         return userService.get_posts(authentication);
     }
 
-    @PutMapping("api/v1/post")
-    public void upload_post(Authentication authentication, PostRequest req) {
+    @PostMapping("api/v1/post")
+    public void upload_post(Authentication authentication, @RequestBody PostRequest req) {
         userService.upload_post(authentication, req);
     }
 }
