@@ -26,16 +26,16 @@ const Messages = ({
 					<Card key={index}>
 						<Card.Body
 							className={
-								message.id === myId
+								message.ownerId === myId
 									? "sender-message"
 									: "recipient-message"
 							}
 						>
 							<Card.Title>
-								{message.id === myId ? myName : friendName}
+								{message.ownerId === myId ? myName : friendName}
 							</Card.Title>
 							<Card.Text className="message">
-								{message.content}
+								{message.text}
 							</Card.Text>
 						</Card.Body>
 					</Card>

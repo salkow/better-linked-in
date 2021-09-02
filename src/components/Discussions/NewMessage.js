@@ -8,9 +8,7 @@ const NewMessage = ({ addNewMessage }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const id = Math.floor(Math.random() * 10000) + 1;
-
-		addNewMessage({ content: newMessage, id: id, from_sender: true });
+		addNewMessage(newMessage);
 
 		setNewMessage("");
 	};

@@ -20,7 +20,7 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 
 	useEffect(() => {
 		const getMessages = async (id) => {
-			const messagesFromServer = await fetchData("message/" + id);
+			const messagesFromServer = await fetchData("messages/" + id);
 			setMessages(messagesFromServer);
 		};
 
@@ -67,7 +67,7 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		setFriendName(name);
 		setFriendId(id);
 
-		const messagesFromServer = await fetchData("messages");
+		const messagesFromServer = await fetchData("messages/" + friendId);
 		setMessages(messagesFromServer);
 	};
 
