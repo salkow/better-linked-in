@@ -39,6 +39,16 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			setMyId(nameFromServer);
 		};
 
+		const getFriendName = async (id) => {
+			const nameFromServer = await fetchData("name/" + id);
+			setFriendName(nameFromServer);
+		};
+
+		const getLastContactId = async () => {
+			const idFromServer = await fetchData("lastContactId");
+			setFriendId(idFromServer);
+		};
+
 		// Check if the user wants to chat with someone in particular or just wants to open
 		// the discussions page.
 		const authResult = new URLSearchParams(window.location.search);
@@ -46,8 +56,11 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 
 		if (id != null) {
 			setFriendId(id);
+			getFriendName();
 			getMessages(id);
 		} else {
+			getLastContactId();
+			getFriendName(friendId);
 			getMessages("");
 		}
 

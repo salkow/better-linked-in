@@ -39,7 +39,7 @@ const People = ({ fetchData }) => {
 							<ListGroup variant="flush">
 								<ListGroup.Item>{person.job}</ListGroup.Item>
 								<ListGroup.Item>
-									{person.employmentInstitution}
+									{person.company}
 								</ListGroup.Item>
 							</ListGroup>
 						</Card>

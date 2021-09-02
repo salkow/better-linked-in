@@ -18,7 +18,7 @@ const Email = ({ emailFromServer, sendData }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		sendData({ content: email }, "email", "POST");
+		sendData({ email }, "email", "PUT");
 	};
 
 	return (
