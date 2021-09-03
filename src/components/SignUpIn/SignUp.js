@@ -36,7 +36,7 @@ const SignUp = ({ sendData }) => {
 
 	const sendUserInformation = async (sign_up_data) => {
 		const res = sendData(sign_up_data, "registration", "POST");
-		if (res.status === 111) {
+		if (res.status === 302) {
 			handleModalShow("Το email δεν είναι διαθέσιμο.");
 			return;
 		}

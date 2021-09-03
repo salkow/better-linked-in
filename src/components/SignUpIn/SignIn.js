@@ -36,17 +36,16 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 
 		const url = "http://localhost:8081/perform_login";
 
-		axios.post(url, formData, config).then((response) => {
-			// if (response.ok) {
-			// 	handleModalShow("Λάθος στοιχεία.");
-			// 	return;
-			// }
-
-			setAccessToken(response.data.access_token);
-		});
-		// .catch(function (error) {
-		// 	console.log(JSON.stringify(error));
-		// });
+		axios
+			.post(url, formData, config)
+			.then((response) => {
+				setAccessToken(response.data.access_token);
+			})
+			.catch(function (error) {
+				if (error.response && error.response.status === 302) {
+					handleModalShow("Λάθος στοιχεία.");
+				}
+			});
 
 		setIsAuthenticated(true);
 		setRedirectToReferrer(true);

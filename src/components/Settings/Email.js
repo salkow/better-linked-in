@@ -15,10 +15,22 @@ const Email = ({ emailFromServer, sendData }) => {
 		setEmail(emailFromServer);
 	}, [setEmail, emailFromServer]);
 
+	const [show, setShow] = useState(false);
+	const [modalMessage, setModalMessage] = useState("");
+	const handleModalClose = () => setShow(false);
+	const handleModalShow = (message) => {
+		setModalMessage(message);
+		setShow(true);
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		sendData({ email }, "email", "PUT");
+		const res = sendData({ email }, "email", "PUT");
+		if (res.status === 302) {
+			handleModalShow("Το email δεν είναι διαθέσιμο.");
+			return;
+		}
 	};
 
 	return (
@@ -50,6 +62,16 @@ const Email = ({ emailFromServer, sendData }) => {
 					/>
 				</InputGroup>
 			</div>
+
+			<Modal show={show} onHide={handleModalClose} animation={false}>
+				<Modal.Header closeButton>
+					<Modal.Title>Κάτι πήγε στραβά.</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>{modalMessage}</Modal.Body>
+				<Modal.Footer>
+					<Button onClick={handleModalClose}>Close</Button>
+				</Modal.Footer>
+			</Modal>
 		</Form>
 	);
 };
