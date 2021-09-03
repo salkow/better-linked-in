@@ -4,6 +4,7 @@ import {
 	InputGroup,
 	FormControl,
 	FloatingLabel,
+	Modal,
 } from "react-bootstrap";
 
 import { useState, useEffect } from "react";
