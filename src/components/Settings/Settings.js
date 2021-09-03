@@ -23,7 +23,7 @@ const Settings = ({ fetchData, sendData }) => {
 				<h2 className="align-middle">Άλλαξε τα στοιχεία σου.</h2>
 			</Row>
 			<Row>
-				<Email emailFromServer={email} sendData={sendData}></Email>
+				<Email emailFromServer={email}></Email>
 			</Row>
 			<Row>
 				<Password sendData={sendData}></Password>

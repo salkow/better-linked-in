@@ -20,11 +20,11 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 
 	const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
+	let correctLogin = true;
+
 	const { state } = useLocation();
 
-	const onSubmit = (e) => {
-		e.preventDefault();
-
+	const login = async () => {
 		let formData = new FormData();
 
 		formData.append("username", email);
@@ -36,19 +36,30 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 
 		const url = "http://localhost:8081/perform_login";
 
-		axios
-			.post(url, formData, config)
-			.then((response) => {
-				setAccessToken(response.data.access_token);
+		try {
+			const res = await axios.post(url, formData, config);
+			setAccessToken(res.data.access_token);
+
+			return true;
+		} catch (err) {
+			handleModalShow("Λάθος στοιχεία.");
+			return false;
+		}
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		login()
+			.then((res) => {
+				correctLogin = res;
 			})
-			.catch(function (error) {
-				if (error.response && error.response.status === 302) {
-					handleModalShow("Λάθος στοιχεία.");
+			.then(() => {
+				if (correctLogin === true) {
+					setIsAuthenticated(true);
+					setRedirectToReferrer(true);
 				}
 			});
-
-		setIsAuthenticated(true);
-		setRedirectToReferrer(true);
 	};
 
 	if (redirectToReferrer === true) {

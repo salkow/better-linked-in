@@ -76,7 +76,7 @@ function App() {
 				</Route>
 
 				<Route path="/sign-up">
-					<SignUp sendData={sendData} />
+					<SignUp />
 				</Route>
 
 				<PrivateRoute isAuthenticated={isAuthenticated} path="/admin">

@@ -12,9 +12,11 @@ import { useHistory } from "react-router";
 
 import { useState } from "react";
 
+import axios from "axios";
+
 import "./SignUpIn.css";
 
-const SignUp = ({ sendData }) => {
+const SignUp = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -35,13 +37,16 @@ const SignUp = ({ sendData }) => {
 	const history = useHistory();
 
 	const sendUserInformation = async (sign_up_data) => {
-		const res = sendData(sign_up_data, "registration", "POST");
-		if (res.status === 302) {
-			handleModalShow("Το email δεν είναι διαθέσιμο.");
+		try {
+			await axios.post(
+				"http://localhost:8081/api/v1/registration",
+				sign_up_data
+			);
+		} catch (err) {
+			handleModalShow("Λάθος στοιχεία.");
 			return;
 		}
 
-		console.log(history);
 		history.push("/");
 	};
 
