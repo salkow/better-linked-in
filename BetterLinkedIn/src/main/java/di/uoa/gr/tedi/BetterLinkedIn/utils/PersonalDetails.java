@@ -1,10 +1,6 @@
 package di.uoa.gr.tedi.BetterLinkedIn.utils;
 
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
-import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserEducation;
-import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserExperience;
-import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserSkills;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +19,8 @@ public class PersonalDetails {
     private Boolean experienceDisplayable;
     private String educationText;
     private Boolean educationDisplayable;
-    private UserSkills skills;
+    private String skillsText;
+    private Boolean skillsDisplayable;
 
 
     public void user_to_details(User user) {
@@ -38,6 +35,7 @@ public class PersonalDetails {
         this.experienceDisplayable = user.getExperience().getDisplayable();
         this.educationText = user.getEducation().getText();
         this.educationDisplayable = user.getEducation().getDisplayable();
-        this.skills = user.getSkills();
+        this.skillsText = user.getSkills().getText();
+        this.skillsDisplayable = user.getSkills().getDisplayable();
     }
 }

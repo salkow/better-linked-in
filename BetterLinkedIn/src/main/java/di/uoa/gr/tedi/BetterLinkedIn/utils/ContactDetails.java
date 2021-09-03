@@ -12,7 +12,7 @@ public class ContactDetails {
 
     public ContactDetails(Long id, String name) {
         this.id = id;
-        this.name = "NULL";
+        this.name = name;
     }
 }
 

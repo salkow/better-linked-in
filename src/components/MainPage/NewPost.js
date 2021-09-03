@@ -7,6 +7,7 @@ import {
 	Button,
 	Form,
 } from "react-bootstrap";
+import axios from "axios";
 
 const NewPost = ({ setPosts, sendData }) => {
 	const [selectedFile, setSelectedFile] = useState();
@@ -31,9 +32,9 @@ const NewPost = ({ setPosts, sendData }) => {
 			return;
 		}
 
-		if (isFileSelected) {
-			let typeOfMedia = "";
+		let typeOfMedia = "";
 
+		if (isFileSelected) {
 			if (selectedFile.type.match("image.*")) {
 				typeOfMedia = "image";
 			} else if (selectedFile.type.match("video.*")) {
@@ -46,11 +47,17 @@ const NewPost = ({ setPosts, sendData }) => {
 				);
 				return;
 			}
+
+			const formData = new FormData();
+
+			formData.append(message, selectedFile, typeOfMedia);
+
+			axios.post("api/v1/postWithFile", formData);
+
+			return;
 		}
 
-		// Add post to the other posts.
-
-		// sendData({})
+		sendData({ text: message }, "post", "POST");
 	};
 
 	const changeHandler = (e) => {

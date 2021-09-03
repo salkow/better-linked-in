@@ -42,8 +42,8 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			setEducation(dataFromServer.educationText);
 			setVisibleEducation(dataFromServer.educationDisplayable);
 
-			// setSkills(dataFromServer.skills.text.join("\n\n"));
-			// setVisibleSkills(dataFromServer.skills.visible);
+			setSkills(dataFromServer.skillsText);
+			setVisibleSkills(dataFromServer.skillsDisplayable);
 
 			setId(dataFromServer.id);
 			setName(dataFromServer.firstName);
@@ -92,12 +92,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	};
 
 	const addSkills = async (newSkills) => {
-		const newSkillsArr = {
-			content: newSkills.content.trim().split("\n\n"),
-			visible: newSkills.visible,
-		};
-
-		sendData(newSkillsArr, "skills", "PUT");
+		sendData(newSkills, "skills", "PUT");
 	};
 
 	return (

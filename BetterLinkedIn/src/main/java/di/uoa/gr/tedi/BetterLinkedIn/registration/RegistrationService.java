@@ -2,7 +2,9 @@ package di.uoa.gr.tedi.BetterLinkedIn.registration;
 
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserService;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.UserServiceHelper;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,5 +20,11 @@ public class RegistrationService {
             throw new IllegalStateException("email not valid");
         }
         return userService.signUpUser(new User(request.getFirstName(), request.getLastName(), request.getPassword(), request.getEmail(), request.getPhone(), request.getPhoto(), request.getJob(), request.getCompany()));
+    }
+
+
+    @Bean
+    public UserServiceHelper userServiceHelper() {
+        return new UserServiceHelper();
     }
 }

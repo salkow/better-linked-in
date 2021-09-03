@@ -118,15 +118,34 @@ public class UserController {
     }
 
     @GetMapping("api/v1/id")
-    Long get_id(Authentication authentication) {
+    public Long get_id(Authentication authentication) {
         return userService.get_id(authentication);
     }
 
     @GetMapping("api/v1/name")
-    String get_name(Authentication authentication) {
+    public String get_name(Authentication authentication) {
         return userService.get_name(authentication);
     }
 
+    @GetMapping("api/v1/name/{id}")
+    public String get_nameById(@PathVariable("id") Long id) {
+        return userService.get_nameById(id);
+    }
+
+    @GetMapping("api/v1/email")
+    public String get_email(Authentication authentication) {
+        return userService.get_email(authentication);
+    }
+
+    @PutMapping("api/v1/email")
+    public void update_email(Authentication authentication, @RequestBody String email) {
+        userService.update_email(authentication, email);
+    }
+
+    @PutMapping("api/v1/password")
+    public void update_password(Authentication authentication, @RequestBody String password) {
+        userService.update_password(authentication, password);
+    }
 
     @PutMapping("api/v1/experience")
     public void updateUserExperience(Authentication authentication, @RequestBody UserExperience userExperience) {
@@ -142,7 +161,6 @@ public class UserController {
     @PutMapping("api/v1/education")
     public void updateUserEducation(Authentication authentication, @RequestBody UserEducation userEducation) {
         userService.updateUserEducation(authentication, userEducation);
-
     }
 
     @GetMapping("api/v1/education")
@@ -151,12 +169,12 @@ public class UserController {
     }
 
     @PutMapping("api/v1/skills")
-    public void updateUserSkills(Authentication authentication, @RequestBody SkillsList skillsList) {
-        userService.updateUserSkills(authentication, skillsList);
+    public void updateUserSkills(Authentication authentication, @RequestBody UserSkills skills) {
+        userService.updateUserSkills(authentication, skills);
     }
 
     @GetMapping("api/v1/skills")
-    public SkillsList readUserSkills(Authentication authentication) {
+    public UserSkills readUserSkills(Authentication authentication) {
         return userService.readUserSkills(authentication);
     }
 
@@ -182,7 +200,7 @@ public class UserController {
     }
 
     @GetMapping("api/v1/friends")
-    public Set<User> get_friends(Authentication authentication) {
+    public List<Details> get_friends(Authentication authentication) {
         return userService.get_friends(authentication);
     }
 
@@ -225,5 +243,10 @@ public class UserController {
     @PostMapping("api/v1/post")
     public void upload_post(Authentication authentication, @RequestBody PostRequest req) {
         userService.upload_post(authentication, req);
+    }
+
+    @PutMapping("api/v1/comment/{post_id}")
+    public void comment(Authentication authentication, @PathVariable("post_id") Long id, @RequestBody String text) {
+        userService.comment(authentication, id, text);
     }
 }

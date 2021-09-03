@@ -19,7 +19,7 @@ public class SkillsList {
     private Boolean displayable;
 
     public SkillsList(UserSkills userSkills) {
-        this.personalSkills = new ArrayList<>(Arrays.asList(userSkills.getPersonalSkills().split(",")));
+        this.personalSkills = new ArrayList<>(Arrays.asList(userSkills.getText().split(",")));
         this.displayable = userSkills.getDisplayable();
     }
 }

@@ -6,6 +6,7 @@ import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -61,6 +62,9 @@ public class Contact {
     public void addMessage(String text, Long id, String ownerName) {
         Message mes = new Message(text, id, ownerName);
         mes.setContact(this);
+        for(Message m: this.messages) {
+            System.out.println(m.getText() + " " + m.getOwnerId());
+        }
         this.messages.add(mes);
     }
 }

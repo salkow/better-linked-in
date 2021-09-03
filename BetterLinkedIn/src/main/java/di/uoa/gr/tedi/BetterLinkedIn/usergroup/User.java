@@ -2,6 +2,7 @@ package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
 
     private String lastName;
 
+    @JsonIgnore
     private String password;
 
     private String email;
@@ -96,11 +98,15 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<Post> posts= new HashSet<>();
+    private Set<Post> posts = new HashSet<>();
 
     @OneToOne
     @JsonIgnore
     private Contact lastMessages;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Comment> commentsMade = new HashSet<>();
 
     public User() {}
 
@@ -127,6 +133,9 @@ public class User implements UserDetails {
         this.phone = phone;
         this.photo = photo;
         this.userRole= userRole;
+        this.experience= new UserExperience();
+        this.education= new UserEducation();
+        this.skills= new UserSkills();
         this.job = job;
         this.company = company;
 

@@ -35,10 +35,11 @@ const SignUp = ({ sendData }) => {
 	const history = useHistory();
 
 	const sendUserInformation = async (sign_up_data) => {
-		sendData(sign_up_data, "registration", "POST");
-
-		// TODO: use this and check if the email is available.
-		// const data = await res.json();
+		const res = sendData(sign_up_data, "registration", "POST");
+		if (res.status === 302) {
+			handleModalShow("Το email δεν είναι διαθέσιμο.");
+			return;
+		}
 
 		console.log(history);
 		history.push("/");

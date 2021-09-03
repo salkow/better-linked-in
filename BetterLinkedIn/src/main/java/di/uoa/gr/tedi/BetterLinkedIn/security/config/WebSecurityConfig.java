@@ -2,6 +2,7 @@ package di.uoa.gr.tedi.BetterLinkedIn.security.config;
 
 import di.uoa.gr.tedi.BetterLinkedIn.filters.CustomAuthenticationFilter;
 import di.uoa.gr.tedi.BetterLinkedIn.filters.CustomAuthorizationFilter;
+import di.uoa.gr.tedi.BetterLinkedIn.security.handlers.CustomAuthenticationFailureHandler;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -48,13 +49,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticated()
                     .and()
                 .formLogin()
-                    .loginPage("http://localhost:3000/sign-in")
                     .loginProcessingUrl("/perform_login")
+                        .failureHandler(customAuthenticationFailureHandler())
                     .permitAll();
 
 
 
 
+    }
+
+    @Bean
+    protected AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
 
