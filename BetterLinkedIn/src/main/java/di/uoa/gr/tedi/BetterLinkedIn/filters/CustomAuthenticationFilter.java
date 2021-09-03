@@ -3,13 +3,19 @@ package di.uoa.gr.tedi.BetterLinkedIn.filters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import di.uoa.gr.tedi.BetterLinkedIn.security.handlers.CustomAuthenticationFailureHandler;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.MimeTypeUtils;
 
@@ -57,8 +63,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
-/*        response.setHeader("access_token", access_token);
-        response.setHeader("refresh_token", refresh_token);*/
         Map<String, String> tokens= new HashMap<>();
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
@@ -67,4 +71,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     }
 
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    }
+
+
+    @Bean
+    public AuthenticationFailureHandler getAuthenticationFailureHandler() {
+        CustomAuthenticationFailureHandler customAuthenticationFailureHandler = new CustomAuthenticationFailureHandler();
+        return customAuthenticationFailureHandler;
+    }
 }

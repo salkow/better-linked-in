@@ -50,8 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                     .loginProcessingUrl("/perform_login")
-                        .failureHandler(customAuthenticationFailureHandler())
-                    .permitAll();
+                        .failureHandler(customAuthenticationFailureHandler());
 
 
 
