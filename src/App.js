@@ -70,6 +70,22 @@ function App() {
 		return res.data;
 	};
 
+	const sendFormData = async (form, path) => {
+		const res = await axios({
+			method: "POST",
+			url: `http://localhost:8081/api/v1/${path}`,
+			data: form,
+			headers: {
+				Authorization: "Bearer " + accessToken,
+				credentials: "include",
+			},
+		});
+
+		if (!res.ok) {
+			return "error";
+		}
+	};
+
 	const updateDimensions = () => {
 		setPageHeight(window.innerHeight);
 	};
@@ -109,6 +125,7 @@ function App() {
 								<MainPage
 									fetchData={fetchData}
 									sendData={sendData}
+									sendFormData={sendFormData}
 								/>
 							</PrivateRoute>
 

@@ -81,7 +81,7 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 				}
 			});
 		}
-	}, [fetchData]);
+	}, [fetchData, sendData]);
 
 	const addNewMessage = async (message) => {
 		sendData(message, "sendMessage/" + friendId, "PUT");

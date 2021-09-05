@@ -7,9 +7,8 @@ import {
 	Button,
 	Form,
 } from "react-bootstrap";
-import axios from "axios";
 
-const NewPost = ({ setPosts, sendData }) => {
+const NewPost = ({ setPosts, sendFormData }) => {
 	const [selectedFile, setSelectedFile] = useState();
 	const [isFileSelected, setIsFileSelected] = useState(false);
 	const [message, setMessage] = useState("");
@@ -34,6 +33,8 @@ const NewPost = ({ setPosts, sendData }) => {
 
 		let typeOfMedia = "";
 
+		const formData = new FormData();
+
 		if (isFileSelected) {
 			if (selectedFile.type.match("image.*")) {
 				typeOfMedia = "image";
@@ -48,17 +49,15 @@ const NewPost = ({ setPosts, sendData }) => {
 				return;
 			}
 
-			const formData = new FormData();
-
-			formData.append("typeofMedia", typeOfMedia);
-			formData.append("file", selectedFile, selectedFile.name);
-
-			axios.post("api/v1/postWithFile", formData);
-
-			return;
+			formData.append("media", selectedFile, selectedFile.name);
+		} else {
+			formData.append("media", null);
 		}
 
-		sendData({ text: message }, "post", "POST");
+		formData.append("text", message);
+		formData.append("typeofMedia", typeOfMedia);
+
+		sendFormData(formData, "post");
 	};
 
 	const changeHandler = (e) => {
