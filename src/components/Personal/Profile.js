@@ -30,15 +30,16 @@ const Profile = ({
 		sendData("", "friendRequest/" + id, "PUT");
 	};
 
-	const history = useHistory();
-
 	return (
 		<Container>
 			<Form>
 				<ListGroup variant="flush">
 					<ListGroup.Item>
 						<Card style={{ width: "18rem" }}>
-							<Card.Img variant="top" src={photoPath} />
+							<Card.Img
+								variant="top"
+								src={"http://localhost:8081" + photoPath}
+							/>
 							{isMyProfile === false && (
 								<Card.Body>
 									{isFriendsProfile ? (

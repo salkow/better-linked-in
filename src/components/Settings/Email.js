@@ -7,17 +7,9 @@ import {
 	Modal,
 } from "react-bootstrap";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import axios from "axios";
-
-const Email = ({ emailFromServer, sendData }) => {
-	const [email, setEmail] = useState("");
-
-	useEffect(() => {
-		setEmail(emailFromServer);
-	}, [setEmail, emailFromServer]);
-
+const Email = ({ email, setEmail, sendData }) => {
 	const [show, setShow] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
 	const handleModalClose = () => setShow(false);
@@ -26,10 +18,9 @@ const Email = ({ emailFromServer, sendData }) => {
 		setShow(true);
 	};
 
-	const sendEmail = async (email) => {
-		try {
-			await axios.put("http://localhost:8081/api/v1/email", { email });
-		} catch (err) {
+	const sendEmail = async () => {
+		const res = await sendData(email, "email", "PUT");
+		if (res === "error") {
 			handleModalShow("Το email δεν είναι διαθέσιμο.");
 		}
 	};

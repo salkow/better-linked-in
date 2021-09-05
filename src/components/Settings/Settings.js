@@ -5,17 +5,17 @@ import { useState, useEffect } from "react";
 import Email from "./Email";
 import Password from "./Password";
 
-const Settings = ({ fetchData, sendData }) => {
+const Settings = ({ fetchDataNoJSON, sendData }) => {
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
 		const getEmail = async () => {
-			const emailFromServer = await fetchData("email");
-			setEmail(emailFromServer.content);
+			const emailFromServer = await fetchDataNoJSON("email");
+			setEmail(emailFromServer.data);
 		};
 
 		getEmail();
-	}, [fetchData]);
+	}, [fetchDataNoJSON]);
 
 	return (
 		<Container>
@@ -23,7 +23,11 @@ const Settings = ({ fetchData, sendData }) => {
 				<h2 className="align-middle">Άλλαξε τα στοιχεία σου.</h2>
 			</Row>
 			<Row>
-				<Email emailFromServer={email}></Email>
+				<Email
+					email={email}
+					setEmail={setEmail}
+					sendData={sendData}
+				></Email>
 			</Row>
 			<Row>
 				<Password sendData={sendData}></Password>

@@ -36,7 +36,7 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 
 		const getMyName = async () => {
 			const nameFromServer = await fetchData("name");
-			setMyId(nameFromServer);
+			setMyName(nameFromServer);
 		};
 
 		const getFriendName = async (id) => {
@@ -47,6 +47,11 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		const getLastContactId = async () => {
 			const idFromServer = await fetchData("lastContactId");
 			setFriendId(idFromServer);
+			return idFromServer;
+		};
+
+		const addContact = async (id) => {
+			sendData(id, "addContact", "PUT");
 		};
 
 		// Check if the user wants to chat with someone in particular or just wants to open
@@ -55,22 +60,31 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		const id = authResult.get("id");
 
 		if (id != null) {
-			setFriendId(id);
-			getFriendName();
-			getMessages(id);
-		} else {
-			getLastContactId();
-			getFriendName(friendId);
-			getMessages("");
-		}
+			addContact().then(() => {
+				setFriendId(id);
+				getFriendName(id);
+				getMessages(id);
 
-		getContacts();
-		getMyId();
-		getMyName();
+				getContacts();
+				getMyId();
+				getMyName();
+			});
+		} else {
+			getLastContactId().then((id) => {
+				if (id !== "") {
+					getFriendName(id);
+					getMessages(id);
+
+					getContacts();
+					getMyId();
+					getMyName();
+				}
+			});
+		}
 	}, [fetchData]);
 
 	const addNewMessage = async (message) => {
-		sendData(message, "sendMessage", "PUT");
+		sendData(message, "sendMessage/" + friendId, "PUT");
 
 		setMessages([...messages, message]);
 	};
