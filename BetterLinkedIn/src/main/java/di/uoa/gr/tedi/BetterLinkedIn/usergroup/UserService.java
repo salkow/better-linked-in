@@ -1,9 +1,6 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRepository;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.ContactDetails;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.Details;
@@ -35,7 +32,7 @@ public class UserService implements UserDetailsService {
         return userRepo.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 
-    public String signUpUser(User user) {
+    public Long signUpUser(User user) {
         boolean userExists = userRepo.findUserByEmail(user.getEmail()).isPresent();
         if (userExists) {
             throw new IllegalStateException("email already taken");
@@ -46,7 +43,7 @@ public class UserService implements UserDetailsService {
 
         userRepo.save(user);
 
-        return "";
+        return user.getId();
     }
 
 
@@ -262,7 +259,6 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("wrong id");
         }
         User receiver = optU2.get();
-
         Contact c = new Contact(sender, receiver);
         sender.addContact(c);
         userRepo.save(receiver);
@@ -285,15 +281,15 @@ public class UserService implements UserDetailsService {
 
         Contact temp = new Contact(sender, receiver);
         List<Contact> contactList = get_contactsList(authentication);
-        Optional<Contact> optC = contactList.stream().findFirst();
-        if (!optC.isPresent()) {
+        int index = contactList.indexOf(temp);
+        if (index == -1) {
             add_contact(authentication, id);
-            optC = contactList.stream().findFirst();
-            if (!optC.isPresent()) {
+            index = contactList.indexOf(temp);
+            if (index == -1) {
                 throw new IllegalStateException("contact not found bug");
             }
         }
-        Contact c = optC.get();
+        Contact c = contactList.get(index);
         c.addMessage(text, sender.getId(), sender.getFirstName() + " " + sender.getLastName());
         sender.setLastMessages(c);
         receiver.setLastMessages(c);
@@ -458,5 +454,49 @@ public class UserService implements UserDetailsService {
         user.getCommentsMade().add(comment);
         postRepo.save(post);
         userRepo.save(user);
+    }
+
+    public User saveProfilePhoto(String filename, String email) {
+        Optional<User> opt = userRepo.findUserByEmail(email);
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("User not found");
+        }
+        User user = opt.get();
+
+        user.setPhoto(filename);
+        userRepo.save(user);
+
+        return user;
+    }
+
+    public void like(Authentication authentication, Long id) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        Optional<Post> opt = postRepo.findById(id);
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("Post not found");
+        }
+        Post post = opt.get();
+
+        Like like = new Like(user, post);
+
+        List<Like> likes = post.getLikes();
+        likes.add(like);
+        postRepo.save(post);
+
+
+        Set<Like> userLikes = user.getLikes();
+        userLikes.add(like);
+        userRepo.save(user);
+    }
+
+    public void get_postLikes(Authentication authentication, Long id) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        Optional<Post> opt = postRepo.findById(id);
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("Post not found");
+        }
+        Post post = opt.get();
     }
 }

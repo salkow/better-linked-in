@@ -3,6 +3,7 @@ package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Like;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
@@ -99,6 +100,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Post> posts = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Like> likes = new HashSet<>();
 
     @OneToOne
     @JsonIgnore

@@ -21,6 +21,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [phone, setPhone] = useState("");
 	const [job, setJob] = useState("");
 	const [employmentInstitution, setEmploymentInstitution] = useState("");
+	const [photoPath, setPhotoPath] = useState("");
 
 	const [isMyProfile, setIsMyProfile] = useState(false);
 	const [isFriendsProfile, setIsFriendsProfile] = useState(true);
@@ -52,6 +53,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			setPhone(dataFromServer.phone);
 			setJob(dataFromServer.job);
 			setEmploymentInstitution(dataFromServer.company);
+			setPhotoPath(dataFromServer.photoPath);
 		};
 
 		const setUpData = async () => {
@@ -109,6 +111,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 					phone={phone}
 					job={job}
 					employmentInstitution={employmentInstitution}
+					photoPath={photoPath}
 				/>
 			</Tab>
 			<Tab eventKey="b" title="Προσωπική εμπειρία">

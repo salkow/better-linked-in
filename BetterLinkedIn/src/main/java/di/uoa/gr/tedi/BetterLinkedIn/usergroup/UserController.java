@@ -249,4 +249,15 @@ public class UserController {
     public void comment(Authentication authentication, @PathVariable("post_id") Long id, @RequestBody String text) {
         userService.comment(authentication, id, text);
     }
+
+    @PutMapping("api/v1/like/{post_id}")
+    public void like(Authentication authentication, @PathVariable("post_id") Long id) {
+        userService.like(authentication, id);
+    }
+
+    @GetMapping("api/v1/postLikes/{post_id}")
+    public void get_postLikes(Authentication authentication, @PathVariable("post_id") Long id) {
+        userService.get_postLikes(authentication, id);
+    }
+
 }

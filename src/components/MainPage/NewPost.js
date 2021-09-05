@@ -50,7 +50,8 @@ const NewPost = ({ setPosts, sendData }) => {
 
 			const formData = new FormData();
 
-			formData.append(message, selectedFile, typeOfMedia);
+			formData.append("typeofMedia", typeOfMedia);
+			formData.append("file", selectedFile, selectedFile.name);
 
 			axios.post("api/v1/postWithFile", formData);
 

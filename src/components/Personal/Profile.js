@@ -23,6 +23,7 @@ const Profile = ({
 	phone,
 	job,
 	employmentInstitution,
+	photoPath,
 }) => {
 	const addFriend = () => {
 		// TODO: Ask him to ignore more than one friend requests to the same user.
@@ -37,10 +38,7 @@ const Profile = ({
 				<ListGroup variant="flush">
 					<ListGroup.Item>
 						<Card style={{ width: "18rem" }}>
-							<Card.Img
-								variant="top"
-								src="/images/Profile_10.png"
-							/>
+							<Card.Img variant="top" src={"http://localhost:8081/" + photoPath} />
 							{isMyProfile === false && (
 								<Card.Body>
 									{isFriendsProfile ? (

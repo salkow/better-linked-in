@@ -9,6 +9,8 @@ import {
 
 import { useState, useEffect } from "react";
 
+import axios from "axios";
+
 const Email = ({ emailFromServer, sendData }) => {
 	const [email, setEmail] = useState("");
 
@@ -24,14 +26,18 @@ const Email = ({ emailFromServer, sendData }) => {
 		setShow(true);
 	};
 
+	const sendEmail = async (email) => {
+		try {
+			await axios.put("http://localhost:8081/api/v1/email", { email });
+		} catch (err) {
+			handleModalShow("Το email δεν είναι διαθέσιμο.");
+		}
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const res = sendData({ email }, "email", "PUT");
-		if (res.status === 302) {
-			handleModalShow("Το email δεν είναι διαθέσιμο.");
-			return;
-		}
+		sendEmail();
 	};
 
 	return (

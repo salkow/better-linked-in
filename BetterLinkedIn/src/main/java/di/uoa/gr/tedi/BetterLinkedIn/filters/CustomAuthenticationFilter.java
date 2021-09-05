@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
@@ -73,7 +75,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        //throw new BadCredentialsException("Credentials not matching");
+        response.setHeader("error", failed.getMessage());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        Map<String, String> error= new HashMap<>();
+        error.put("error_message", failed.getMessage());
+        response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
+        new ObjectMapper().writeValue(response.getWriter(), error);
     }
 
 

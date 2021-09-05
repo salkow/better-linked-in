@@ -12,9 +12,11 @@ import { useHistory } from "react-router";
 
 import { useState } from "react";
 
+import axios from "axios";
+
 import "./SignUpIn.css";
 
-const SignUp = ({ sendData }) => {
+const SignUp = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -23,6 +25,7 @@ const SignUp = ({ sendData }) => {
 	const [phone, setPhone] = useState("");
 	const [job, setJob] = useState("");
 	const [employmentInstitution, setEmploymentInstitution] = useState("");
+	const [selectedFile, setSelectedFile] = useState();
 
 	const [show, setShow] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
@@ -34,15 +37,33 @@ const SignUp = ({ sendData }) => {
 
 	const history = useHistory();
 
-	const sendUserInformation = async (sign_up_data) => {
-		const res = sendData(sign_up_data, "registration", "POST");
-		if (res.status === 302) {
-			handleModalShow("Το email δεν είναι διαθέσιμο.");
+	const sendUserInformation = async () => {
+		try {
+			const formData = new FormData();
+
+			formData.append("firstName", firstName);
+			formData.append("lastName", lastName);
+			formData.append("email", email);
+			formData.append("password", password);
+			formData.append("phone", phone);
+			formData.append("photo", selectedFile, selectedFile.name);
+			formData.append("job", job);
+			formData.append("company", employmentInstitution);
+
+			await axios.post(
+				"http://localhost:8081/api/v1/registration",
+				formData
+			);
+		} catch (err) {
+			handleModalShow("To email που διάλεξες είναι ήδη σε χρήση.");
 			return;
 		}
 
-		console.log(history);
 		history.push("/");
+	};
+
+	const changeHandler = (e) => {
+		setSelectedFile(e.target.files[0]);
 	};
 
 	const onSubmit = (e) => {
@@ -52,16 +73,7 @@ const SignUp = ({ sendData }) => {
 			e.preventDefault();
 			handleModalShow("Οι κωδικοί δεν είναι οι ίδιοι.");
 		} else {
-			sendUserInformation({
-				firstName,
-				lastName,
-				email,
-				password,
-				phone,
-				photo: "myphoto.jpg",
-				job,
-				company: employmentInstitution,
-			});
+			sendUserInformation();
 		}
 	};
 
@@ -165,6 +177,7 @@ const SignUp = ({ sendData }) => {
 								accept="image/*"
 								required
 								size="sm"
+								onChange={changeHandler}
 							/>
 						</Form.Group>
 					</Row>

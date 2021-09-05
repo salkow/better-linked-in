@@ -13,6 +13,7 @@ public class PersonalDetails {
     private String lastName;
     private String email;
     private String phone;
+    private String photoPath;
     private String job;
     private String company;
     private String experienceText;
@@ -29,6 +30,7 @@ public class PersonalDetails {
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.phone = user.getPhone();
+        this.photoPath = "public\\" + this.id + "/" + user.getPhoto();
         this.job = user.getJob();
         this.company = user.getCompany();
         this.experienceText = user.getExperience().getText();

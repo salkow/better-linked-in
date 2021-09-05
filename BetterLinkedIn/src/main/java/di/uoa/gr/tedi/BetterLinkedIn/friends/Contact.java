@@ -51,7 +51,7 @@ public class Contact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contact contact = (Contact) o;
-        return Objects.equals(id, contact.id) && Objects.equals(friend1, contact.friend1) && Objects.equals(friend2, contact.friend2);
+        return Objects.equals(id, contact.id);
     }
 
     @Override
@@ -62,9 +62,6 @@ public class Contact {
     public void addMessage(String text, Long id, String ownerName) {
         Message mes = new Message(text, id, ownerName);
         mes.setContact(this);
-        for(Message m: this.messages) {
-            System.out.println(m.getText() + " " + m.getOwnerId());
-        }
         this.messages.add(mes);
     }
 }
