@@ -25,6 +25,7 @@ const SignUp = () => {
 	const [phone, setPhone] = useState("");
 	const [job, setJob] = useState("");
 	const [employmentInstitution, setEmploymentInstitution] = useState("");
+	const [selectedFile, setSelectedFile] = useState();
 
 	const [show, setShow] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
@@ -36,18 +37,33 @@ const SignUp = () => {
 
 	const history = useHistory();
 
-	const sendUserInformation = async (sign_up_data) => {
+	const sendUserInformation = async () => {
 		try {
+			const formData = new FormData();
+
+			formData.append("firstName", firstName);
+			formData.append("lastName", lastName);
+			formData.append("email", email);
+			formData.append("password", password);
+			formData.append("phone", phone);
+			formData.append("photo", selectedFile, selectedFile.name);
+			formData.append("job", job);
+			formData.append("company", employmentInstitution);
+
 			await axios.post(
 				"http://localhost:8081/api/v1/registration",
-				sign_up_data
+				formData
 			);
 		} catch (err) {
-			handleModalShow("Λάθος στοιχεία.");
+			handleModalShow("To email που διάλεξες είναι ήδη σε χρήση.");
 			return;
 		}
 
 		history.push("/");
+	};
+
+	const changeHandler = (e) => {
+		setSelectedFile(e.target.files[0]);
 	};
 
 	const onSubmit = (e) => {
@@ -57,16 +73,7 @@ const SignUp = () => {
 			e.preventDefault();
 			handleModalShow("Οι κωδικοί δεν είναι οι ίδιοι.");
 		} else {
-			sendUserInformation({
-				firstName,
-				lastName,
-				email,
-				password,
-				phone,
-				photo: "myphoto.jpg",
-				job,
-				company: employmentInstitution,
-			});
+			sendUserInformation();
 		}
 	};
 
@@ -170,6 +177,7 @@ const SignUp = () => {
 								accept="image/*"
 								required
 								size="sm"
+								onChange={changeHandler}
 							/>
 						</Form.Group>
 					</Row>
