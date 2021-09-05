@@ -30,7 +30,7 @@ public class PersonalDetails {
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.phone = user.getPhone();
-        this.photoPath = "images\\" + this.id + "/" + user.getPhoto();
+        this.photoPath = "images/" + this.id + "/" + user.getPhoto();
         this.job = user.getJob();
         this.company = user.getCompany();
         this.experienceText = user.getExperience().getText();

@@ -29,7 +29,7 @@ public class RegistrationService {
         User user =new User(request.getFirstName(), request.getLastName(), request.getPassword(), request.getEmail(), request.getPhone(), filename, request.getJob(), request.getCompany());
         Long id = userService.signUpUser(user);
 
-        String uploadDir = "src\\main\\resources\\public\\images\\" + user.getId()  + "\\";
+        String uploadDir = "images\\" + user.getId()  + "\\";
         FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
 
     }

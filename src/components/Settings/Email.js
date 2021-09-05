@@ -28,7 +28,7 @@ const Email = ({ emailFromServer, sendData }) => {
 
 	const sendEmail = async (email) => {
 		try {
-			await axios.put("http://localhost:8081/api/v1/email", { email });
+			await axios.put("http://localhost:8081/api/v1/email",email);
 		} catch (err) {
 			handleModalShow("Το email δεν είναι διαθέσιμο.");
 		}

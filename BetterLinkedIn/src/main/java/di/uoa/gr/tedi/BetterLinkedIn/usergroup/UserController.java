@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Like;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
@@ -49,8 +51,8 @@ public class UserController {
     }
 
     @GetMapping("/")
-    String index() {
-        return "index";
+    String index(Authentication authentication) {
+        return "";
     }
 
     @GetMapping("/token/refresh")
@@ -250,14 +252,23 @@ public class UserController {
         userService.comment(authentication, id, text);
     }
 
+    @GetMapping("api/v1/comment/{post_id}")
+    public List<Comment> get_comments(Authentication authentication, @PathVariable("post_id") Long id) {
+        return userService.get_comments(authentication, id);
+    }
+
     @PutMapping("api/v1/like/{post_id}")
     public void like(Authentication authentication, @PathVariable("post_id") Long id) {
         userService.like(authentication, id);
     }
 
     @GetMapping("api/v1/postLikes/{post_id}")
-    public void get_postLikes(Authentication authentication, @PathVariable("post_id") Long id) {
-        userService.get_postLikes(authentication, id);
+    public List<Like> get_postLikes(Authentication authentication, @PathVariable("post_id") Long id) {
+        return userService.get_postLikes(authentication, id);
     }
 
+    @GetMapping("api/v1/lastContactId")
+    public Long get_lastContactId(Authentication authentication) {
+        return userService.get_lastContactId(authentication);
+    }
 }

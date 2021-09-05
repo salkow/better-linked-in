@@ -216,6 +216,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("authentication failed");
         }
         User user = optU.get();
+
         List<Contact> list = new ArrayList<>(user.getContactList());
         list.addAll(user.getContactOf());
 
@@ -278,6 +279,10 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("wrong id");
         }
         User receiver = optU2.get();
+
+        if (sender.getId() == receiver.getId()) {
+            throw new IllegalStateException("Same user");
+        }
 
         Contact temp = new Contact(sender, receiver);
         List<Contact> contactList = get_contactsList(authentication);
@@ -388,6 +393,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("authentication failed");
         }
         User user = opt.get();
+        //System.out.println(user.getFirstName() + " " + user.getLastName());
         return user.getFirstName() + " " + user.getLastName();
     }
 
@@ -424,12 +430,15 @@ public class UserService implements UserDetailsService {
         if (opt.isPresent()) {
             throw new IllegalStateException("Email already used");
         }
+        email = email.replaceAll("\"", "");
         user.setEmail(email);
         userRepo.save(user);
     }
 
     public void update_password(Authentication authentication, String password) {
         User user = helper.userAuth(authentication, userRepo);
+
+        password = password.replaceAll("\"", "");
         String encodedPassword = bCryptPasswordEncoder.encode(password);
 
         user.setPassword(encodedPassword);
@@ -456,18 +465,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public User saveProfilePhoto(String filename, String email) {
-        Optional<User> opt = userRepo.findUserByEmail(email);
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("User not found");
-        }
-        User user = opt.get();
 
-        user.setPhoto(filename);
-        userRepo.save(user);
-
-        return user;
-    }
 
     public void like(Authentication authentication, Long id) {
         User user = UserServiceHelper.userAuth(authentication, userRepo);
@@ -480,23 +478,49 @@ public class UserService implements UserDetailsService {
 
         Like like = new Like(user, post);
 
-        List<Like> likes = post.getLikes();
-        likes.add(like);
-        postRepo.save(post);
-
 
         Set<Like> userLikes = user.getLikes();
         userLikes.add(like);
         userRepo.save(user);
+        postRepo.save(post);
     }
 
-    public void get_postLikes(Authentication authentication, Long id) {
-        User user = UserServiceHelper.userAuth(authentication, userRepo);
+    public List<Like> get_postLikes(Authentication authentication, Long id) {
+        //User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         Optional<Post> opt = postRepo.findById(id);
         if (!opt.isPresent()) {
             throw new IllegalStateException("Post not found");
         }
         Post post = opt.get();
+
+
+        return post.getLikes();
+    }
+
+    public List<Comment> get_comments(Authentication authentication, Long id) {
+        Optional<Post> opt = postRepo.findById(id);
+        if (!opt.isPresent()) {
+            throw new IllegalStateException("Post not found");
+        }
+        Post post = opt.get();
+
+        return post.getComments();
+    }
+
+    public Long get_lastContactId(Authentication authentication) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        Contact lastContact = user.getLastMessages();
+        if (lastContact == null) {
+            throw new IllegalStateException("No last contact");
+        }
+        ContactId cId = lastContact.getId();
+        if (cId.getFriend1Id().equals(user.getId())) {
+            return cId.getFriend2Id();
+        }
+        else {
+            return cId.getFriend1Id();
+        }
     }
 }

@@ -1,7 +1,9 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Like;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
@@ -20,6 +22,7 @@ import java.util.*;
 @Getter
 @Setter
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User implements UserDetails {
 
     private @Id @GeneratedValue @NaturalId

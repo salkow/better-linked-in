@@ -14,7 +14,7 @@ const Password = ({ sendData }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		sendData({ password }, "password", "PUT");
+		sendData(password, "password", "PUT");
 		setPassword("");
 	};
 
