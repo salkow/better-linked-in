@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Email from "./Email";
 import Password from "./Password";
 
-const Settings = ({ fetchDataNoJSON, sendData }) => {
+const Settings = ({ fetchDataNoJSON, sendData, setIsAuthenticated }) => {
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
@@ -27,6 +27,7 @@ const Settings = ({ fetchDataNoJSON, sendData }) => {
 					email={email}
 					setEmail={setEmail}
 					sendData={sendData}
+					setIsAuthenticated={setIsAuthenticated}
 				></Email>
 			</Row>
 			<Row>

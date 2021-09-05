@@ -9,7 +9,7 @@ import {
 
 import { useState } from "react";
 
-const Email = ({ email, setEmail, sendData }) => {
+const Email = ({ email, setEmail, sendData, setIsAuthenticated }) => {
 	const [show, setShow] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
 	const handleModalClose = () => setShow(false);
@@ -22,6 +22,8 @@ const Email = ({ email, setEmail, sendData }) => {
 		const res = await sendData(email, "email", "PUT");
 		if (res === "error") {
 			handleModalShow("Το email δεν είναι διαθέσιμο.");
+		} else {
+			setIsAuthenticated(false);
 		}
 	};
 
