@@ -18,6 +18,8 @@ import { Container, Row } from "react-bootstrap";
 
 import React, { useState, useEffect } from "react";
 
+import axios from "axios";
+
 function App() {
 	const [navHeight, setNavHeight] = useState(0);
 	const [pageHeight, setPageHeight] = useState(window.innerHeight);
@@ -35,11 +37,19 @@ function App() {
 		});
 
 		if (!res.ok) {
-			console.log("Error while fetching resource");
+			console.log("Error while fetching resource.");
 			return "";
 		}
 
 		return await res.json();
+	};
+
+	const fetchDataNoJSON = async (path) => {
+		const res = axios(`http://localhost:8081/api/v1/${path}`, {
+			headers: { Authorization: "Bearer " + accessToken },
+		});
+
+		return res;
 	};
 
 	const sendData = async (data, path, post_put) => {
@@ -53,7 +63,27 @@ function App() {
 			body: JSON.stringify(data),
 		});
 
-		return res;
+		if (!res.ok) {
+			return "error";
+		}
+
+		return res.data;
+	};
+
+	const sendFormData = async (form, path) => {
+		const res = await axios({
+			method: "POST",
+			url: `http://localhost:8081/api/v1/${path}`,
+			data: form,
+			headers: {
+				Authorization: "Bearer " + accessToken,
+				credentials: "include",
+			},
+		});
+
+		if (!res.ok) {
+			return "error";
+		}
 	};
 
 	const updateDimensions = () => {
@@ -95,6 +125,7 @@ function App() {
 								<MainPage
 									fetchData={fetchData}
 									sendData={sendData}
+									sendFormData={sendFormData}
 								/>
 							</PrivateRoute>
 
@@ -156,8 +187,9 @@ function App() {
 								path="/settings"
 							>
 								<Settings
-									fetchData={fetchData}
+									fetchDataNoJSON={fetchDataNoJSON}
 									sendData={sendData}
+									setIsAuthenticated={setIsAuthenticated}
 								/>
 							</PrivateRoute>
 						</Row>

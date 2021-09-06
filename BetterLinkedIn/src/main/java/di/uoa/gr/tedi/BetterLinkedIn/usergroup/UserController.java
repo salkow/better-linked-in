@@ -218,7 +218,7 @@ public class UserController {
     }
 
     @PutMapping("api/v1/contact/{user_id}")
-    public void add_contact(Authentication authentication, @PathVariable Long id) {
+    public void add_contact(Authentication authentication, @PathVariable("user_id") Long id) {
         userService.add_contact(authentication, id);
     }
 

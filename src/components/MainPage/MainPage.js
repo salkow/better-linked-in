@@ -6,7 +6,7 @@ import NewPost from "./NewPost";
 
 import "./MainPage.css";
 
-const MainPage = ({ fetchData, sendData }) => {
+const MainPage = ({ fetchData, sendData, sendFormData }) => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ const MainPage = ({ fetchData, sendData }) => {
 	return (
 		<Container fluid>
 			<Row>
-				<NewPost setPosts={setPosts} sendData={sendData} />
+				<NewPost setPosts={setPosts} sendFormData={sendFormData} />
 			</Row>
 			<Row>
 				<Posts

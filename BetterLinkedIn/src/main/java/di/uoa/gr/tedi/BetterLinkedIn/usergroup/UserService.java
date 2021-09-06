@@ -422,7 +422,7 @@ public class UserService implements UserDetailsService {
     public List<Message> get_lastMessages(Authentication authentication) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
+            return null;
         }
         User user = opt.get();
         return user.getLastMessages().getMessages();
@@ -557,7 +557,7 @@ public class UserService implements UserDetailsService {
 
         Contact lastContact = user.getLastMessages();
         if (lastContact == null) {
-            throw new IllegalStateException("No last contact");
+            return null;
         }
         ContactId cId = lastContact.getId();
         if (cId.getFriend1Id().equals(user.getId())) {

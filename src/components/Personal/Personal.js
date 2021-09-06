@@ -83,7 +83,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		};
 
 		setUpData();
-	}, [fetchData]);
+	}, [fetchData, myId]);
 
 	const addExperience = async (newExperience) => {
 		sendData(newExperience, "experience", "PUT");
