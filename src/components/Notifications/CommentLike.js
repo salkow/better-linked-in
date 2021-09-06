@@ -8,7 +8,7 @@ const CommentLike = ({ fetchData }) => {
 
 	useEffect(() => {
 		const getCommentLikes = async () => {
-			const commentLikesFromServer = await fetchData("commentLikes");
+			const commentLikesFromServer = await fetchData("notifications");
 			setCommentLikes(commentLikesFromServer);
 		};
 
@@ -24,19 +24,21 @@ const CommentLike = ({ fetchData }) => {
 					<div className="d-grid gap-2">
 						<h2>Σημειώσεις ενδιαφέροντος / Σχόλια</h2>
 						{commentLikes.map((commentLike, index) => {
-							if (commentLike.isLike === true) {
+							if (commentLike.like !== null) {
 								return (
 									<Card id="like" key={index}>
 										<Card.Header as="h5">
 											Ο χρήστης{" "}
 											<Link
-												to="/discussions"
+												to={
+													"/personal?id=" +
+													commentLike.like.owner
+												}
 												className="name"
 											>
-												{commentLike.name}
+												{commentLike.like.owner_name}
 											</Link>{" "}
-											έδειξε ενδιαφέρον στο άρθρο με
-											τίτλο: {commentLike.title}
+											έδειξε ενδιαφέρον στο άρθρο σας
 										</Card.Header>
 									</Card>
 								);
@@ -46,17 +48,19 @@ const CommentLike = ({ fetchData }) => {
 										<Card.Header as="h5">
 											Ο χρήστης{" "}
 											<Link
-												to="/discussions"
+												to={
+													"/personal?id=" +
+													commentLike.comment.owner
+												}
 												className="name"
 											>
-												{commentLike.name}
+												{commentLike.comment.ownerName}
 											</Link>{" "}
-											έκανε σχόλιο στο άρθρο με τίτλο:{" "}
-											{commentLike.title}
+											έκανε σχόλιο στο άρθρο σας
 										</Card.Header>
 										<Card.Body>
 											<Card.Text>
-												{commentLike.content}
+												{commentLike.comment.text}
 											</Card.Text>
 										</Card.Body>
 									</Card>

@@ -50,25 +50,19 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			return idFromServer;
 		};
 
-		const addContact = async (id) => {
-			sendData(id, "addContact", "PUT");
-		};
-
 		// Check if the user wants to chat with someone in particular or just wants to open
 		// the discussions page.
 		const authResult = new URLSearchParams(window.location.search);
 		const id = authResult.get("id");
 
 		if (id != null) {
-			addContact().then(() => {
-				setFriendId(id);
-				getFriendName(id);
-				getMessages(id);
+			setFriendId(id);
+			getFriendName(id);
+			getMessages(id);
 
-				getContacts();
-				getMyId();
-				getMyName();
-			});
+			getContacts();
+			getMyId();
+			getMyName();
 		} else {
 			getLastContactId().then((id) => {
 				if (id !== "") {
@@ -82,9 +76,8 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			});
 		}
 	}, [fetchData, sendData]);
-
 	const addNewMessage = async (message) => {
-		sendData(message, "sendMessage/" + friendId, "PUT");
+		sendData({ text: message }, "sendMessage/" + friendId, "PUT");
 
 		setMessages([...messages, message]);
 	};
