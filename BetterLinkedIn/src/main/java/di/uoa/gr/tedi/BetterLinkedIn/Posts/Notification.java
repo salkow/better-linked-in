@@ -23,6 +23,8 @@ public class Notification {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String name;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "like_id")
     private Like like;
@@ -35,10 +37,12 @@ public class Notification {
     public Notification(User user, Like like) {
         this.user = user;
         this.like = like;
+        this.name = user.getFirstName() + " " + user.getLastName();
     }
 
     public Notification(User user, Comment comment) {
         this.user = user;
         this.comment = comment;
+        this.name = user.getFirstName() + " " + user.getLastName();
     }
 }

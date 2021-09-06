@@ -32,6 +32,8 @@ public class Post {
     @JsonIdentityReference(alwaysAsId = true)
     private User owner;
 
+    private String name;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
@@ -49,9 +51,10 @@ public class Post {
         this.media = media;
         this.typeOfMedia = typeOfMedia;
         this.owner = owner;
+        this.name = owner.getFirstName() + " " + owner.getLastName();
     }
 
     public String getMedia() {
-        return "images\\post_" + id + "\\" + media;
+        return "images/post_" + id + "/" + media;
     }
 }

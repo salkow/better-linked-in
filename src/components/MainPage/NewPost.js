@@ -31,7 +31,7 @@ const NewPost = ({ setPosts, sendFormData }) => {
 			return;
 		}
 
-		let typeOfMedia = "";
+		let typeOfMedia = " ";
 
 		const formData = new FormData();
 
@@ -55,7 +55,7 @@ const NewPost = ({ setPosts, sendFormData }) => {
 		}
 
 		formData.append("text", message);
-		formData.append("typeofMedia", typeOfMedia);
+		formData.append("typeOfMedia", typeOfMedia);
 
 		sendFormData(formData, "post");
 	};

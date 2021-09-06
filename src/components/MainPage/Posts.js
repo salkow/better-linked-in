@@ -10,39 +10,29 @@ import {
 	Form,
 } from "react-bootstrap";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
 const Posts = ({ posts, setPosts, fetchData, sendData }) => {
-	useEffect(() => {
-		const getSenderName = async () => {
-			const dataFromServer = await fetchData("sign_up");
-			const userName =
-				dataFromServer.firstName + " " + dataFromServer.lastName;
-			setSenderName(userName);
-		};
-
-		getSenderName();
-	});
-
 	const [newComment, setNewComment] = useState("");
 
-	const [senderName, setSenderName] = useState("");
+	const likePost = (postId) => {
+		sendData("", "like/" + postId, "PUT");
+	};
 
-	const likePost = (postId) => {};
 	const sendComment = (postId) => {
 		if (newComment.length === 0) {
 			return;
 		}
+
+		sendData({ text: newComment }, "comment/" + postId, "PUT");
 
 		const newPosts = [...posts];
 
 		newPosts.forEach(function (post) {
 			if (post.id === postId) {
 				post.comments.push({
-					id: 3,
-					name: senderName,
 					text: newComment,
 				});
 
@@ -71,10 +61,12 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 									>
 										<Card.Header as="h5">
 											<Link
-												to={"/personal?id=" + post.id}
+												to={
+													"/personal?id=" + post.owner
+												}
 												className="name"
 											>
-												{post.name}
+												{post.ownerName}
 											</Link>
 										</Card.Header>
 										{post.text !== "" && (
@@ -86,23 +78,29 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 										)}
 										<ListGroup variant="flush">
 											<ListGroup.Item className="all_posts">
-												{post.type_of_media ===
+												{post.typeOfMedia ===
 													"image" && (
 													<Image
-														src={post.media}
+														src={
+															"http://localhost:8081/" +
+															post.media
+														}
 														className="media align-middle"
 														rounded
 													/>
 												)}
 
-												{post.type_of_media ===
+												{post.typeOfMedia ===
 													"video" && (
 													<video
 														controls
 														className="media"
 													>
 														<source
-															src={post.media}
+															src={
+																"http://localhost:8081/" +
+																post.media
+															}
 															type="video/mp4"
 														/>
 														Your browser does not
@@ -110,11 +108,14 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 													</video>
 												)}
 
-												{post.type_of_media ===
+												{post.typeOfMedia ===
 													"audio" && (
 													<audio controls>
 														<source
-															src={post.media}
+															src={
+																"http://localhost:8081/" +
+																post.media
+															}
 															type="audio/mpeg"
 														/>
 														Your browser does not

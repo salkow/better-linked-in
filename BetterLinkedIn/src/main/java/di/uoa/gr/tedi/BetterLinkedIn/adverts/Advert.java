@@ -24,6 +24,8 @@ public class Advert {
 
     private String text;
 
+    private String skills;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIdentityReference(alwaysAsId = true)
     private User creator;
@@ -39,9 +41,10 @@ public class Advert {
     private List<User> applicants = new ArrayList<>();
 
 
-    public Advert(String title, String text, User creator) {
+    public Advert(String title, String text, String skills, User creator) {
         this.title = title;
         this.text = text;
+        this.skills = skills;
         this.creator = creator;
     }
 }

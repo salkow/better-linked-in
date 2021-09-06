@@ -269,7 +269,7 @@ public class UserService implements UserDetailsService {
         if (sender.getId() == receiver.getId()) {
             throw new IllegalStateException("Same user");
         }
-        String text = Wtext.getText();
+        String text = WText.getText();
         text = text.replaceAll("\"", "");
 
         Contact temp = new Contact(sender, receiver);
@@ -324,6 +324,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void upload_post(Authentication authentication, String text, MultipartFile file, String typeOfMedia) throws IOException {
+        System.out.println(typeOfMedia);
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
@@ -331,7 +332,7 @@ public class UserService implements UserDetailsService {
         User user = opt.get();
 
         String filename = "";
-        if (!file.isEmpty()) {
+        if (file != null &&!file.isEmpty()) {
             filename = StringUtils.cleanPath(file.getOriginalFilename());
         }
 
@@ -343,7 +344,7 @@ public class UserService implements UserDetailsService {
         postsSet.add(post);
         userRepo.save(user);
 
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             String uploadDir = "images\\post_" + post.getId() + "\\";
             FileUploadUtil.saveFile(uploadDir, filename, file);
         }
@@ -457,7 +458,7 @@ public class UserService implements UserDetailsService {
         return user.getFirstName() + " " + user.getLastName();
     }
 
-    public void comment(Authentication authentication, Long id, String text) {
+    public void comment(Authentication authentication, Long id, WString WText) {
         User user = helper.userAuth(authentication, userRepo);
 
         Optional<Post> opt = postRepo.findById(id);
@@ -465,6 +466,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("Post not found");
         }
         Post post = opt.get();
+        String text= WText.getText();
 
         Comment comment = new Comment(text, post, user);
         user.getCommentsMade().add(comment);
@@ -560,7 +562,7 @@ public class UserService implements UserDetailsService {
     public void upload_advert(Authentication authentication, AdvertRequest request) {
         User user = UserServiceHelper.userAuth(authentication, userRepo);
 
-        Advert advert = new Advert(request.getTitle(), request.getText(), user);
+        Advert advert = new Advert(request.getTitle(), request.getText(), request.getSkills(), user);
 
         user.getMyAdverts().add(advert);
 
@@ -586,6 +588,5 @@ public class UserService implements UserDetailsService {
         }
         adverts.removeAll(user.getAdvertsApplied());
         return adverts;
-
     }
 }

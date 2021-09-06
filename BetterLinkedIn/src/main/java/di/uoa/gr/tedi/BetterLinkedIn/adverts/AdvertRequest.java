@@ -9,4 +9,5 @@ import lombok.Getter;
 public class AdvertRequest {
     private final String title;
     private final String text;
+    private final String skills;
 }

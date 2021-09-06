@@ -14,6 +14,7 @@ import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -248,13 +249,13 @@ public class UserController {
     }
 
     @PostMapping("api/v1/post")
-    public void upload_post(Authentication authentication, @RequestParam String text, @RequestParam MultipartFile media, @RequestParam String typeOfMedia) throws IOException {
+    public void upload_post(Authentication authentication, @RequestParam String text, @RequestParam @Nullable MultipartFile media, @RequestParam String typeOfMedia) throws IOException {
         userService.upload_post(authentication, text, media, typeOfMedia);
     }
 
     @PutMapping("api/v1/comment/{post_id}")
-    public void comment(Authentication authentication, @PathVariable("post_id") Long id, @RequestBody String text) {
-        userService.comment(authentication, id, text);
+    public void comment(Authentication authentication, @PathVariable("post_id") Long id, @RequestBody WString WText) {
+        userService.comment(authentication, id, WText);
     }
 
     @GetMapping("api/v1/comment/{post_id}")
