@@ -288,7 +288,7 @@ public class UserController {
         return userService.get_adverts(authentication);
     }
 
-    @GetMapping("api/v1/search")
+    @PostMapping("api/v1/search")
     public List<ContactDTO> searchUser(Authentication authentication, @RequestBody WString searchParameter) {
         return userService.searchUser(authentication, searchParameter.getText());
     }

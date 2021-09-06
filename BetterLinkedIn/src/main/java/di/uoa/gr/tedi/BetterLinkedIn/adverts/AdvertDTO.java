@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 public class AdvertDTO {
     private final Long id;
+    private final String title;
     private final String text;
     private final String skills;
     private final List<ContactDTO> applicants;
@@ -17,14 +18,16 @@ public class AdvertDTO {
     public AdvertDTO() {
         id = null;
         text = "";
+        title = "";
         skills = "";
         applicants = null;
     }
 
-    public AdvertDTO(Long id, String text, String skills, List<User> list) {
+    public AdvertDTO(Long id, String title, String text, String skills, List<User> list) {
         this.id = id;
+        this.title = title;
         this.text = text;
-        this.skills = skills;
+        this.skills = skills.replaceAll("\n\n", ",");
         List<ContactDTO> temp = new ArrayList<>();
         for (User u: list) {
             temp.add(new ContactDTO(u.getId(), u.getFirstName() + " " + u.getLastName()));
