@@ -259,18 +259,18 @@ public class UserService implements UserDetailsService {
     }
 
     public void add_contact(Authentication authentication, Long id) {
-        Optional<User> optU1 = userRepo.findUserByEmail(authentication.getName());
-        if (!optU1.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User sender = optU1.get();
+        User sender = UserServiceHelper.userAuth(authentication, userRepo);
 
-        Optional<User> optU2 = userRepo.findById(id);
-        if (!optU2.isPresent()) {
-            throw new IllegalStateException("wrong id");
-        }
-        User receiver = optU2.get();
+        User receiver = UserServiceHelper.userID(id, userRepo);
         Contact c = new Contact(sender, receiver);
+        List<Contact> contacts = new ArrayList<>(sender.getContactList());
+        contacts.addAll(sender.getContactOf());
+
+        if (contacts.contains(c)) {
+            // contact already exists
+            return;
+        }
+
         sender.addContact(c);
         userRepo.save(receiver);
         userRepo.save(sender);
@@ -298,11 +298,7 @@ public class UserService implements UserDetailsService {
         List<Contact> contactList = get_contactsList(authentication);
         int index = contactList.indexOf(temp);
         if (index == -1) {
-            add_contact(authentication, id);
-            index = contactList.indexOf(temp);
-            if (index == -1) {
-                throw new IllegalStateException("contact not found bug");
-            }
+            throw new IllegalStateException("contact not found bug");
         }
         Contact c = contactList.get(index);
         c.addMessage(text, sender.getId(), sender.getFirstName() + " " + sender.getLastName());

@@ -217,6 +217,11 @@ public class UserController {
         return userService.get_contacts(authentication);
     }
 
+    @PutMapping("api/v1/contact/{user_id}")
+    public void add_contact(Authentication authentication, @PathVariable Long id) {
+        userService.add_contact(authentication, id);
+    }
+
     @PutMapping("api/v1/sendMessage/{receiverId}")
     public void send_message(Authentication authentication, @PathVariable("receiverId") Long id, @RequestBody String text) {
         userService.send_message(authentication, id, text);
