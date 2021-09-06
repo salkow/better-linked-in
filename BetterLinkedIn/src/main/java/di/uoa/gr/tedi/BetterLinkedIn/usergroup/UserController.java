@@ -223,8 +223,8 @@ public class UserController {
     }
 
     @PutMapping("api/v1/sendMessage/{receiverId}")
-    public void send_message(Authentication authentication, @PathVariable("receiverId") Long id, @RequestBody String text) {
-        userService.send_message(authentication, id, text);
+    public void send_message(Authentication authentication, @PathVariable("receiverId") Long id, @RequestBody WString Wtext) {
+        userService.send_message(authentication, id, Wtext);
     }
 
     @GetMapping("api/v1/messages/{receiverId}")

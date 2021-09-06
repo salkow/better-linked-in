@@ -4,10 +4,7 @@ import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
-import di.uoa.gr.tedi.BetterLinkedIn.utils.ContactDetails;
-import di.uoa.gr.tedi.BetterLinkedIn.utils.Details;
-import di.uoa.gr.tedi.BetterLinkedIn.utils.FileUploadUtil;
-import di.uoa.gr.tedi.BetterLinkedIn.utils.UserServiceHelper;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -221,28 +219,14 @@ public class UserService implements UserDetailsService {
     }
 
     public List<ContactDetails> get_contacts(Authentication authentication) {
-        Optional<User> optU = userRepo.findUserByEmail(authentication.getName());
-        if (!optU.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = optU.get();
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
 
-        List<Contact> list = new ArrayList<>(user.getContactList());
-        list.addAll(user.getContactOf());
+        List<User> list = new ArrayList<>(user.getFriends());
+        list.addAll(user.getFriendOf());
 
         List<ContactDetails> details = new ArrayList<>();
-        for (Contact i : list) {
-            ContactId cId = i.getId();
-            Long id;
-            String name;
-            if (cId.getFriend1Id().equals(user.getId())) {
-                id = cId.getFriend2Id();
-                name = i.getFriend2Name();
-            } else {
-                id = cId.getFriend1Id();
-                name = i.getFriend1Name();
-            }
-            details.add(new ContactDetails(id, name));
+        for (User i : list) {
+            details.add(new ContactDetails(i.getId(), i.getFirstName() + " "  + i.getLastName()));
         }
         return details;
     }
@@ -277,22 +261,16 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public void send_message(Authentication authentication, Long id, String text) {
-        Optional<User> optU1 = userRepo.findUserByEmail(authentication.getName());
-        if (!optU1.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User sender = optU1.get();
+    public void send_message(Authentication authentication, Long id, WString WText) {
+        User sender = UserServiceHelper.userAuth(authentication, userRepo);
 
-        Optional<User> optU2 = userRepo.findById(id);
-        if (!optU2.isPresent()) {
-            throw new IllegalStateException("wrong id");
-        }
-        User receiver = optU2.get();
+        User receiver = UserServiceHelper.userID(id, userRepo);
 
         if (sender.getId() == receiver.getId()) {
             throw new IllegalStateException("Same user");
         }
+        String text = Wtext.getText();
+        text = text.replaceAll("\"", "");
 
         Contact temp = new Contact(sender, receiver);
         List<Contact> contactList = get_contactsList(authentication);
@@ -455,7 +433,6 @@ public class UserService implements UserDetailsService {
         }
 
 
-
         Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(email, null, nowAuthorities);
         SecurityContextHolder.getContext().setAuthentication(newAuth);
@@ -557,7 +534,13 @@ public class UserService implements UserDetailsService {
 
         Contact lastContact = user.getLastMessages();
         if (lastContact == null) {
-            return null;
+            if (!user.getFriends().isEmpty()) {
+                return user.getFriends().iterator().next().getId();
+            }
+            else if (!user.getFriendOf().isEmpty()) {
+                return user.getFriendOf().iterator().next().getId();
+            }
+            else return null;
         }
         ContactId cId = lastContact.getId();
         if (cId.getFriend1Id().equals(user.getId())) {
