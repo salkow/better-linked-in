@@ -1,6 +1,9 @@
 package di.uoa.gr.tedi.BetterLinkedIn.Posts;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,17 +18,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Comment {
 
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue @JsonIgnore Long id;
 
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonIdentityReference(alwaysAsId = true)
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonIdentityReference(alwaysAsId = true)
     private User owner;
+
+    private String ownerName;
+
+    @OneToOne(mappedBy = "comment")
+    @JsonIgnore
+    private Notification notification;
 
     public Comment(String text, Post post, User owner) {
         if (text == null) {
@@ -34,6 +43,6 @@ public class Comment {
         this.text = text;
         this.post = post;
         this.owner = owner;
-
+        this.ownerName = owner.getFirstName() + " " + owner.getLastName();
     }
 }

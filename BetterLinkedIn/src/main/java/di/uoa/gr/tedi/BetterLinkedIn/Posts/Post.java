@@ -1,6 +1,9 @@
 package di.uoa.gr.tedi.BetterLinkedIn.Posts;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.AllArgsConstructor;
@@ -14,36 +17,41 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Post {
 
     private @Id @GeneratedValue Long id;
-
 
     private String text;
 
     private String media;
 
+    private String typeOfMedia;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonIdentityReference(alwaysAsId = true)
     private User owner;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Like> likes = new ArrayList<>();
 
 
     protected Post() {}
 
-    public Post(String text, String media, User owner) {
+    public Post(String text, String media, String typeOfMedia, User owner) {
         if (text == null && media == null) {
             throw new IllegalStateException("Post must have at least one of text or media");
         }
         this.text = text;
         this.media = media;
+        this.typeOfMedia = typeOfMedia;
         this.owner = owner;
+    }
+
+    public String getMedia() {
+        return "images\\post_" + id + "\\" + media;
     }
 }

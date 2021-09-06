@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Table(name="likes")
 public class Like {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue @JsonIgnore Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -24,8 +24,14 @@ public class Like {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @JsonIgnore
+    @JsonIdentityReference(alwaysAsId = true)
     private Post post;
+
+    @OneToOne(mappedBy = "like")
+    @JsonIgnore
+    private Notification notification;
+
+
 
     public Like(User owner, Post post) {
         this.owner= owner;

@@ -1,18 +1,28 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.ContactDetails;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.Details;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.FileUploadUtil;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.UserServiceHelper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -339,17 +349,33 @@ public class UserService implements UserDetailsService {
         return owner.getPosts();
     }
 
-    public void upload_post(Authentication authentication, PostRequest req) {
+    public void upload_post(Authentication authentication, String text, MultipartFile file, String typeOfMedia) throws IOException {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
         User user = opt.get();
 
-        Post post = new Post(req.getText(), req.getMedia(), user);
+        String filename = "";
+        if (!file.isEmpty()) {
+            filename = StringUtils.cleanPath(file.getOriginalFilename());
+        }
+
+        Post post = new Post(text, filename, typeOfMedia, user);
+
+        postRepo.save(post);
+
         Set<Post> postsSet = user.getPosts();
         postsSet.add(post);
         userRepo.save(user);
+
+        if (!file.isEmpty()) {
+            String uploadDir = "images\\post_" + post.getId() + "\\";
+            FileUploadUtil.saveFile(uploadDir, filename, file);
+        }
+
+
+
     }
 
     public User one(Authentication authentication) {
@@ -393,7 +419,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("authentication failed");
         }
         User user = opt.get();
-        //System.out.println(user.getFirstName() + " " + user.getLastName());
+
         return user.getFirstName() + " " + user.getLastName();
     }
 
@@ -426,13 +452,21 @@ public class UserService implements UserDetailsService {
 
     public void update_email(Authentication authentication, String email) {
         User user = helper.userAuth(authentication, userRepo);
+        email = email.replaceAll("\"", "");
         Optional<User> opt = userRepo.findUserByEmail(email);
         if (opt.isPresent()) {
             throw new IllegalStateException("Email already used");
         }
-        email = email.replaceAll("\"", "");
+
+
+
+        Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(email, null, nowAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
         user.setEmail(email);
         userRepo.save(user);
+
     }
 
     public void update_password(Authentication authentication, String password) {
@@ -461,6 +495,13 @@ public class UserService implements UserDetailsService {
 
         Comment comment = new Comment(text, post, user);
         user.getCommentsMade().add(comment);
+
+        User postOwner = post.getOwner();
+        if (!postOwner.getId().equals(user.getId())) {
+            Notification notification = new Notification(postOwner, comment);
+            postOwner.getNotifications().add(notification);
+        }
+
         postRepo.save(post);
         userRepo.save(user);
     }
@@ -481,6 +522,13 @@ public class UserService implements UserDetailsService {
 
         Set<Like> userLikes = user.getLikes();
         userLikes.add(like);
+
+        User postOwner = post.getOwner();
+        if (!postOwner.getId().equals(user.getId())) {
+            Notification notification = new Notification(postOwner, like);
+            postOwner.getNotifications().add(notification);
+        }
+
         userRepo.save(user);
         postRepo.save(post);
     }
@@ -522,5 +570,43 @@ public class UserService implements UserDetailsService {
         else {
             return cId.getFriend1Id();
         }
+    }
+
+    public List<Notification> get_notifications(Authentication authentication) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        return user.getNotifications();
+    }
+
+    public void upload_advert(Authentication authentication, AdvertRequest request) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        Advert advert = new Advert(request.getTitle(), request.getText(), user);
+
+        user.getMyAdverts().add(advert);
+
+        userRepo.save(user);
+
+    }
+
+    public List<Advert> get_myAdverts(Authentication authentication) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        return user.getMyAdverts();
+    }
+
+    public List<Advert> get_adverts(Authentication authentication) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        List<User> friends = new ArrayList<>(user.getFriends());
+        friends.addAll(user.getFriendOf());
+
+        List<Advert> adverts = new ArrayList<>();
+        for (User u: friends) {
+            adverts.addAll(u.getMyAdverts());
+        }
+        adverts.removeAll(user.getAdvertsApplied());
+        return adverts;
+
     }
 }

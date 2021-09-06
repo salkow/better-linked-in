@@ -29,19 +29,15 @@ public class Message {
 
     private final Long ownerId;
 
-    private final String ownerName;
-
     protected Message() {
         text = "";
         ownerId = new Long(0);
-        ownerName = "";
     }
 
 
-    public Message(String text, Long ownerId, String ownerName) {
+    public Message(String text, Long ownerId) {
         this.text = text;
         this.ownerId = ownerId;
-        this.ownerName = ownerName;
     }
 
 }

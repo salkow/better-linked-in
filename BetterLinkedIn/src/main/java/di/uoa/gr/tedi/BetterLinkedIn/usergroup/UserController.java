@@ -5,10 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.Like;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.PostRequest;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
@@ -18,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -243,8 +243,8 @@ public class UserController {
     }
 
     @PostMapping("api/v1/post")
-    public void upload_post(Authentication authentication, @RequestBody PostRequest req) {
-        userService.upload_post(authentication, req);
+    public void upload_post(Authentication authentication, @RequestParam String text, @RequestParam MultipartFile media, @RequestParam String typeOfMedia) throws IOException {
+        userService.upload_post(authentication, text, media, typeOfMedia);
     }
 
     @PutMapping("api/v1/comment/{post_id}")
@@ -270,5 +270,25 @@ public class UserController {
     @GetMapping("api/v1/lastContactId")
     public Long get_lastContactId(Authentication authentication) {
         return userService.get_lastContactId(authentication);
+    }
+
+    @GetMapping("api/v1/notifications")
+    public List<Notification> get_notifications(Authentication authentication) {
+        return userService.get_notifications(authentication);
+    }
+
+    @PostMapping("api/v1/advert")
+    public void upload_advert(Authentication authentication, @RequestBody AdvertRequest request) {
+        userService.upload_advert(authentication, request);
+    }
+
+    @GetMapping("api/v1/myAdverts")
+    public List<Advert> get_myAdverts(Authentication authentication) {
+        return userService.get_myAdverts(authentication);
+    }
+
+    @GetMapping("api/v1/adverts")
+    public List<Advert> get_adverts(Authentication authentication) {
+        return userService.get_adverts(authentication);
     }
 }

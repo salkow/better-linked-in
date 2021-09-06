@@ -31,6 +31,8 @@ public class Contact {
     @JsonIgnore
     private List<Message> messages = new ArrayList<>();
 
+
+
     private String friend1Name;
 
     private String friend2Name;
@@ -60,7 +62,7 @@ public class Contact {
     }
 
     public void addMessage(String text, Long id, String ownerName) {
-        Message mes = new Message(text, id, ownerName);
+        Message mes = new Message(text, id);
         mes.setContact(this);
         this.messages.add(mes);
     }

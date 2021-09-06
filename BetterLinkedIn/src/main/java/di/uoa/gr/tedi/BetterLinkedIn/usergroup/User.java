@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Comment;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Like;
+import di.uoa.gr.tedi.BetterLinkedIn.Posts.Notification;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.Post;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
 import lombok.Getter;
@@ -114,6 +116,19 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Comment> commentsMade = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Notification> notifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Advert> myAdverts = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "applicants")
+    @JsonIgnore
+    private List<Advert> advertsApplied = new ArrayList<>();
+
 
     public User() {}
 
