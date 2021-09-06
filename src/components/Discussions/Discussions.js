@@ -8,7 +8,13 @@ import NewMessage from "./NewMessage";
 
 import "./Discussions.css";
 
-const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
+const Discussions = ({
+	navHeight,
+	pageHeight,
+	fetchData,
+	fetchDataNoJSON,
+	sendData,
+}) => {
 	const [messages, setMessages] = useState([]);
 	const [contacts, setContacts] = useState([]);
 
@@ -35,13 +41,13 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 		};
 
 		const getMyName = async () => {
-			const nameFromServer = await fetchData("name");
-			setMyName(nameFromServer);
+			const nameFromServer = await fetchDataNoJSON("name");
+			setMyName(nameFromServer.data);
 		};
 
 		const getFriendName = async (id) => {
-			const nameFromServer = await fetchData("name/" + id);
-			setFriendName(nameFromServer);
+			const nameFromServer = await fetchDataNoJSON("name/" + id);
+			setFriendName(nameFromServer.data);
 		};
 
 		const getLastContactId = async () => {
@@ -76,10 +82,11 @@ const Discussions = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			});
 		}
 	}, [fetchData, sendData]);
+
 	const addNewMessage = async (message) => {
 		sendData({ text: message }, "sendMessage/" + friendId, "PUT");
 
-		setMessages([...messages, message]);
+		setMessages([...messages, { text: message, ownerId: myId }]);
 	};
 
 	// Focus the messages of a specific contact.

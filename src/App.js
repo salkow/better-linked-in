@@ -157,6 +157,7 @@ function App() {
 									navHeight={navHeight}
 									pageHeight={pageHeight}
 									fetchData={fetchData}
+									fetchDataNoJSON={fetchDataNoJSON}
 									sendData={sendData}
 								/>
 							</PrivateRoute>

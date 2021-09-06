@@ -14,7 +14,13 @@ const Messages = ({
 	const scrollToLastMessage = () => lastMessage.current.scrollIntoView();
 
 	// Scroll to the last message when the page loads.
-	useEffect(() => scrollToLastMessage());
+	useEffect(() => {
+		scrollToLastMessage();
+
+		// console.log("myName: " + myName);
+		// console.log("myId: " + myId);
+		// console.log("friendName: " + friendName);
+	});
 
 	return (
 		<div

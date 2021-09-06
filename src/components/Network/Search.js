@@ -17,7 +17,7 @@ const Search = ({ sendData }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const data = sendData(input, "searchResults");
+		const data = sendData({ text: input }, "search");
 
 		setResults(data);
 
@@ -50,7 +50,7 @@ const Search = ({ sendData }) => {
 							<ListGroup variant="flush">
 								{results.map((result, index) => (
 									<ListGroup.Item key={index}>
-										<Link to="/personal">
+										<Link to={"/personal?id=" + result.id}>
 											{result.name}
 										</Link>
 									</ListGroup.Item>

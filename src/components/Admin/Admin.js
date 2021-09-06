@@ -13,6 +13,10 @@ import {
 
 import { useState, useEffect } from "react";
 
+import { saveAs } from "file-saver";
+
+import exportFromJSON from "export-from-json";
+
 import "./Admin.css";
 
 const Admin = ({ fetchData }) => {
@@ -40,13 +44,15 @@ const Admin = ({ fetchData }) => {
 		};
 
 		getPeople();
-
-		// You will need an array of all the information about the users.
 	}, [fetchData]);
 
 	const setExportStatus = (checked, id) => {
 		if (checked) {
-			setPeople([...peopleToExport, id]);
+			people.forEach((person) => {
+				if (person.id === id) {
+					setPeople([...peopleToExport, person]);
+				}
+			});
 		} else {
 			setPeopleToExport(
 				peopleToExport.filter((person) => person.id !== id)
@@ -54,9 +60,30 @@ const Admin = ({ fetchData }) => {
 		}
 	};
 
-	const exportJSON = () => {};
+	const exportJSON = () => {
+		if (peopleToExport.length === 0) {
+			handleModalShow("Δεν έχεις επιλέξει χρήστες");
+			return;
+		}
 
-	const exportXML = () => {};
+		const blob = new Blob([JSON.stringify(peopleToExport)], {
+			type: "application/json",
+		});
+
+		saveAs(blob, "JSON_export.json");
+	};
+
+	const exportXML = () => {
+		if (peopleToExport.length === 0) {
+			handleModalShow("Δεν έχεις επιλέξει χρήστες");
+			return;
+		}
+
+		const fileName = "XML_export";
+		const exportType = exportFromJSON.types.xml;
+
+		exportFromJSON({ peopleToExport, fileName, exportType });
+	};
 
 	return (
 		<Container fluid>
@@ -151,10 +178,9 @@ const Admin = ({ fetchData }) => {
 																		column
 																		sm="2"
 																	>
-																		{/* {
-																		person.surname
-																	} */}
-																		Surname
+																		{
+																			person.surname
+																		}
 																	</Form.Label>
 																</Col>
 															</Form.Group>
@@ -177,10 +203,9 @@ const Admin = ({ fetchData }) => {
 																		column
 																		sm="2"
 																	>
-																		{/* {
-																		person.email
-																	} */}
-																		person.email.com
+																		{
+																			person.email
+																		}
 																	</Form.Label>
 																</Col>
 															</Form.Group>
@@ -203,8 +228,9 @@ const Admin = ({ fetchData }) => {
 																		column
 																		sm="2"
 																	>
-																		{/* person.email */}
-																		6912345678
+																		{
+																			person.number
+																		}
 																	</Form.Label>
 																</Col>
 															</Form.Group>

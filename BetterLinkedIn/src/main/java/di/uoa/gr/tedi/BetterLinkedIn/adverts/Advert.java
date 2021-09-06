@@ -27,7 +27,7 @@ public class Advert {
     private String skills;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private User creator;
 
     @ManyToMany(cascade = {

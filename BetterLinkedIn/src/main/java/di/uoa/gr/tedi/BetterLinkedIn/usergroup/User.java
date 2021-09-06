@@ -104,7 +104,7 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<Post> posts = new HashSet<>();
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Like> likes = new HashSet<>();

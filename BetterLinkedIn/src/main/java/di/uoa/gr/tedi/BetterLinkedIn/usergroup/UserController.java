@@ -6,9 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
-import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
-import di.uoa.gr.tedi.BetterLinkedIn.friends.Contact;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
@@ -42,19 +41,10 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/users")
-    List<User> all() {
+    List<FriendDTO> all() {
         return userService.all();
     }
 
-    @GetMapping("/perform_login")
-    String login() {
-        return "login";
-    }
-
-    @GetMapping("/")
-    String index(Authentication authentication) {
-        return "";
-    }
 
     @GetMapping("/token/refresh")
     void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -203,7 +193,7 @@ public class UserController {
     }
 
     @GetMapping("api/v1/friends")
-    public List<Details> get_friends(Authentication authentication) {
+    public List<FriendDTO> get_friends(Authentication authentication) {
         return userService.get_friends(authentication);
     }
 
@@ -214,7 +204,7 @@ public class UserController {
     }
 
     @GetMapping("api/v1/contacts")
-    public List<ContactDetails> get_contacts(Authentication authentication) {
+    public List<ContactDTO> get_contacts(Authentication authentication) {
         return userService.get_contacts(authentication);
     }
 
@@ -239,12 +229,12 @@ public class UserController {
     }
 
     @GetMapping("api/v1/myPosts")
-    public Set<Post> get_MyPosts(Authentication authentication) {
+    public List<Post> get_MyPosts(Authentication authentication) {
         return userService.get_MyPosts(authentication);
     }
 
     @GetMapping("api/v1/posts")
-    public Set<Post> get_posts(Authentication authentication) {
+    public List<Post> get_posts(Authentication authentication) {
         return userService.get_posts(authentication);
     }
 
@@ -289,12 +279,17 @@ public class UserController {
     }
 
     @GetMapping("api/v1/myAdverts")
-    public List<Advert> get_myAdverts(Authentication authentication) {
+    public List<AdvertDTO> get_myAdverts(Authentication authentication) {
         return userService.get_myAdverts(authentication);
     }
 
     @GetMapping("api/v1/adverts")
-    public List<Advert> get_adverts(Authentication authentication) {
+    public List<AdvertDTO> get_adverts(Authentication authentication) {
         return userService.get_adverts(authentication);
+    }
+
+    @GetMapping("api/v1/search")
+    public List<ContactDTO> searchUser(Authentication authentication, @RequestBody WString searchParameter) {
+        return userService.searchUser(authentication, searchParameter.getText());
     }
 }

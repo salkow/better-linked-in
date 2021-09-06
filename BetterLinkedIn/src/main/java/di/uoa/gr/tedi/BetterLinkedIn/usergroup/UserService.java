@@ -2,6 +2,7 @@ package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
@@ -16,8 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -81,8 +80,14 @@ public class UserService implements UserDetailsService {
 
     }
 
-    List<User> all() {
-        return userRepo.findAll();
+    List<FriendDTO> all() {
+
+        List<User> list = userRepo.findAll();
+        List<FriendDTO> ret = new ArrayList<>();
+        for (User i: list) {
+            ret.add(new FriendDTO(i));
+        }
+        return ret;
     }
 
     public UserExperience readUserExperience(Authentication authentication) {
@@ -203,7 +208,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(receiver);
     }
 
-    public List<Details> get_friends(Authentication authentication) {
+    public List<FriendDTO> get_friends(Authentication authentication) {
         Optional<User> optU = userRepo.findUserByEmail(authentication.getName());
         if (!optU.isPresent()) {
             throw new IllegalStateException("authentication failed");
@@ -211,22 +216,22 @@ public class UserService implements UserDetailsService {
         User user = optU.get();
         List<User> fr = new ArrayList<>(user.getFriends());
         fr.addAll(user.getFriendOf());
-        List<Details> friendDetails = new ArrayList<>();
+        List<FriendDTO> friendDetails = new ArrayList<>();
         for (User f: fr) {
-            friendDetails.add(new Details(f));
+            friendDetails.add(new FriendDTO(f));
         }
         return friendDetails;
     }
 
-    public List<ContactDetails> get_contacts(Authentication authentication) {
+    public List<ContactDTO> get_contacts(Authentication authentication) {
         User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         List<User> list = new ArrayList<>(user.getFriends());
         list.addAll(user.getFriendOf());
 
-        List<ContactDetails> details = new ArrayList<>();
+        List<ContactDTO> details = new ArrayList<>();
         for (User i : list) {
-            details.add(new ContactDetails(i.getId(), i.getFirstName() + " "  + i.getLastName()));
+            details.add(new ContactDTO(i.getId(), i.getFirstName() + " "  + i.getLastName()));
         }
         return details;
     }
@@ -314,7 +319,7 @@ public class UserService implements UserDetailsService {
         return userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    public Set<Post> get_MyPosts(Authentication authentication) {
+    public List<Post> get_MyPosts(Authentication authentication) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
@@ -340,8 +345,8 @@ public class UserService implements UserDetailsService {
 
         postRepo.save(post);
 
-        Set<Post> postsSet = user.getPosts();
-        postsSet.add(post);
+        List<Post> postsList = user.getPosts();
+        postsList.add(post);
         userRepo.save(user);
 
         if (file != null && !file.isEmpty()) {
@@ -407,14 +412,14 @@ public class UserService implements UserDetailsService {
         return user.getLastMessages().getMessages();
     }
 
-    public Set<Post> get_posts(Authentication authentication) {
+    public List<Post> get_posts(Authentication authentication) {
         User owner = helper.userAuth(authentication, userRepo);
 
         List<User> friends = new ArrayList<>(owner.getFriends());
         friends.addAll(owner.getFriendOf());
-        Set<Post> postsOfFriends = new HashSet<>();
+        List<Post> postsOfFriends = new LinkedList<>();
         for (User u : friends) {
-            postsOfFriends.addAll(u.getPosts());
+            postsOfFriends.addAll(0, u.getPosts());
         }
         return postsOfFriends;
     }
@@ -570,23 +575,46 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public List<Advert> get_myAdverts(Authentication authentication) {
+    public List<AdvertDTO> get_myAdverts(Authentication authentication) {
         User user = UserServiceHelper.userAuth(authentication, userRepo);
 
-        return user.getMyAdverts();
+        List<AdvertDTO> advDTO = new ArrayList<>();
+        List<Advert> adv = user.getMyAdverts();
+        for (Advert i : adv) {
+            advDTO.add(new AdvertDTO(i.getId(), i.getTitle(), i.getText(), i.getApplicants()));
+        }
+        return advDTO;
     }
 
-    public List<Advert> get_adverts(Authentication authentication) {
+    public List<AdvertDTO> get_adverts(Authentication authentication) {
         User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         List<User> friends = new ArrayList<>(user.getFriends());
         friends.addAll(user.getFriendOf());
+
+
+
 
         List<Advert> adverts = new ArrayList<>();
         for (User u: friends) {
             adverts.addAll(u.getMyAdverts());
         }
         adverts.removeAll(user.getAdvertsApplied());
-        return adverts;
+
+        List<AdvertDTO> advertsDTO = new ArrayList<>();
+        for (Advert i : adverts) {
+            advertsDTO.add(new AdvertDTO(i.getId(), i.getTitle(), i.getText(), i.getApplicants()));
+        }
+
+        return advertsDTO;
+    }
+
+    public List<ContactDTO> searchUser(Authentication authentication, String searchParameter) {
+        List<User> results = userRepo.searchUserByName(searchParameter.toUpperCase());
+        List<ContactDTO> ret = new ArrayList<>();
+        for (User i: results) {
+            ret.add(new ContactDTO(i.getId(), i.getFirstName() + " "  +i.getLastName()));
+        }
+        return ret;
     }
 }
