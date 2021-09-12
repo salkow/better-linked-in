@@ -6,7 +6,12 @@ import "./SignUpIn.css";
 
 import axios from "axios";
 
-const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
+const SignIn = ({
+	setAccessToken,
+	setIsAuthenticated,
+	isAdmin,
+	setIsAdmin,
+}) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -39,6 +44,10 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 		try {
 			const res = await axios.post(url, formData, config);
 			setAccessToken(res.data.access_token);
+			// setIsAdmin(res.data.isAdmin);
+
+			// TODO: Remove this.
+			setIsAdmin(true);
 
 			return true;
 		} catch (err) {
@@ -63,7 +72,17 @@ const SignIn = ({ setAccessToken, setIsAuthenticated }) => {
 	};
 
 	if (redirectToReferrer === true) {
-		return <Redirect to={state?.from || "/personal"} />;
+		if (!isAdmin) {
+			let path = state?.from.pathname;
+
+			if (path === "/admin") {
+				path = "/home";
+
+				return <Redirect to={path || "/home"} />;
+			} else {
+				return <Redirect to="/admin" />;
+			}
+		}
 	}
 
 	return (

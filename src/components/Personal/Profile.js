@@ -26,7 +26,6 @@ const Profile = ({
 	photoPath,
 }) => {
 	const addFriend = () => {
-		// TODO: Ask him to ignore more than one friend requests to the same user.
 		sendData("", "friendRequest/" + id, "PUT");
 	};
 

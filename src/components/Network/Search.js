@@ -17,11 +17,14 @@ const Search = ({ sendData }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const data = sendData({ text: input }, "search");
-
-		setResults(data);
-
-		setShowResults(true);
+		sendData({ text: input }, "search", "POST")
+			.then((data) => {
+				return data.json();
+			})
+			.then((data) => {
+				setResults(data);
+				setShowResults(true);
+			});
 	};
 
 	return (
@@ -40,7 +43,7 @@ const Search = ({ sendData }) => {
 				</InputGroup>
 			</Form>
 
-			{showResults && (
+			{showResults && results.length !== 0 && (
 				<Accordion defaultActiveKey="0" flush id="results">
 					<Accordion.Item eventKey="0">
 						<Accordion.Header>

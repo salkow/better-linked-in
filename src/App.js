@@ -27,6 +27,8 @@ function App() {
 
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+	const [isAdmin, setIsAdmin] = useState(false);
+
 	const fetchData = async (path) => {
 		const res = await fetch(`http://localhost:8081/api/v1/${path}`, {
 			method: "GET",
@@ -67,7 +69,7 @@ function App() {
 			return "error";
 		}
 
-		return res.data;
+		return res;
 	};
 
 	const sendFormData = async (form, path) => {
@@ -102,6 +104,8 @@ function App() {
 					<SignIn
 						setAccessToken={setAccessToken}
 						setIsAuthenticated={setIsAuthenticated}
+						isAdmin={isAdmin}
+						setIsAdmin={setIsAdmin}
 					/>
 				</Route>
 
