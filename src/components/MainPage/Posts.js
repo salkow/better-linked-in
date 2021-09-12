@@ -82,7 +82,7 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 													"image" && (
 													<Image
 														src={
-															"http://localhost:8081/" +
+															"https://localhost:8043/" +
 															post.media
 														}
 														className="media align-middle"
@@ -98,7 +98,7 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 													>
 														<source
 															src={
-																"http://localhost:8081/" +
+																"https://localhost:8043/" +
 																post.media
 															}
 															type="video/mp4"
@@ -113,7 +113,7 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 													<audio controls>
 														<source
 															src={
-																"http://localhost:8081/" +
+																"https://localhost:8043/" +
 																post.media
 															}
 															type="audio/mpeg"

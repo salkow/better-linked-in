@@ -39,7 +39,7 @@ const Admin = ({ fetchData }) => {
 
 	useEffect(() => {
 		const getPeople = async () => {
-			const peopleFromServer = await fetchData("people");
+			const peopleFromServer = await fetchData("users");
 			setPeople(peopleFromServer);
 		};
 
@@ -50,7 +50,7 @@ const Admin = ({ fetchData }) => {
 		if (checked) {
 			people.forEach((person) => {
 				if (person.id === id) {
-					setPeople([...peopleToExport, person]);
+					setPeopleToExport([...peopleToExport, person]);
 				}
 			});
 		} else {
@@ -81,12 +81,21 @@ const Admin = ({ fetchData }) => {
 
 		const fileName = "XML_export";
 		const exportType = exportFromJSON.types.xml;
+		const data = JSON.parse(JSON.stringify(peopleToExport));
 
-		exportFromJSON({ peopleToExport, fileName, exportType });
+		exportFromJSON({ data, fileName, exportType });
 	};
 
 	return (
 		<Container fluid>
+			<Row>
+				<Col xs="6" className="middle export-button footer middle">
+					<Button onClick={exportJSON}>Εξαγωγή ως JSON</Button>
+					<br />
+					<br />
+					<Button onClick={exportXML}>Εξαγωγή ως XML</Button>
+				</Col>
+			</Row>
 			<Row>
 				<Col xs="6" className="middle">
 					{people.length === 0 ? (
@@ -111,7 +120,9 @@ const Admin = ({ fetchData }) => {
 												<CustomToggle
 													eventKey={person.id}
 												>
-													{person.name}
+													{person.firstName +
+														" " +
+														person.lastName}
 												</CustomToggle>
 											</Row>
 										</Container>
@@ -130,6 +141,7 @@ const Admin = ({ fetchData }) => {
 																<Card.Img
 																	variant="top"
 																	src={
+																		"https://localhost:8043/" +
 																		person.picture
 																	}
 																/>
@@ -154,7 +166,7 @@ const Admin = ({ fetchData }) => {
 																		sm="2"
 																	>
 																		{
-																			person.name
+																			person.firstName
 																		}
 																	</Form.Label>
 																</Col>
@@ -179,7 +191,7 @@ const Admin = ({ fetchData }) => {
 																		sm="2"
 																	>
 																		{
-																			person.surname
+																			person.lastName
 																		}
 																	</Form.Label>
 																</Col>
@@ -229,7 +241,7 @@ const Admin = ({ fetchData }) => {
 																		sm="2"
 																	>
 																		{
-																			person.number
+																			person.phone
 																		}
 																	</Form.Label>
 																</Col>
@@ -245,7 +257,7 @@ const Admin = ({ fetchData }) => {
 																	column
 																	sm="2"
 																>
-																	Εππαγελματική
+																	Επαγελματική
 																	θέση
 																</Form.Label>
 
@@ -281,7 +293,7 @@ const Admin = ({ fetchData }) => {
 																		sm="2"
 																	>
 																		{
-																			person.employmentInstitution
+																			person.company
 																		}
 																	</Form.Label>
 																</Col>
@@ -296,14 +308,6 @@ const Admin = ({ fetchData }) => {
 							))}
 						</Accordion>
 					)}
-				</Col>
-			</Row>
-			<Row>
-				<Col xs="6" className="middle export-button footer middle">
-					<Button onClick={exportJSON}>Εξαγωγή ως JSON</Button>
-					<br />
-					<br />
-					<Button onClick={exportXML}>Εξαγωγή ως XML</Button>
 				</Col>
 			</Row>
 

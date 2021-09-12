@@ -26,14 +26,7 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	const [isMyProfile, setIsMyProfile] = useState(false);
 	const [isFriendsProfile, setIsFriendsProfile] = useState(true);
 
-	const [myId, setMyId] = useState("");
-
 	useEffect(() => {
-		const getMyId = async () => {
-			const idFromServer = await fetchData("id");
-			setMyId(idFromServer);
-		};
-
 		const getPersonalData = async (id) => {
 			const dataFromServer = await fetchData("user/" + id);
 
@@ -56,7 +49,13 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 			setPhotoPath(dataFromServer.photoPath);
 		};
 
-		const setUpData = async () => {
+		const getMyId = async () => {
+			const idFromServer = await fetchData("id");
+
+			return idFromServer;
+		};
+
+		const setUpData = () => {
 			const authResult = new URLSearchParams(window.location.search);
 			const id = authResult.get("id");
 
@@ -66,24 +65,30 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 
 				getPersonalData("");
 			} else {
-				getMyId();
+				getMyId().then((myId) => {
+					myId = String(myId);
 
-				if (myId === id) {
-					setIsMyProfile(true);
-				} else {
-					const isFriendFromServer = await fetchData(
-						"checkFriend/" + id
-					);
+					if (myId === id) {
+						setIsMyProfile(true);
+					} else {
+						fetchData("checkFriend/" + id).then(
+							(isFriendFromServer) => {
+								setIsFriendsProfile(isFriendFromServer);
 
-					setIsFriendsProfile(isFriendFromServer);
-				}
+								console.log(
+									"isFriendFromServer: " + isFriendFromServer
+								);
+							}
+						);
+					}
 
-				getPersonalData(id);
+					getPersonalData(id);
+				});
 			}
 		};
 
 		setUpData();
-	}, [fetchData, myId]);
+	}, [fetchData]);
 
 	const addExperience = async (newExperience) => {
 		sendData(newExperience, "experience", "PUT");

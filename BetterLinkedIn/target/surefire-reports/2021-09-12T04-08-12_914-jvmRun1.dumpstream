@@ -1,0 +1,47 @@
+# Created at 2021-09-12T04:08:20.973
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: null
+java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:391)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
+
+# Created at 2021-09-12T04:08:48.094
+Unexpected IOException with stream: 2021-09-12 04:08:48.093  INFO 31798 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+
+
+# Created at 2021-09-12T04:08:48.107
+Unexpected IOException with stream: 2021-09-12 04:08:48.106  INFO 31798 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+
+# Created at 2021-09-12T04:08:48.929
+Unexpected IOException with stream: 2021-09-12 04:08:48.929  WARN 31798 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+
+# Created at 2021-09-12T04:08:49.875
+Unexpected IOException with stream: 2021-09-12 04:08:49.874  INFO 31798 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a34f8e2, org.springframework.security.web.context.SecurityContextPersistenceFilter@4987142d, org.springframework.security.web.header.HeaderWriterFilter@36f80ceb, org.springframework.web.filter.CorsFilter@222a7429, org.springframework.security.web.authentication.logout.LogoutFilter@2b9370cc, di.uoa.gr.tedi.BetterLinkedIn.filters.CustomAuthorizationFilter@22a8c837, di.uoa.gr.tedi.BetterLinkedIn.filters.CustomAuthenticationFilter@5f596a1a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@d863bb, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@17c72ffa, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@62977afb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16602333, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@664083f6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@13edc1bc, org.springframework.security.web.session.SessionManagementFilter@2dec57c5, org.springframework.security.web.access.ExceptionTranslationFilter@7da1ef46, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@436d2bb9]
+
+
+# Created at 2021-09-12T04:08:50.716
+Unexpected IOException with stream: 2021-09-12 04:08:50.711  INFO 31798 --- [           main] d.u.g.t.B.BetterLinkedInApplicationTests : Started BetterLinkedInApplicationTests in 36.842 seconds (JVM running for 37.621)
+
+
+# Created at 2021-09-12T04:08:50.731
+Unexpected IOException with stream: 2021-09-12 04:08:50.720  INFO 31798 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+
+
+# Created at 2021-09-12T04:08:50.735
+Unexpected IOException with stream: 2021-09-12 04:08:50.734  INFO 31798 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+
+
+# Created at 2021-09-12T04:08:50.740
+Unexpected IOException with stream: 2021-09-12 04:08:50.738  INFO 31798 --- [           main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+
+
+# Created at 2021-09-12T04:08:50.794
+Unexpected IOException with stream: 2021-09-12 04:08:50.793  INFO 31798 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+

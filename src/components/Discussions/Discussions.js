@@ -81,7 +81,7 @@ const Discussions = ({
 				}
 			});
 		}
-	}, [fetchData, sendData]);
+	}, [fetchData, fetchDataNoJSON, sendData]);
 
 	const addNewMessage = async (message) => {
 		sendData({ text: message }, "sendMessage/" + friendId, "PUT");

@@ -10,19 +10,13 @@ const NewAdvert = ({ navHeight, pageHeight, sendData }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const id = Math.floor(Math.random() * 10000) + 1;
-
-		const abilitiesArr = abilities.trim().split("\n\n");
-
 		sendData(
 			{
-				id,
-				name: "Name",
 				title,
-				content: description,
-				abilities: abilitiesArr,
+				text: description,
+				skills: abilities,
 			},
-			"adverts",
+			"advert",
 			"POST"
 		);
 
