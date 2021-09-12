@@ -47,7 +47,7 @@ const SignIn = ({
 			// setIsAdmin(res.data.isAdmin);
 
 			// TODO: Remove this.
-			setIsAdmin(true);
+			//setIsAdmin(true);
 
 			return true;
 		} catch (err) {

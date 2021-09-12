@@ -1,12 +1,10 @@
-package di.uoa.gr.tedi.BetterLinkedIn.Posts;
+package di.uoa.gr.tedi.BetterLinkedIn.posts;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 

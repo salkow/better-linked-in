@@ -1,10 +1,12 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+
 
 @Getter
 @Setter

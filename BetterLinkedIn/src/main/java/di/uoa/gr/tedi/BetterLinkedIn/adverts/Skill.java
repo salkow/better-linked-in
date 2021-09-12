@@ -2,10 +2,7 @@
 package di.uoa.gr.tedi.BetterLinkedIn.adverts;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,6 +12,8 @@ public class Skill {
     @Id
     private final String skill;
 
+    pr
+
     public Skill(String skill) {
         this.skill = skill;
     }
@@ -22,5 +21,4 @@ public class Skill {
     public Skill() {
         skill = "";
     }
-}
-*/
+}*/

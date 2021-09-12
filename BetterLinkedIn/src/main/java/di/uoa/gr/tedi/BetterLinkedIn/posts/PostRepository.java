@@ -1,4 +1,4 @@
-package di.uoa.gr.tedi.BetterLinkedIn.Posts;
+package di.uoa.gr.tedi.BetterLinkedIn.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

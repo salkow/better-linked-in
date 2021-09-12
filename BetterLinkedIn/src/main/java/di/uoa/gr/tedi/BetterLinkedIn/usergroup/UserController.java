@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
+import di.uoa.gr.tedi.BetterLinkedIn.posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
@@ -46,6 +46,7 @@ public class UserController {
     }
 
 
+/*
     @GetMapping("/token/refresh")
     void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -82,6 +83,7 @@ public class UserController {
             throw new RuntimeException("Refresh token is missing!");
         }
     }
+*/
 
 
 

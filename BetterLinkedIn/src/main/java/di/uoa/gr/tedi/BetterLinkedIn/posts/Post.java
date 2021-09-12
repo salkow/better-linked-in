@@ -1,12 +1,9 @@
-package di.uoa.gr.tedi.BetterLinkedIn.Posts;
+package di.uoa.gr.tedi.BetterLinkedIn.posts;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sun.istack.NotNull;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

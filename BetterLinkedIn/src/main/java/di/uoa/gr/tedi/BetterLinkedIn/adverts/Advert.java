@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -46,5 +45,13 @@ public class Advert {
         this.text = text;
         this.skills = skills;
         this.creator = creator;
+    }
+
+    //returns false, if no skills overlap
+    public boolean compare_skills(String applicantSkills) {
+        Set<String> skillSet = new HashSet<>(Arrays.asList(skills.split("\n\n")));
+        Set<String> applicantSkillSet = new HashSet<>(Arrays.asList(applicantSkills.split("\n\n")));
+
+        return !Collections.disjoint(skillSet, applicantSkillSet);
     }
 }

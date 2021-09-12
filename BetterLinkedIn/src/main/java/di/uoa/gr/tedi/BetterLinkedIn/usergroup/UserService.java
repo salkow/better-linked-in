@@ -1,6 +1,7 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
-import di.uoa.gr.tedi.BetterLinkedIn.Posts.*;
+import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRepository;
+import di.uoa.gr.tedi.BetterLinkedIn.posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
@@ -31,6 +32,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepo;
     private final ContactRepository contRepo;
     private final PostRepository postRepo;
+    private final AdvertRepository advertRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -589,21 +591,14 @@ public class UserService implements UserDetailsService {
     public List<AdvertDTO> get_adverts(Authentication authentication) {
         User user = UserServiceHelper.userAuth(authentication, userRepo);
 
-        List<User> friends = new ArrayList<>(user.getFriends());
-        friends.addAll(user.getFriendOf());
-
-
-
-
-        List<Advert> adverts = new ArrayList<>();
-        for (User u: friends) {
-            adverts.addAll(u.getMyAdverts());
-        }
-        adverts.removeAll(user.getAdvertsApplied());
+        List<Advert> adverts = advertRepository.findAllExceptMine(user);
+        String skills = user.getSkills().getText();
 
         List<AdvertDTO> advertsDTO = new ArrayList<>();
         for (Advert i : adverts) {
-            advertsDTO.add(new AdvertDTO(i.getId(), i.getTitle(), i.getText(), i.getSkills(), i.getApplicants()));
+            if (i.compare_skills(skills)) {
+                advertsDTO.add(new AdvertDTO(i.getId(), i.getTitle(), i.getText(), i.getSkills(), i.getApplicants()));
+            }
         }
 
         return advertsDTO;

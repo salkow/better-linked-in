@@ -5,24 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="SSL">
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/registration/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/registration/RegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/Posts/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/Posts/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/Posts/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/Posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/Posts/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/Advert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/Skill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/filters/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/filters/CustomAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/security/handlers/CustomAuthenticationFailureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/security/handlers/CustomAuthenticationFailureHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserSkills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/filters/CustomAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/filters/CustomAuthenticationFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/registration/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/registration/RegistrationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/registration/RegistrationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/registration/RegistrationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Admin/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Adverts/MyAdverts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Adverts/MyAdverts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Adverts/NewAdvert.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Adverts/NewAdvert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Discussions/Discussions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Discussions/Discussions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/MainPage/Posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/MainPage/Posts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Network/People.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Network/People.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Network/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Network/Search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Personal/Personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Personal/Personal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Personal/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Personal/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/components/SignUpIn/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/SignUpIn/SignIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/SignUpIn/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/SignUpIn/SignUp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,12 +34,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1y174yQE18JWQvZgRRQzDXXeiBB" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -109,7 +113,8 @@
       <workItem from="1631407059717" duration="1422000" />
       <workItem from="1631408520052" duration="883000" />
       <workItem from="1631447993678" duration="7007000" />
-      <workItem from="1631457983631" duration="2794000" />
+      <workItem from="1631457983631" duration="3536000" />
+      <workItem from="1631486307735" duration="3590000" />
     </task>
     <task id="LOCAL-00001" summary="SSL">
       <created>1631461572058</created>
@@ -118,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631461572058</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="SSL">
+      <created>1631463113157</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631463113157</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +149,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="SSL" />
     <option name="LAST_COMMIT_MESSAGE" value="SSL" />
   </component>

@@ -1,4 +1,4 @@
-package di.uoa.gr.tedi.BetterLinkedIn.Posts;
+package di.uoa.gr.tedi.BetterLinkedIn.posts;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
