@@ -51,7 +51,7 @@ const SignUp = () => {
 			formData.append("company", employmentInstitution);
 
 			await axios.post(
-				"http://localhost:8081/api/v1/registration",
+				"https://localhost:8043/api/v1/registration",
 				formData
 			);
 		} catch (err) {

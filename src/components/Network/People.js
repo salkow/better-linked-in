@@ -29,7 +29,10 @@ const People = ({ fetchData }) => {
 							>
 								<Card.Img
 									variant="top"
-									src={person.picture}
+									src={
+										"https://localhost:8043/" +
+										person.picture
+									}
 									className="aimg"
 								/>
 								<Card.Header as="h4">

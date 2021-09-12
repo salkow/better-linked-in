@@ -14,7 +14,7 @@ const MyAdverts = ({ fetchData }) => {
 
 	useEffect(() => {
 		const getAdverts = async () => {
-			const advertsFromServer = await fetchData("my_adverts");
+			const advertsFromServer = await fetchData("myAdverts");
 			setAdverts(advertsFromServer);
 		};
 
@@ -32,9 +32,6 @@ const MyAdverts = ({ fetchData }) => {
 							) : (
 								<div>
 									{adverts.map((advert, index) => {
-										const abilitiesArr =
-											advert.abilities.join("\n\n");
-
 										return (
 											<Card
 												key={index}
@@ -45,13 +42,13 @@ const MyAdverts = ({ fetchData }) => {
 														{advert.title}
 													</Card.Title>
 													<Card.Text className="content">
-														{advert.content}
+														{advert.text}
 													</Card.Text>
 												</Card.Body>
 
 												<ListGroup variant="flush">
 													<ListGroup.Item className="content">
-														{abilitiesArr}
+														{advert.skills}
 													</ListGroup.Item>
 													<ListGroup.Item>
 														<Dropdown>
@@ -60,7 +57,7 @@ const MyAdverts = ({ fetchData }) => {
 															</Dropdown.Toggle>
 
 															<Dropdown.Menu>
-																{advert.applications.map(
+																{advert.applicants.map(
 																	(
 																		applicant,
 																		my_index
@@ -72,7 +69,10 @@ const MyAdverts = ({ fetchData }) => {
 																			}
 																		>
 																			<Link
-																				to="/discussions"
+																				to={
+																					"/discussions?id=" +
+																					applicant.id
+																				}
 																				className="name"
 																			>
 																				{
