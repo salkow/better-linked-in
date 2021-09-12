@@ -30,7 +30,7 @@ function App() {
 	const [isAdmin, setIsAdmin] = useState(false);
 
 	const fetchData = async (path) => {
-		const res = await fetch(`http://localhost:8081/api/v1/${path}`, {
+		const res = await fetch(`https://localhost:8043/api/v1/${path}`, {
 			method: "GET",
 			headers: new Headers({
 				Authorization: "Bearer " + accessToken,
@@ -47,7 +47,7 @@ function App() {
 	};
 
 	const fetchDataNoJSON = async (path) => {
-		const res = axios(`http://localhost:8081/api/v1/${path}`, {
+		const res = axios(`https://localhost:8043/api/v1/${path}`, {
 			headers: { Authorization: "Bearer " + accessToken },
 		});
 
@@ -55,7 +55,7 @@ function App() {
 	};
 
 	const sendData = async (data, path, post_put) => {
-		const res = await fetch(`http://localhost:8081/api/v1/${path}`, {
+		const res = await fetch(`https://localhost:8043/api/v1/${path}`, {
 			method: post_put,
 			headers: {
 				Authorization: "Bearer " + accessToken,
@@ -75,7 +75,7 @@ function App() {
 	const sendFormData = async (form, path) => {
 		const res = await axios({
 			method: "POST",
-			url: `http://localhost:8081/api/v1/${path}`,
+			url: `https://localhost:8043/api/v1/${path}`,
 			data: form,
 			headers: {
 				Authorization: "Bearer " + accessToken,
