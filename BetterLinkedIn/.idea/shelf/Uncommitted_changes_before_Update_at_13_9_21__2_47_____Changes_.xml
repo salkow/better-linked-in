@@ -1,0 +1,59 @@
+<changelist name="Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]" date="1631490452042" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 13/9/21, 2:47 π.μ. [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/Posts/Notification.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/Posts/Like.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/UserRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" />
+    <option name="AFTER_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/User.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/AdvertRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserSkills.class" />
+    <option name="AFTER_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserSkills.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/UserSkills.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/Posts/Comment.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/security/handlers/CustomAuthenticationFailureHandler.class" />
+    <option name="AFTER_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/security/handlers/CustomAuthenticationFailureHandler.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/CustomAuthenticationFailureHandler.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/Posts/PostRepository.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/adverts/Advert.class" />
+    <option name="AFTER_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/adverts/Advert.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/Advert.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/di/uoa/gr/tedi/BetterLinkedIn/Posts/Post.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>
