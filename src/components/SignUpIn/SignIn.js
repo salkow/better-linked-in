@@ -44,10 +44,10 @@ const SignIn = ({
 		try {
 			const res = await axios.post(url, formData, config);
 			setAccessToken(res.data.access_token);
-			// setIsAdmin(res.data.isAdmin);
 
-			// TODO: Remove this.
-			//setIsAdmin(true);
+			if (res.data.role === "ADMIN") {
+				setIsAdmin(true);
+			}
 
 			return true;
 		} catch (err) {
@@ -75,13 +75,15 @@ const SignIn = ({
 		if (!isAdmin) {
 			let path = state?.from.pathname;
 
+			console.log(path);
+
 			if (path === "/admin") {
 				path = "/home";
-
-				return <Redirect to={path || "/home"} />;
-			} else {
-				return <Redirect to="/admin" />;
 			}
+
+			return <Redirect to={path || "/home"} />;
+		} else {
+			return <Redirect to="/admin" />;
 		}
 	}
 
