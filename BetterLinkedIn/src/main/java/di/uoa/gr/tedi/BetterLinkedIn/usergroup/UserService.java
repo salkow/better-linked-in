@@ -92,22 +92,33 @@ public class UserService implements UserDetailsService {
         return ret;
     }
 
-    public UserExperience readUserExperience(Authentication authentication) {
+/*    public UserExperience readUserExperience(Authentication authentication) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
-        return opt.get().getExperience();
 
-    }
+        User user = opt.get();
 
-    public UserEducation readUserEducation(Authentication authentication) {
+        if(user.getExperience().getDisplayable()) {
+            return new UserExperience();
+        }
+        return user.getExperience();
+
+    }*/
+
+/*    public UserEducation readUserEducation(Authentication authentication) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
-        return opt.get().getEducation();
-    }
+        User user = opt.get();
+
+        if(user.getEducation().getDisplayable()) {
+            return new UserEducation();
+        }
+        return user.getEducation();
+    }*/
 
     public void updateUserSkills(Authentication authentication, UserSkills skills) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
@@ -118,17 +129,23 @@ public class UserService implements UserDetailsService {
         User user = opt.get();
 
         user.setSkills(skills);
+
         userRepo.save(user);
 
     }
 
-    public UserSkills readUserSkills(Authentication authentication) {
+/*    public UserSkills readUserSkills(Authentication authentication) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");
         }
-        return opt.get().getSkills();
-    }
+        User user = opt.get();
+
+        if(user.getSkills().getDisplayable()) {
+            return new UserSkills();
+        }
+        return user.getSkills();
+    }*/
 
     public void sendFriendRequest(Authentication authentication, Long receiverId) {
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
@@ -204,6 +221,7 @@ public class UserService implements UserDetailsService {
         if (response) {
             Set<User> friends1 = sender.getFriends();
             friends1.add(receiver);
+            add_contact(sender, receiver);
         }
 
         userRepo.save(sender);
@@ -249,10 +267,8 @@ public class UserService implements UserDetailsService {
         return contacts;
     }
 
-    public void add_contact(Authentication authentication, Long id) {
-        User sender = UserServiceHelper.userAuth(authentication, userRepo);
+    public void add_contact(User sender, User receiver) {
 
-        User receiver = UserServiceHelper.userID(id, userRepo);
         Contact c = new Contact(sender, receiver);
         List<Contact> contacts = new ArrayList<>(sender.getContactList());
         contacts.addAll(sender.getContactOf());
@@ -263,8 +279,6 @@ public class UserService implements UserDetailsService {
         }
 
         sender.addContact(c);
-        userRepo.save(receiver);
-        userRepo.save(sender);
 
     }
 
@@ -331,7 +345,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void upload_post(Authentication authentication, String text, MultipartFile file, String typeOfMedia) throws IOException {
-        System.out.println(typeOfMedia);
         Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
         if (!opt.isPresent()) {
             throw new IllegalStateException("authentication failed");

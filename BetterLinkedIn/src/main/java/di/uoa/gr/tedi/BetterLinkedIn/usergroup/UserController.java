@@ -107,6 +107,15 @@ public class UserController {
         if (user != null) {
             PersonalDetails details = new PersonalDetails();
             details.user_to_details(user);
+            if (!details.getEducationDisplayable()) {
+                details.setEducationText(" ");
+            }
+            if (!details.getExperienceDisplayable()) {
+                details.setExperienceText(" ");
+            }
+            if (!details.getSkillsDisplayable()) {
+                details.setSkillsText(" ");
+            }
             return details;
         }
         else return null;
@@ -148,30 +157,30 @@ public class UserController {
 
     }
 
-    @GetMapping("api/v1/experience")
+/*    @GetMapping("api/v1/experience")
     public UserExperience readUserExperience(Authentication authentication) {
         return userService.readUserExperience(authentication);
-    }
+    }*/
 
     @PutMapping("api/v1/education")
     public void updateUserEducation(Authentication authentication, @RequestBody UserEducation userEducation) {
         userService.updateUserEducation(authentication, userEducation);
     }
 
-    @GetMapping("api/v1/education")
+/*    @GetMapping("api/v1/education")
     public UserEducation readUserEducation(Authentication authentication) {
         return userService.readUserEducation(authentication);
-    }
+    }*/
 
     @PutMapping("api/v1/skills")
     public void updateUserSkills(Authentication authentication, @RequestBody UserSkills skills) {
         userService.updateUserSkills(authentication, skills);
     }
 
-    @GetMapping("api/v1/skills")
+/*    @GetMapping("api/v1/skills")
     public UserSkills readUserSkills(Authentication authentication) {
         return userService.readUserSkills(authentication);
-    }
+    }*/
 
 
     @PutMapping("api/v1/friendRequest/{receiverid}")
@@ -210,10 +219,6 @@ public class UserController {
         return userService.get_contacts(authentication);
     }
 
-    @PutMapping("api/v1/contact/{user_id}")
-    public void add_contact(Authentication authentication, @PathVariable("user_id") Long id) {
-        userService.add_contact(authentication, id);
-    }
 
     @PutMapping("api/v1/sendMessage/{receiverId}")
     public void send_message(Authentication authentication, @PathVariable("receiverId") Long id, @RequestBody WString Wtext) {

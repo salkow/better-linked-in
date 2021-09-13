@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="Changed certificate + adverts">
+    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="SSL Cert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/keystore.p12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/keystore.p12" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +107,7 @@
       <workItem from="1631457983631" duration="3536000" />
       <workItem from="1631486307735" duration="4055000" />
       <workItem from="1631541488503" duration="3943000" />
-      <workItem from="1631567863934" duration="1427000" />
+      <workItem from="1631567863934" duration="4828000" />
     </task>
     <task id="LOCAL-00001" summary="SSL">
       <created>1631461572058</created>
@@ -144,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631548059255</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="SSL Cert">
+      <created>1631573756409</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1631573756409</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +181,7 @@
     <MESSAGE value="SSL" />
     <MESSAGE value="Adverts skills" />
     <MESSAGE value="Changed certificate + adverts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed certificate + adverts" />
+    <MESSAGE value="SSL Cert" />
+    <option name="LAST_COMMIT_MESSAGE" value="SSL Cert" />
   </component>
 </project>

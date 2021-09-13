@@ -3,9 +3,11 @@ package di.uoa.gr.tedi.BetterLinkedIn.utils;
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class PersonalDetails {
 
     private Long id;
