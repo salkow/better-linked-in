@@ -596,7 +596,7 @@ public class UserService implements UserDetailsService {
         List<AdvertDTO> advDTO = new ArrayList<>();
         List<Advert> adv = user.getMyAdverts();
         for (Advert i : adv) {
-            advDTO.add(new AdvertDTO(i.getId(), i.getTitle(), i.getText(), i.getSkills(), i.getApplicants()));
+            advDTO.add(new AdvertDTO(i.getId(), i.getCreator().getFirstName() + " "  +i.getCreator().getLastName(), i.getTitle(), i.getText(), i.getSkills(), i.getApplicants()));
         }
         return advDTO;
     }
@@ -610,7 +610,7 @@ public class UserService implements UserDetailsService {
         List<AdvertDTO> advertsDTO = new ArrayList<>();
         for (Advert i : adverts) {
             if (i.compare_skills(skills)) {
-                advertsDTO.add(new AdvertDTO(i.getId(), i.getTitle(), i.getText(), i.getSkills(), i.getApplicants()));
+                advertsDTO.add(new AdvertDTO(i.getId(), i.getCreator().getFirstName() + " "  +i.getCreator().getLastName(), i.getTitle(), i.getText(), i.getSkills(), i.getApplicants()));
             }
         }
 

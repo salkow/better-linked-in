@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="SSL Cert">
+    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/keystore.p12" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +101,8 @@
       <workItem from="1631457983631" duration="3536000" />
       <workItem from="1631486307735" duration="4055000" />
       <workItem from="1631541488503" duration="3943000" />
-      <workItem from="1631567863934" duration="4828000" />
+      <workItem from="1631567863934" duration="5267000" />
+      <workItem from="1631604232856" duration="1542000" />
     </task>
     <task id="LOCAL-00001" summary="SSL">
       <created>1631461572058</created>
@@ -158,7 +153,35 @@
       <option name="project" value="LOCAL" />
       <updated>1631573756409</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills">
+      <created>1631577462114</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1631577462114</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills">
+      <created>1631577467500</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1631577467500</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills">
+      <created>1631577471171</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1631577471171</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills">
+      <created>1631577476657</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1631577476657</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,6 +205,7 @@
     <MESSAGE value="Adverts skills" />
     <MESSAGE value="Changed certificate + adverts" />
     <MESSAGE value="SSL Cert" />
-    <option name="LAST_COMMIT_MESSAGE" value="SSL Cert" />
+    <MESSAGE value="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills" />
   </component>
 </project>
