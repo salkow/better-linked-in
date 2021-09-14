@@ -30,8 +30,14 @@ const Discussions = ({
 		setMessages(messagesFromServer);
 	};
 
+	const getContacts = async () => {
+		const contactsFromServer = await fetchData("contacts");
+		setContacts(contactsFromServer);
+	};
+
 	useInterval(() => {
 		getMessages();
+		getContacts();
 	}, 15000);
 
 	useEffect(() => {
