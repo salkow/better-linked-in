@@ -17,7 +17,7 @@ const Nav = ({ setNavHeight }) => {
 			<div className="container-fluid">
 				<NavLink className="navbar-brand" to="/home">
 					<img
-						src="/images/LionLogo.png"
+						src="https://localhost:8043/images/LionLogo.png"
 						alt="Lion Logo"
 						width="24"
 						height="35"
