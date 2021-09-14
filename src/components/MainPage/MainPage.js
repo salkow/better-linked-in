@@ -21,7 +21,7 @@ const MainPage = ({ fetchData, sendData, sendFormData }) => {
 	return (
 		<Container fluid>
 			<Row>
-				<NewPost setPosts={setPosts} sendFormData={sendFormData} />
+				<NewPost sendFormData={sendFormData} />
 			</Row>
 			<Row>
 				<Posts

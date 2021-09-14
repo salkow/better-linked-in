@@ -58,9 +58,11 @@ const OtherAdverts = ({ fetchData, sendData }) => {
 													</ListGroup.Item>
 													<ListGroup.Item className="content">
 														<Button
-															onClick={makeARequest(
-																advert.id
-															)}
+															onClick={(e) =>
+																makeARequest(
+																	advert.id
+																)
+															}
 														>
 															Αίτηση
 														</Button>

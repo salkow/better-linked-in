@@ -66,7 +66,7 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 												}
 												className="name"
 											>
-												{post.ownerName}
+												{post.name}
 											</Link>
 										</Card.Header>
 										{post.text !== "" && (
@@ -144,7 +144,7 @@ const Posts = ({ posts, setPosts, fetchData, sendData }) => {
 																		>
 																			<Card.Header as="h5">
 																				{
-																					comment.name
+																					comment.ownerName
 																				}
 																			</Card.Header>
 																			<Card.Body>
