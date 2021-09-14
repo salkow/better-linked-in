@@ -295,6 +295,11 @@ public class UserController {
         return userService.get_adverts(authentication);
     }
 
+    @PutMapping("api/v1/apply/{advert_id}")
+    public void apply_advert(Authentication authentication, @PathVariable("advert_id") Long id) {
+        userService.apply_advert(authentication, id);
+    }
+
     @PostMapping("api/v1/search")
     public List<ContactDTO> searchUser(Authentication authentication, @RequestBody WString searchParameter) {
         return userService.searchUser(authentication, searchParameter.getText());

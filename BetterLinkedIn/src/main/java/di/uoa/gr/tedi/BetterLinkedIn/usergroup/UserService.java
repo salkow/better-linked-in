@@ -365,7 +365,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
 
         if (file != null && !file.isEmpty()) {
-            String uploadDir = "images\\post_" + post.getId() + "\\";
+            String uploadDir = "images/post_" + post.getId() + "/";
             FileUploadUtil.saveFile(uploadDir, filename, file);
         }
 
@@ -624,5 +624,24 @@ public class UserService implements UserDetailsService {
             ret.add(new ContactDTO(i.getId(), i.getFirstName() + " "  +i.getLastName()));
         }
         return ret;
+    }
+
+    public void apply_advert(Authentication authentication, Long id) {
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
+        Advert adv = advertRepository.getById(id);
+
+        if (adv.getCreator().getId() == user.getId()) {
+            // do nothing
+            return;
+        }
+        if (adv.getApplicants().contains(user)) {
+            return;
+        }
+        user.getAdvertsApplied().add(adv);
+        adv.getApplicants().add(user);
+
+        userRepo.save(user);
+
     }
 }

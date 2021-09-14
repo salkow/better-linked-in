@@ -75,8 +75,6 @@ const SignIn = ({
 		if (!isAdmin) {
 			let path = state?.from.pathname;
 
-			console.log(path);
-
 			if (path === "/admin") {
 				path = "/home";
 			}
