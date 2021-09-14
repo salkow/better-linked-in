@@ -50,41 +50,45 @@ const MyAdverts = ({ fetchData }) => {
 													<ListGroup.Item className="content">
 														{advert.skills}
 													</ListGroup.Item>
-													<ListGroup.Item>
-														<Dropdown>
-															<Dropdown.Toggle variant="success">
-																Αιτήσεις
-															</Dropdown.Toggle>
 
-															<Dropdown.Menu>
-																{advert.applicants.map(
-																	(
-																		applicant,
-																		my_index
-																	) => (
-																		<Dropdown.Item
-																			as="button"
-																			key={
-																				my_index
-																			}
-																		>
-																			<Link
-																				to={
-																					"/discussions?id=" +
-																					applicant.id
+													{advert.applicants
+														.length !== 0 && (
+														<ListGroup.Item>
+															<Dropdown>
+																<Dropdown.Toggle variant="success">
+																	Αιτήσεις
+																</Dropdown.Toggle>
+
+																<Dropdown.Menu>
+																	{advert.applicants.map(
+																		(
+																			applicant,
+																			my_index
+																		) => (
+																			<Dropdown.Item
+																				as="button"
+																				key={
+																					my_index
 																				}
-																				className="name"
 																			>
-																				{
-																					applicant.name
-																				}
-																			</Link>
-																		</Dropdown.Item>
-																	)
-																)}
-															</Dropdown.Menu>
-														</Dropdown>
-													</ListGroup.Item>
+																				<Link
+																					to={
+																						"/discussions?id=" +
+																						applicant.id
+																					}
+																					className="name"
+																				>
+																					{
+																						applicant.name
+																					}
+																				</Link>
+																			</Dropdown.Item>
+																		)
+																	)}
+																</Dropdown.Menu>
+															</Dropdown>
+														</ListGroup.Item>
+													)}
 												</ListGroup>
 											</Card>
 										);
