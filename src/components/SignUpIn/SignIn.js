@@ -45,8 +45,8 @@ const SignIn = ({
 			const res = await axios.post(url, formData, config);
 			setAccessToken(res.data.access_token);
 
-			if (res.data.admin === "admin") {
-				setIsAdmin(res.data.admin);
+			if (res.data.role === "ADMIN") {
+				setIsAdmin(true);
 			}
 
 			return true;
@@ -74,8 +74,6 @@ const SignIn = ({
 	if (redirectToReferrer === true) {
 		if (!isAdmin) {
 			let path = state?.from.pathname;
-
-			console.log(path);
 
 			if (path === "/admin") {
 				path = "/home";

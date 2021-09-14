@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Contacts from "./Contacts";
 import Messages from "./Messages";
 import NewMessage from "./NewMessage";
+import useInterval from "../Util/Delay";
 
 import "./Discussions.css";
 
@@ -23,6 +24,15 @@ const Discussions = ({
 
 	const [friendName, setFriendName] = useState("");
 	const [friendId, setFriendId] = useState("");
+
+	const getMessages = async () => {
+		const messagesFromServer = await fetchData("messages/" + friendId);
+		setMessages(messagesFromServer);
+	};
+
+	useInterval(() => {
+		getMessages();
+	}, 15000);
 
 	useEffect(() => {
 		const getMessages = async (id) => {

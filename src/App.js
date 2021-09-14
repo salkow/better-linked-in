@@ -9,7 +9,7 @@ import Settings from "./components/Settings/Settings";
 import Admin from "./components/Admin/Admin";
 import SignIn from "./components/SignUpIn/SignIn";
 import SignUp from "./components/SignUpIn/SignUp";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/Util/PrivateRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

@@ -1,19 +1,25 @@
 import { Card } from "react-bootstrap";
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useInterval from "../Util/Delay";
 
 const CommentLike = ({ fetchData }) => {
 	const [commentLikes, setCommentLikes] = useState([]);
 
-	useEffect(() => {
-		const getCommentLikes = async () => {
-			const commentLikesFromServer = await fetchData("notifications");
-			setCommentLikes(commentLikesFromServer);
-		};
+	const getCommentLikes = async () => {
+		const commentLikesFromServer = await fetchData("notifications");
+		setCommentLikes(commentLikesFromServer);
+	};
 
-		getCommentLikes();
+	useEffect(() => {
+		fetchData("notifications").then((commentLikesFromServer) =>
+			setCommentLikes(commentLikesFromServer)
+		);
 	}, [fetchData]);
+
+	useInterval(() => {
+		getCommentLikes();
+	}, 15000);
 
 	return (
 		<div>

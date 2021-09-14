@@ -1,25 +1,29 @@
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import useInterval from "../Util/Delay";
 
 const FriendRequests = ({ fetchData, sendData }) => {
 	const [friendRequests, setFriendRequests] = useState([]);
 
-	useEffect(() => {
-		const getFriendRequests = async () => {
-			const friendRequestsFromServer = await fetchData("friendRequestsReceived");
-			setFriendRequests(friendRequestsFromServer);
-		};
+	const getFriendRequests = async () => {
+		const friendRequestsFromServer = await fetchData(
+			"friendRequestsReceived"
+		);
+		setFriendRequests(friendRequestsFromServer);
+	};
 
-		getFriendRequests();
+	useEffect(() => {
+		fetchData("friendRequestsReceived").then((friendRequestsFromServer) =>
+			setFriendRequests(friendRequestsFromServer)
+		);
 	}, [fetchData]);
 
+	useInterval(() => {
+		getFriendRequests();
+	}, 15000);
+
 	const handleRequest = async (id, decision) => {
-		console.log(id);
-		console.log(decision);
-
-		// He needs to delete the request from his database.
-
 		sendData({ response: decision }, "friendRequestResponse/" + id, "PUT");
 
 		// Remove friend request from visible requests.
