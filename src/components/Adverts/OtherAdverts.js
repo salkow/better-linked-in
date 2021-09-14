@@ -1,8 +1,8 @@
-import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, Card, ListGroup, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const OtherAdverts = ({ fetchData }) => {
+const OtherAdverts = ({ fetchData, sendData }) => {
 	const [adverts, setAdverts] = useState([]);
 
 	useEffect(() => {
@@ -13,6 +13,10 @@ const OtherAdverts = ({ fetchData }) => {
 
 		getAdverts();
 	}, [fetchData]);
+
+	const makeARequest = async (id) => {
+		sendData("", "apply/" + id, "PUT");
+	};
 
 	return (
 		<Container fluid>
@@ -25,9 +29,6 @@ const OtherAdverts = ({ fetchData }) => {
 							) : (
 								<div>
 									{adverts.map((advert, index) => {
-										const abilitiesString =
-											advert.abilities.join("\n\n");
-
 										return (
 											<Card
 												key={index}
@@ -48,12 +49,21 @@ const OtherAdverts = ({ fetchData }) => {
 													</Card.Title>
 
 													<Card.Text className="content">
-														{advert.content}
+														{advert.text}
 													</Card.Text>
 												</Card.Body>
 												<ListGroup variant="flush">
 													<ListGroup.Item className="content">
-														{abilitiesString}
+														{advert.skills}
+													</ListGroup.Item>
+													<ListGroup.Item className="content">
+														<Button
+															onClick={makeARequest(
+																advert.id
+															)}
+														>
+															Αίτηση
+														</Button>
 													</ListGroup.Item>
 												</ListGroup>
 											</Card>

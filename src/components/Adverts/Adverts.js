@@ -10,7 +10,7 @@ const Adverts = ({ navHeight, pageHeight, fetchData, sendData }) => {
 	return (
 		<Tabs defaultActiveKey="a" className="mb-3">
 			<Tab eventKey="a" title="Αγγελίες">
-				<OtherAdverts fetchData={fetchData} />
+				<OtherAdverts fetchData={fetchData} sendData={sendData} />
 			</Tab>
 			<Tab eventKey="b" title="Δημιουργία Αγγελίας">
 				<NewAdvert
