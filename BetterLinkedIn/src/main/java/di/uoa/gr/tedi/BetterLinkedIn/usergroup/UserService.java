@@ -279,6 +279,7 @@ public class UserService implements UserDetailsService {
         }
 
         sender.addContact(c);
+        contRepo.save(c);
 
     }
 
@@ -309,25 +310,18 @@ public class UserService implements UserDetailsService {
     }
 
     public List<Message> get_messages(Authentication authentication, Long id) {
-        Optional<User> optU1 = userRepo.findUserByEmail(authentication.getName());
-        if (!optU1.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User sender = optU1.get();
+        User sender = UserServiceHelper.userAuth(authentication, userRepo);
 
-        Optional<User> optU2 = userRepo.findById(id);
-        if (!optU2.isPresent()) {
-            throw new IllegalStateException("wrong id");
-        }
-        User receiver = optU2.get();
+
+        User receiver = UserServiceHelper.userID(id, userRepo);
 
         Contact temp = new Contact(sender, receiver);
         List<Contact> contactList = get_contactsList(authentication);
-        Optional<Contact> optC = contactList.stream().findFirst();
-        if (!optC.isPresent()) {
+        int index = contactList.indexOf(temp);
+        if (index < 0) {
             throw new IllegalStateException("Contact not found");
         }
-        Contact c = optC.get();
+        Contact c = contactList.get(index);
         return c.getMessages();
     }
 
@@ -516,7 +510,9 @@ public class UserService implements UserDetailsService {
 
 
         Set<Like> userLikes = user.getLikes();
-        userLikes.add(like);
+         if (!userLikes.add(like)) {
+             return;
+        }
 
         User postOwner = post.getOwner();
         if (!postOwner.getId().equals(user.getId())) {
@@ -529,7 +525,6 @@ public class UserService implements UserDetailsService {
     }
 
     public List<Like> get_postLikes(Authentication authentication, Long id) {
-        //User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         Optional<Post> opt = postRepo.findById(id);
         if (!opt.isPresent()) {
