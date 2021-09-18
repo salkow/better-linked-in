@@ -30,8 +30,14 @@ const Discussions = ({
 		setMessages(messagesFromServer);
 	};
 
+	const getContacts = async () => {
+		const contactsFromServer = await fetchData("contacts");
+		setContacts(contactsFromServer);
+	};
+
 	useInterval(() => {
 		getMessages();
+		getContacts();
 	}, 15000);
 
 	useEffect(() => {
@@ -101,11 +107,12 @@ const Discussions = ({
 
 	// Focus the messages of a specific contact.
 	const focusContact = async (id, name) => {
-		setFriendName(name);
-		setFriendId(id);
+		fetchData("messages/" + id).then((messagesFromServer) => {
+			setMessages(messagesFromServer);
 
-		const messagesFromServer = await fetchData("messages/" + friendId);
-		setMessages(messagesFromServer);
+			setFriendName(name);
+			setFriendId(id);
+		});
 	};
 
 	return (

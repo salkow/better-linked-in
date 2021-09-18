@@ -8,9 +8,10 @@ import {
 	Form,
 } from "react-bootstrap";
 
-const NewPost = ({ setPosts, sendFormData }) => {
+const NewPost = ({ sendFormData }) => {
 	const [selectedFile, setSelectedFile] = useState();
 	const [isFileSelected, setIsFileSelected] = useState(false);
+	const [key, setKey] = useState("");
 	const [message, setMessage] = useState("");
 
 	const [show, setShow] = useState(false);
@@ -58,6 +59,11 @@ const NewPost = ({ setPosts, sendFormData }) => {
 		formData.append("typeOfMedia", typeOfMedia);
 
 		sendFormData(formData, "post");
+
+		setMessage("");
+		setSelectedFile();
+		setKey(Date.now());
+		setIsFileSelected(false);
 	};
 
 	const changeHandler = (e) => {
@@ -84,6 +90,7 @@ const NewPost = ({ setPosts, sendFormData }) => {
 						type="file"
 						onChange={changeHandler}
 						size="sm"
+						key={key}
 					/>
 				</Form.Group>
 			</InputGroup>

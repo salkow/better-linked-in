@@ -13,7 +13,7 @@
 ### CA file to install (CUSTOMIZE!)
 ###
 
-certfile="public-certificate.pem"
+certfile="public-certificate.crt"
 certname="My Root CA"
 
 

@@ -277,9 +277,8 @@ public class UserService implements UserDetailsService {
             // contact already exists
             return;
         }
-
         sender.addContact(c);
-        contRepo.save(c);
+        //contRepo.save(c);
 
     }
 
@@ -426,11 +425,13 @@ public class UserService implements UserDetailsService {
 
         List<User> friends = new ArrayList<>(owner.getFriends());
         friends.addAll(owner.getFriendOf());
-        List<Post> postsOfFriends = new LinkedList<>();
+        List<Post> postsList = new LinkedList<>();
         for (User u : friends) {
-            postsOfFriends.addAll(0, u.getPosts());
+            postsList.addAll(0, u.getPosts());
         }
-        return postsOfFriends;
+        postsList.addAll(owner.getPosts());
+        postsList.sort((o1,o2) -> (-1) * o1.getPostDate().compareTo(o2.getPostDate()));
+        return postsList;
     }
 
     public String get_email(Authentication authentication) {

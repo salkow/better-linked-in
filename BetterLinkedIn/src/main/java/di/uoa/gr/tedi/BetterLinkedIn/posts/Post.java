@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,6 +38,8 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
 
+    private Date postDate;
+
 
     protected Post() {}
 
@@ -49,6 +52,7 @@ public class Post {
         this.typeOfMedia = typeOfMedia;
         this.owner = owner;
         this.name = owner.getFirstName() + " " + owner.getLastName();
+        this.postDate = new Date(System.currentTimeMillis());
     }
 
     public String getMedia() {

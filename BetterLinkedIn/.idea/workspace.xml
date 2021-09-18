@@ -4,10 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="Fixed errors in posts saving media + adverts + comments, added the script for the certificate authorities in file">
+    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="Added date in posts">
+      <change afterPath="$PROJECT_DIR$/images/2/Profile_11.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/3/Profile_7.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/13/Screenshot from 2020-10-30 22-26-34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/16/Screenshot from 2021-01-23 13-38-02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/2/Screenshot from 2021-04-18 02-07-14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/3/Screenshot from 2020-10-30 22-26-34.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/3/Screenshot from 2020-12-10 22-05-29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/48/Profile_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/6/Screenshot from 2021-01-23 13-45-06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_18/Screenshot from 2021-01-23 13-45-06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_29/Profile_8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_30/Video_1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_31/Video_1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_32/Audio_1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_33/Audio_1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_34/Mark_Wahlberg_2017.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_35/2019-12-18_03-42-05.flv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_36/fff.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_38/Screenshot_238.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_39/Audio_1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_40/Audio_1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_41/LionLogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_42/Profile_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_43/Profile_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_44/Profile_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_45/Profile_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/post_46/Audio_1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/friends/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/friends/ContactRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/script.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/script.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Adverts/MyAdverts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Adverts/MyAdverts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Adverts/OtherAdverts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Adverts/OtherAdverts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Discussions/Discussions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Discussions/Discussions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/MainPage/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/MainPage/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/MainPage/NewPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/MainPage/NewPost.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +141,12 @@
       <workItem from="1631567863934" duration="5267000" />
       <workItem from="1631604232856" duration="4275000" />
       <workItem from="1631821537060" duration="586000" />
-      <workItem from="1631828611007" duration="5181000" />
+      <workItem from="1631828611007" duration="5443000" />
+      <workItem from="1631863393776" duration="852000" />
+      <workItem from="1631865708051" duration="753000" />
+      <workItem from="1631904403901" duration="682000" />
+      <workItem from="1631908661772" duration="4215000" />
+      <workItem from="1631949896650" duration="1406000" />
     </task>
     <task id="LOCAL-00001" summary="SSL">
       <created>1631461572058</created>
@@ -210,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631608636279</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fixed get_contact">
+      <created>1631836168750</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1631836168750</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,6 +287,8 @@
     <MESSAGE value="Fixed get_adverts + when displayable is false, return null string for Experience, Education and Skills" />
     <MESSAGE value="Fixed AdvertDTO" />
     <MESSAGE value="Fixed errors in posts saving media + adverts + comments, added the script for the certificate authorities in file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed errors in posts saving media + adverts + comments, added the script for the certificate authorities in file" />
+    <MESSAGE value="Fixed get_contact" />
+    <MESSAGE value="Added date in posts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added date in posts" />
   </component>
 </project>

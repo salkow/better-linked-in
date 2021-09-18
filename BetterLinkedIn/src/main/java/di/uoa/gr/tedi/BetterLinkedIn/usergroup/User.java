@@ -204,6 +204,7 @@ public class User implements UserDetails {
     }
 
     public void addContact(Contact contact) {
+        System.out.println(contact.getFriend1().getId() + " " + contact.getFriend2().getId());
         contactList.add(contact);
     }
 
