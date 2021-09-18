@@ -107,7 +107,7 @@ const Discussions = ({
 
 	// Focus the messages of a specific contact.
 	const focusContact = async (id, name) => {
-		fetchData("messages/" + friendId).then((messagesFromServer) => {
+		fetchData("messages/" + id).then((messagesFromServer) => {
 			setMessages(messagesFromServer);
 
 			setFriendName(name);
