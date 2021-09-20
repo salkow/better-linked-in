@@ -38,7 +38,7 @@ const Discussions = ({
 	useInterval(() => {
 		getMessages();
 		getContacts();
-	}, 15000);
+	}, 10000);
 
 	useEffect(() => {
 		const getMessages = async (id) => {
