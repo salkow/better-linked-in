@@ -1,9 +1,10 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRepository;
+import di.uoa.gr.tedi.BetterLinkedIn.exceptions.UserNotFoundException;
 import di.uoa.gr.tedi.BetterLinkedIn.posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
-import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.*;

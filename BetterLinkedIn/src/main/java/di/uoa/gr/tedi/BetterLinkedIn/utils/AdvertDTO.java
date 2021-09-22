@@ -1,4 +1,4 @@
-package di.uoa.gr.tedi.BetterLinkedIn.adverts;
+package di.uoa.gr.tedi.BetterLinkedIn.utils;
 
 import di.uoa.gr.tedi.BetterLinkedIn.usergroup.User;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.ContactDTO;
