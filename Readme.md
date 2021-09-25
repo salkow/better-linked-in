@@ -32,6 +32,8 @@ To backend κομμάτι έγινε με τη χρήση του Java SpringBoot
 
 Ένα ακόμα πρόβλημα που μας δυσκόλεψε ήταν το να εισάγουμε το SSL certificate στους διάφορους browser. Για την όλη διαδικασία ακολουθήσαμε τις οδηγίες που δώθηκαν και στο μάθημα, αλλά δεν άφηνε να εισάγω το certificate στα authorities(σε firefox και chromium) γιατί δεν ήταν root certificate ενώ το είχα προσθέσει στον κατάλληλο κατάλογο των Linux. Αυτό που βρήκα είναι ότι οι browsers δεν χρησιμοποιούν το certificate store των συστημάτων, αλλά δικά τους. Η λύση που βρήκα ήταν ένα bash script, το οποίο με την εντολή certutil τροποποιεί τα certificate stores cert8.db(Firefox) και cert9.db(Chromium & Chrome), αφού τα εντοπίσει.
 
+Επίσης, είχαμε ένα θέμα με το να έχει πρόσβαση το frontend στις φωτογραφίες και τα media που σώζονται τοπικά από το backend. Η λύση που βρήκαμε ήταν να σώζουμε τα αρχεία μέσα στο φάκελο images, να προσθέσουμε ένα resource handler που θα επέτρεπε να έχει πρόσβαση εκεί και να μην χρειάζεται authentication γι'αυτά τα requests. Συνεπώς, τα media ήταν διαθέσιμα στο link **/https://localhost:8084/images/{mediaName}**, ;όπου mediaName το όνομα του αρχείου.
+
 
 
 
