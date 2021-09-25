@@ -28,3 +28,10 @@ To backend κομμάτι έγινε με τη χρήση του Java SpringBoot
 
 Τέλος, έχει τη δυνατότητα να ψάξει χρήστες με βάση το όνομα τους με ένα POST στο **/api/v1/search**, που επιστρέφει λίστα από JSON χρηστών. Η αναζήτηση είναι **case insensitive**, αναγνωρίζει ακόμα και το να έχεις ένα substring του ονόματος και είναι *SQL inject safe*, καθώς δεν χρησιμοποιείται string concatenation για την είσοδο του χρήστη στο SQL query, αλλά είναι parameterized.
 
+# Επίλογος
+
+Ένα ακόμα πρόβλημα που μας δυσκόλεψε ήταν το να εισάγουμε το SSL certificate στους διάφορους browser. Για την όλη διαδικασία ακολουθήσαμε τις οδηγίες που δώθηκαν και στο μάθημα, αλλά δεν άφηνε να εισάγω το certificate στα authorities(σε firefox και chromium) γιατί δεν ήταν root certificate ενώ το είχα προσθέσει στον κατάλληλο κατάλογο των Linux. Αυτό που βρήκα είναι ότι οι browsers δεν χρησιμοποιούν το certificate store των συστημάτων, αλλά δικά τους. Η λύση που βρήκα ήταν ένα bash script, το οποίο με την εντολή certutil τροποποιεί τα certificate stores cert8.db(Firefox) και cert9.db(Chromium & Chrome), αφού τα εντοπίσει.
+
+
+
+
