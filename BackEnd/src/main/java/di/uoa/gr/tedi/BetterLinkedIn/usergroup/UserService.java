@@ -1,9 +1,10 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRepository;
+import di.uoa.gr.tedi.BetterLinkedIn.exceptions.UserNotFoundException;
 import di.uoa.gr.tedi.BetterLinkedIn.posts.*;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.Advert;
-import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.*;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
@@ -44,7 +45,7 @@ public class UserService implements UserDetailsService {
     public Long signUpUser(User user) {
         boolean userExists = userRepo.findUserByEmail(user.getEmail()).isPresent();
         if (userExists) {
-            throw new IllegalStateException("email already taken");
+            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, user.getEmail()));
         }
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 
@@ -58,12 +59,7 @@ public class UserService implements UserDetailsService {
 
     public void update_userExperience(Authentication authentication, UserExperience personalExperience) {
 
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-
-        User user = opt.get();
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
         user.setExperience(personalExperience);
         userRepo.save(user);
 
@@ -71,12 +67,7 @@ public class UserService implements UserDetailsService {
 
     public void updateUserEducation(Authentication authentication, UserEducation userEducation) {
 
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-
-        User user = opt.get();
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
         user.setEducation(userEducation);
         userRepo.save(user);
 
@@ -92,41 +83,9 @@ public class UserService implements UserDetailsService {
         return ret;
     }
 
-/*    public UserExperience readUserExperience(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-
-        User user = opt.get();
-
-        if(user.getExperience().getDisplayable()) {
-            return new UserExperience();
-        }
-        return user.getExperience();
-
-    }*/
-
-/*    public UserEducation readUserEducation(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
-
-        if(user.getEducation().getDisplayable()) {
-            return new UserEducation();
-        }
-        return user.getEducation();
-    }*/
-
     public void updateUserSkills(Authentication authentication, UserSkills skills) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
 
-        User user = opt.get();
+        User user = UserServiceHelper.userAuth(authentication, userRepo);;
 
         user.setSkills(skills);
 
@@ -134,31 +93,11 @@ public class UserService implements UserDetailsService {
 
     }
 
-/*    public UserSkills readUserSkills(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
-
-        if(user.getSkills().getDisplayable()) {
-            return new UserSkills();
-        }
-        return user.getSkills();
-    }*/
-
     public void sendFriendRequest(Authentication authentication, Long receiverId) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User sender = opt.get();
 
-        Optional<User> opt2 = userRepo.findById(receiverId);
-        if (!opt2.isPresent()) {
-            throw new IllegalStateException("user not found");
-        }
-        User receiver = opt2.get();
+        User sender = UserServiceHelper.userAuth(authentication, userRepo);
+
+        User receiver = UserServiceHelper.userID(receiverId, userRepo);
 
         UserConnectionRequest userConnectionRequest = new UserConnectionRequest(sender, receiver, false);
 
@@ -171,20 +110,15 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserConnectionRequest> get_requestsSent(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);;
         return userRepo.findFriendRequestsSent(user);
     }
 
     public List<FriendRequest> get_requestsReceived(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
         List<User> senders = userRepo.findFriendRequestsReceived(user);
         List<FriendRequest> ids = new ArrayList();
         for (User u : senders) {
@@ -194,21 +128,16 @@ public class UserService implements UserDetailsService {
     }
 
     public void respond_friendRequest(Authentication authentication, Long senderId, boolean response) {
-        Optional<User> optU1 = userRepo.findUserByEmail(authentication.getName());
-        if (!optU1.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User receiver = optU1.get();
+
+        User receiver = UserServiceHelper.userAuth(authentication, userRepo);
 
         Optional<User> optU2 = userRepo.findById(senderId);
-        if (!optU2.isPresent()) {
-            throw new IllegalStateException("wrong id");
-        }
-        User sender = optU2.get();
+
+        User sender = UserServiceHelper.userID(senderId, userRepo);
         //make sure request exists
         Optional<UserConnectionRequest> optReq = userRepo.findFriendRequestByUser(sender, receiver);
         if (!optReq.isPresent()) {
-            throw new IllegalStateException("wrong id");
+            throw new IllegalStateException("Contact not found");
         }
 
         UserConnectionRequest req = optReq.get();
@@ -229,11 +158,8 @@ public class UserService implements UserDetailsService {
     }
 
     public List<FriendDTO> get_friends(Authentication authentication) {
-        Optional<User> optU = userRepo.findUserByEmail(authentication.getName());
-        if (!optU.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = optU.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
         List<User> fr = new ArrayList<>(user.getFriends());
         fr.addAll(user.getFriendOf());
         List<FriendDTO> friendDetails = new ArrayList<>();
@@ -257,11 +183,8 @@ public class UserService implements UserDetailsService {
     }
 
     public List<Contact> get_contactsList(Authentication authentication) {
-        Optional<User> optU = userRepo.findUserByEmail(authentication.getName());
-        if (!optU.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = optU.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
         List<Contact> contacts = new ArrayList<>(user.getContactList());
         contacts.addAll(user.getContactOf());
         return contacts;
@@ -277,9 +200,7 @@ public class UserService implements UserDetailsService {
             // contact already exists
             return;
         }
-
         sender.addContact(c);
-        contRepo.save(c);
 
     }
 
@@ -298,7 +219,7 @@ public class UserService implements UserDetailsService {
         List<Contact> contactList = get_contactsList(authentication);
         int index = contactList.indexOf(temp);
         if (index == -1) {
-            throw new IllegalStateException("contact not found bug");
+            throw new IllegalStateException("Contact not found");
         }
         Contact c = contactList.get(index);
         c.addMessage(text, sender.getId(), sender.getFirstName() + " " + sender.getLastName());
@@ -330,20 +251,14 @@ public class UserService implements UserDetailsService {
     }
 
     public List<Post> get_MyPosts(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User owner = opt.get();
+
+        User owner = UserServiceHelper.userAuth(authentication, userRepo);
         return owner.getPosts();
     }
 
     public void upload_post(Authentication authentication, String text, MultipartFile file, String typeOfMedia) throws IOException {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         String filename = "";
         if (file != null &&!file.isEmpty()) {
@@ -364,60 +279,41 @@ public class UserService implements UserDetailsService {
         }
 
 
-
     }
 
     public User one(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        return opt.get();
+
+        return UserServiceHelper.userAuth(authentication, userRepo);
     }
 
     public Long get_id(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        return opt.get().getId();
+
+        return UserServiceHelper.userAuth(authentication, userRepo).getId();
     }
 
     public Boolean check_friend(Authentication authentication, Long id) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         Set<User> friends = new HashSet<>(user.getFriends());
         friends.addAll(user.getFriendOf());
 
-        Optional<User> opt2 = userRepo.findById(id);
-        if (!opt2.isPresent()) {
-            throw new IllegalStateException("wrong id");
-        }
-        User user2 = opt2.get();
+        User user2 = UserServiceHelper.userID(id, userRepo);
 
         return friends.contains(user2);
     }
 
     public String get_name(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            throw new IllegalStateException("authentication failed");
-        }
-        User user = opt.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
 
         return user.getFirstName() + " " + user.getLastName();
     }
 
     public List<Message> get_lastMessages(Authentication authentication) {
-        Optional<User> opt = userRepo.findUserByEmail(authentication.getName());
-        if (!opt.isPresent()) {
-            return null;
-        }
-        User user = opt.get();
+
+        User user = UserServiceHelper.userAuth(authentication, userRepo);
+
         return user.getLastMessages().getMessages();
     }
 
@@ -426,11 +322,25 @@ public class UserService implements UserDetailsService {
 
         List<User> friends = new ArrayList<>(owner.getFriends());
         friends.addAll(owner.getFriendOf());
-        List<Post> postsOfFriends = new LinkedList<>();
+        List<Post> postsList = new LinkedList<>();
         for (User u : friends) {
-            postsOfFriends.addAll(0, u.getPosts());
+            postsList.addAll(0, u.getPosts());
+            for (Like l: u.getLikes()) {
+                Post p= l.getPost();
+                if (!postsList.contains(p) && !friends.contains(p.getOwner())) {
+                    postsList.add(p);
+                }
+            }
+            for (Comment c: u.getCommentsMade()) {
+                Post p= c.getPost();
+                if (!postsList.contains(p) && !friends.contains(p.getOwner())) {
+                    postsList.add(p);
+                }
+            }
         }
-        return postsOfFriends;
+        postsList.addAll(owner.getPosts());
+        postsList.sort((o1,o2) -> (-1) * o1.getPostDate().compareTo(o2.getPostDate()));
+        return postsList;
     }
 
     public String get_email(Authentication authentication) {
@@ -442,6 +352,7 @@ public class UserService implements UserDetailsService {
     public void update_email(Authentication authentication, String email) {
         User user = helper.userAuth(authentication, userRepo);
         email = email.replaceAll("\"", "");
+        //checking if email is used
         Optional<User> opt = userRepo.findUserByEmail(email);
         if (opt.isPresent()) {
             throw new IllegalStateException("Email already used");

@@ -1,33 +1,22 @@
 package di.uoa.gr.tedi.BetterLinkedIn.usergroup;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import di.uoa.gr.tedi.BetterLinkedIn.posts.*;
-import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertDTO;
+import di.uoa.gr.tedi.BetterLinkedIn.utils.AdvertDTO;
 import di.uoa.gr.tedi.BetterLinkedIn.adverts.AdvertRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.FriendRequest;
 import di.uoa.gr.tedi.BetterLinkedIn.friends.Message;
 import di.uoa.gr.tedi.BetterLinkedIn.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
 
 import static java.util.Arrays.stream;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 
 @RestController
@@ -46,53 +35,13 @@ public class UserController {
     }
 
 
-/*
-    @GetMapping("/token/refresh")
-    void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            try {
-                String refresh_token = authorizationHeader.substring("Bearer ".length());
-                Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-                JWTVerifier verifier = JWT.require(algorithm).build();
-                DecodedJWT decodedJWT = verifier.verify(refresh_token);
-                String username = decodedJWT.getSubject();
-                User user = (User)userService.loadUserByUsername(username);
-                String access_token= JWT.create()
-                        .withSubject(user.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60000))
-                        .withClaim("roles", user.getUserRole().toString())
-                        .withIssuer(request.getRequestURL().toString())
-                        .sign(algorithm);
-                Map<String, String> tokens= new HashMap<>();
-                tokens.put("access_token", access_token);
-                tokens.put("refresh_token", refresh_token);
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-            } catch (Exception exception) {
-                response.setHeader("error", exception.getMessage());
-                response.setStatus(FORBIDDEN.value());
-                //response.sendError(FORBIDDEN.value());
-                Map<String, String> error= new HashMap<>();
-                error.put("error_message", exception.getMessage());
-                response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), response);
-            }
-        }
-        else {
-            throw new RuntimeException("Refresh token is missing!");
-        }
-    }
-*/
-
-
 
     @GetMapping("api/v1/user")
-    PersonalDetails one(Authentication authentication) {
+    PersonalDetailsDTO one(Authentication authentication) {
 
         User user = userService.one(authentication);
         if (user != null) {
-            PersonalDetails details = new PersonalDetails();
+            PersonalDetailsDTO details = new PersonalDetailsDTO();
             details.user_to_details(user);
             return details;
         }
@@ -101,11 +50,11 @@ public class UserController {
 
 
     @GetMapping("api/v1/user/{id}")
-    PersonalDetails one(@PathVariable("id") Long id) {
+    PersonalDetailsDTO one(@PathVariable("id") Long id) {
 
         User user = userService.one(id);
         if (user != null) {
-            PersonalDetails details = new PersonalDetails();
+            PersonalDetailsDTO details = new PersonalDetailsDTO();
             details.user_to_details(user);
             if (!details.getEducationDisplayable()) {
                 details.setEducationText(" ");
@@ -157,30 +106,17 @@ public class UserController {
 
     }
 
-/*    @GetMapping("api/v1/experience")
-    public UserExperience readUserExperience(Authentication authentication) {
-        return userService.readUserExperience(authentication);
-    }*/
 
     @PutMapping("api/v1/education")
     public void updateUserEducation(Authentication authentication, @RequestBody UserEducation userEducation) {
         userService.updateUserEducation(authentication, userEducation);
     }
 
-/*    @GetMapping("api/v1/education")
-    public UserEducation readUserEducation(Authentication authentication) {
-        return userService.readUserEducation(authentication);
-    }*/
 
     @PutMapping("api/v1/skills")
     public void updateUserSkills(Authentication authentication, @RequestBody UserSkills skills) {
         userService.updateUserSkills(authentication, skills);
     }
-
-/*    @GetMapping("api/v1/skills")
-    public UserSkills readUserSkills(Authentication authentication) {
-        return userService.readUserSkills(authentication);
-    }*/
 
 
     @PutMapping("api/v1/friendRequest/{receiverid}")

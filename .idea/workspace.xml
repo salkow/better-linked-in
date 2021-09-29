@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="809f7411-723d-4e8a-b368-8d83c1182055" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/BackEnd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/Skill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/friends/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/friends/ContactRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/resources/script.sh" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/resources/script.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundAdvice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/public-certificate.crt" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/public-certificate.crt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/script.sh" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/target/classes/script.sh" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="backend" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1yp9pzCG3TZ1o524x3L4GkdbFCL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/BackEnd" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="809f7411-723d-4e8a-b368-8d83c1182055" name="Changes" comment="" />
+      <created>1632937850538</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632937850538</updated>
+      <workItem from="1632937854240" duration="528000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/backend" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

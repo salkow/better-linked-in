@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PersonalDetails {
+public class PersonalDetailsDTO {
 
     private Long id;
     private String firstName;
