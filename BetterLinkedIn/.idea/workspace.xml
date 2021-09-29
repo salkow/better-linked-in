@@ -4,28 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="Testing site">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/15/Profile_6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/post_11/Audio_1.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/Advert.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/AdvertRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/CustomAuthenticationFailureHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/UserSkills.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21,_2_47_π_μ__[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_9_21__2_47_____Changes_.xml" beforeDir="false" />
+    <list default="true" id="f4d4e534-0567-4023-9f2e-370f9b120a5a" name="Changes" comment="Admin is added only on first run + Readme.md">
+      <change afterPath="$PROJECT_DIR$/images/post_19/Profile_8.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/AdvertDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/adverts/Skill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Like.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/posts/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/exceptions/UserNotFoundAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/exceptions/UserNotFoundException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Discussions/Messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Discussions/Messages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetailsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/adverts/AdvertDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundAdvice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/usergroup/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/LoadDatabase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/PersonalDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/di/uoa/gr/tedi/BetterLinkedIn/utils/UserServiceHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/script.sh" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/script.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Discussions/Discussions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Discussions/Discussions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Notifications/CommentLike.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Notifications/CommentLike.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Notifications/FriendRequests.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Notifications/FriendRequests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Personal/Personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Personal/Personal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,6 +145,10 @@
       <workItem from="1632345978655" duration="1752000" />
       <workItem from="1632348762718" duration="79000" />
       <workItem from="1632350757006" duration="101000" />
+      <workItem from="1632351391138" duration="201000" />
+      <workItem from="1632381781483" duration="1171000" />
+      <workItem from="1632828913592" duration="806000" />
+      <workItem from="1632919339839" duration="8506000" />
     </task>
     <task id="LOCAL-00001" summary="SSL">
       <created>1631461572058</created>
@@ -262,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631954272849</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Admin is added only on first run + Readme.md">
+      <created>1632351557689</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1632351557689</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +287,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/submit" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -292,6 +318,7 @@
     <MESSAGE value="Fixed get_contact" />
     <MESSAGE value="Added date in posts" />
     <MESSAGE value="Testing site" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testing site" />
+    <MESSAGE value="Admin is added only on first run + Readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin is added only on first run + Readme.md" />
   </component>
 </project>

@@ -74,10 +74,6 @@ const Personal = ({ navHeight, pageHeight, fetchData, sendData }) => {
 						fetchData("checkFriend/" + id).then(
 							(isFriendFromServer) => {
 								setIsFriendsProfile(isFriendFromServer);
-
-								console.log(
-									"isFriendFromServer: " + isFriendFromServer
-								);
 							}
 						);
 					}

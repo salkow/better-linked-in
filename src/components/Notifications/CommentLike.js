@@ -19,7 +19,7 @@ const CommentLike = ({ fetchData }) => {
 
 	useInterval(() => {
 		getCommentLikes();
-	}, 15000);
+	}, 10000);
 
 	return (
 		<div>

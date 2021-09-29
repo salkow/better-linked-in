@@ -7,12 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Table(name="likes")
-public class Like {
+public class Like implements Serializable {
     private @Id @GeneratedValue @JsonIgnore Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

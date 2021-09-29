@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Notification {
+public class Notification implements Serializable {
 
     private @Id @GeneratedValue @JsonIgnore
     Long id;

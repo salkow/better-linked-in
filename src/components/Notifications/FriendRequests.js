@@ -21,7 +21,7 @@ const FriendRequests = ({ fetchData, sendData }) => {
 
 	useInterval(() => {
 		getFriendRequests();
-	}, 15000);
+	}, 10000);
 
 	const handleRequest = async (id, decision) => {
 		sendData({ response: decision }, "friendRequestResponse/" + id, "PUT");
@@ -46,7 +46,7 @@ const FriendRequests = ({ fetchData, sendData }) => {
 								<Card.Body>
 									<Card.Title>
 										<Link
-											to="/discussions"
+											to={"/personal?id=" + request.id}
 											className="name"
 										>
 											{request.name}
